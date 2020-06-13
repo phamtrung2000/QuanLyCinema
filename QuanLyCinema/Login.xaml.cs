@@ -53,7 +53,7 @@ namespace QuanLyCinema
                             DANGNHAP = DangNhapNhanVienBUS.Login(tk, mk);
                             if (DANGNHAP == true)
                             {
-                                GiaoDienChinh mainWindow = new GiaoDienChinh();
+                                GiaoDien mainWindow = new GiaoDien();
                                 var pq = DangNhapNhanVienBUS.isstaff(tk, mk);
                                 if (pq == 1)
                                 {
@@ -62,31 +62,39 @@ namespace QuanLyCinema
                                 }
                                 else if (pq == 2)
                                 {
-                                    
-                                    //mainWindow.btnNhanvien.IsEnabled = false;
-                                    //mainWindow.btnKhachhang.IsEnabled = false;
+
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    mainWindow.btnPhongchieu.IsEnabled = false;
                                     mainWindow.Show();
                                 }
                                 else if (pq == 3)
                                 {
-                                    //mainWindow.btnNguoidung.IsEnabled = false;
-                                    //mainWindow.btnPhim.IsEnabled = false;
-                                    //mainWindow.btnLoaiphim.IsEnabled = false;
-                                    //mainWindow.btnNhanvien.IsEnabled = false;
-                                    //mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    mainWindow.btnLoaiphim.IsEnabled = false;
                                     mainWindow.Show();
+
                                 }
                                 else if (pq == 4)
                                 {
-                                    //mainWindow.btnNhanvien.IsEnabled = false;
-                                    //mainWindow.btnKhachhang.IsEnabled = false;
-                                    //mainWindow.btnNguoidung.IsEnabled = false;
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    //mainWindow.btnPhim.IsEnabled = false;
+                                    //mainWindow.btnLoaiphim.IsEnabled = false;
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
                                     mainWindow.Show();
                                 }
                                 else if (pq == 5)
                                 {
-
-                                    mainWindow.Show();
+                                    MessageBoxResult a;
+                                    a = MessageBox.Show("Bạn không có quyền truy cập vào hệ thống này!", "Thông báo", MessageBoxButton.OK);
+                                    if (a == MessageBoxResult.OK)
+                                    {
+                                        Application.Current.Shutdown();
+                                    }
                                 }
 
                                 //mainWindow.Show();
@@ -99,6 +107,7 @@ namespace QuanLyCinema
                                 txtTaiKhoan.Focus();
                                 txtMatKhau.Password = "";
                             }
+                            /// file gốc .
                         }
                         else if (res == MessageBoxResult.No)
                         {
