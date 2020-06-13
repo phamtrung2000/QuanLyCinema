@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:QuanLyCinema.GiaoDien"
              mc:Ignorable="d" 
             Height="620" Width="950">
+    <Grid></Grid>
     <!--<Grid x:Name="GridNguoiDung" Background="#FFF9F3F3" Loaded="GridNguoiDung_Loaded">
 
 
