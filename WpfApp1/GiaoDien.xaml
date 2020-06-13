@@ -1,0 +1,117 @@
+﻿<Window x:Class="QuanLyCinema.GiaoDien"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyCinema"
+        mc:Ignorable="d"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+       
+     
+        Title="Phần mềm quản lý rạp chiếu phim"
+        Height="800" 
+        Width="1200"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#FFFBF2F2" >
+
+        <!--panel toolbar-->
+        <StackPanel x:Name="panelToolBar" Margin="240,0,0,610">
+            <Grid Height="150">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Image Source="Resources\Acoustic.jpg" Stretch="Fill"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Image Source="Resources\cinema_toolbar.png" Stretch="Fill"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Image Source="Resources\Acoustic.jpg" Stretch="Fill"/>
+                </Grid>
+            </Grid>
+        </StackPanel>
+
+        <!--màn hình hiển thị các form-->
+        <Grid Margin="240,150,0,0" Width="950" Height="620">
+            <Grid x:Name="GridHienThi" 
+                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!--thanh menu bên trái-->
+        <Grid x:Name="GridMenu" Height="770" Width="1190" >
+            <StackPanel Width="240"   Background="#FF656161" HorizontalAlignment="Left" Height="771">
+                <Image Source="film-movie-industry-creative-symbol-concept-play-stop-pause-button-cinema-abstract-business-logo-vintage-video-camera-media-137072254.jpg"
+                                    Height="150"
+                                    Stretch="UniformToFill"/>
+                <Grid Width="240" HorizontalAlignment="Left" Background="#FF222222">
+                    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" 
+                                                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                    </materialDesign:TransitioningContent>
+                    <ListView x:Name="ListViewMenu"
+                              Height="620"
+                              Width="240"
+                              Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0" Background="#FFEAE2E2">
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220" HorizontalAlignment="Left" >
+                                <Image Source="Resources\tongquan.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Tổng Quan" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\nhanvien.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Nhân Viên" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\khachhang.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Khách Hàng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\nguoidung.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Người Dùng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\audience.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Phòng Chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\cinema.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Loại Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Width="220">
+                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>
