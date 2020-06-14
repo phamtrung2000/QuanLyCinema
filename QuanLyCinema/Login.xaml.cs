@@ -193,6 +193,18 @@ namespace QuanLyCinema
         {
             Application.Current.Shutdown();
         }
+
+        private void guest_bt_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            GiaoDienChinh giaoDien = new GiaoDienChinh();
+            giaoDien.Show();
+        }
+
+        private void btExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }
 
