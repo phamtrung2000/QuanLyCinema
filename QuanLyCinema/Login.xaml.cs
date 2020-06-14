@@ -53,7 +53,7 @@ namespace QuanLyCinema
                             DANGNHAP = DangNhapNhanVienBUS.Login(tk, mk);
                             if (DANGNHAP == true)
                             {
-                                GiaoDien mainWindow = new GiaoDien();
+                                GiaoDienChinh mainWindow = new GiaoDienChinh();
                                 var pq = DangNhapNhanVienBUS.isstaff(tk, mk);
                                 if (pq == 1)
                                 {
@@ -192,6 +192,18 @@ namespace QuanLyCinema
         private void btnThoat_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void guest_bt_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            GiaoDienChinh giaoDien = new GiaoDienChinh();
+            giaoDien.Show();
+        }
+
+        private void btExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
