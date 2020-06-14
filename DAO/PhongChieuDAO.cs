@@ -9,18 +9,18 @@ using System.Data.SqlClient;
 
 namespace DAO
 {
-
-    public class NguoiDungDAO
+    
+    public class PhongChieuDAO
     {
         //Load danh sách sv từ database
-        public static DataTable LoadDSND()
+        public static DataTable LoadDSPC()
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             command.CommandText = "SELECT * " +
-                                  "FROM NGUOIDUNG ORDER BY STT ASC";
+                                  "FROM PHONGCHIEU ORDER BY STT ASC";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -29,7 +29,7 @@ namespace DAO
             return dataTable;
         }
 
-        public static void Them(NguoiDungDTO nguoidung)
+        public static void Them(PhongChieuDTO phongchieu)
         {
             // mở kết nối
             SqlConnection connection = SQLConnectionData.HamKetNoi();
@@ -39,17 +39,27 @@ namespace DAO
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             //command.CommandText = "INSERT INTO NHANVIEN VALUES(@MANV,@HOTEN,@CHUCVU,@SDT,@GIOITINH,@NGAYSINH,@DIACHI,@LUONG,@NGAYVL)";
-            command.CommandText = "EXEC ThemNguoiDung @MAND,@HOTEN,@CHUCVU,@PHANQUYEN";
-            command.Parameters.Add("@MAND", SqlDbType.VarChar, 10);
-            command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-            command.Parameters.Add("@CHUCVU", SqlDbType.VarChar, 100);
-            command.Parameters.Add("@PHANQUYEN", SqlDbType.VarChar, 100);
+            command.CommandText = "EXEC ThemPhongChieu @MAPC,@TENPC,@SOCHO,@MAYCHIEU,@LOA,@DIENTICH,@TINHTRANG,@TRANGTHIETBIKHAC";
+            
+            command.Parameters.Add("@MAPC", SqlDbType.VarChar, 10);
+            command.Parameters.Add("@TENPC", SqlDbType.NVarChar, 40);
+            command.Parameters.Add("@SOCHO", SqlDbType.Int);
+            command.Parameters.Add("@MAYCHIEU", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@LOA", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@DIENTICH", SqlDbType.Int);
+            command.Parameters.Add("@TINHTRANG", SqlDbType.NVarChar, 20);
+            command.Parameters.Add("@TRANGTHIETBIKHAC", SqlDbType.NVarChar, 100);
+
 
             // gán giá trị
-            command.Parameters["@MANV"].Value = nguoidung.MaND;
-            command.Parameters["@HOTEN"].Value = nguoidung.HoTen;
-            command.Parameters["@CHUCVU"].Value = nguoidung.ChucVu;
-            command.Parameters["@SDT"].Value = nguoidung.PhanQuyen;
+            command.Parameters["@MANV"].Value = phongchieu.MaPC;
+            command.Parameters["@HOTEN"].Value = phongchieu.TenPC;
+            command.Parameters["@MAYCHIEU"].Value = phongchieu.MayChieu;
+            command.Parameters["@SOCHO"].Value = phongchieu.SoCho;
+            command.Parameters["@LOA"].Value = phongchieu.Loa;
+            command.Parameters["@DIENTICH"].Value = phongchieu.DienTich;
+            command.Parameters["@TINHTRANG"].Value = phongchieu.TinhTrang;
+            command.Parameters["@TRANGTHIETBIKHAC"].Value = phongchieu.TrangThietBiKhac;
 
             command.ExecuteNonQuery();
 
@@ -57,7 +67,7 @@ namespace DAO
             connection.Close();
         }
 
-        public static void Sua(NguoiDungDTO nguoidung)
+        public static void Sua(PhongChieuDTO phongchieu)
         {
             // mở kết nối
             SqlConnection connection = SQLConnectionData.HamKetNoi();
@@ -66,28 +76,27 @@ namespace DAO
             // tạo câu lệnh Sửa
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC SuaNguoiDung @MAND,@HOTEN,@CHUCVU,@PHANQUYEN";
-            //command.CommandText = "UPDATE NHANVIEN " +
-            //    "SET MANV=@MANV ," +
-            //    "HOTEN=@HOTEN," +
-            //    "CHUCVU=@CHUCVU," +
-            //    "SDT=@SDT," +
-            //    "GIOITINH=@GIOITINH," +
-            //    "NGAYSINH=@NGAYSINH," +
-            //    "DIACHI=@DIACHI," +
-            //    "LUONG=@LUONG," +
-            //    "NGAYVL=@NGAYVL " +
-            //    "WHERE MANV=@MANV";
-            command.Parameters.Add("@MAND", SqlDbType.VarChar, 10);
-            command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-            command.Parameters.Add("@CHUCVU", SqlDbType.NVarChar, 100);
-            command.Parameters.Add("@PHANQUYEN", SqlDbType.NVarChar, 100);
+            command.CommandText = "EXEC SuaPhongChieu @MAPC,@TENPC,@SOCHO,@MAYCHIEU,@LOA,@DIENTICH,@TINHTRANG,@TRANGTHIETBIKHAC";
+
+            command.Parameters.Add("@MAPC", SqlDbType.VarChar, 10);
+            command.Parameters.Add("@TENPC", SqlDbType.NVarChar, 40);
+            command.Parameters.Add("@SOCHO", SqlDbType.Int);
+            command.Parameters.Add("@MAYCHIEU", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@LOA", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@DIENTICH", SqlDbType.Int);
+            command.Parameters.Add("@TINHTRANG", SqlDbType.NVarChar, 20);
+            command.Parameters.Add("@TRANGTHIETBIKHAC", SqlDbType.NVarChar, 100);
+
 
             // gán giá trị
-            command.Parameters["@MAND"].Value = nguoidung.MaND;
-            command.Parameters["@HOTEN"].Value = nguoidung.HoTen;
-            command.Parameters["@CHUCVU"].Value = nguoidung.ChucVu;
-            command.Parameters["@PHANQUYEN"].Value = nguoidung.PhanQuyen;
+            command.Parameters["@MANV"].Value = phongchieu.MaPC;
+            command.Parameters["@HOTEN"].Value = phongchieu.TenPC;
+            command.Parameters["@MAYCHIEU"].Value = phongchieu.MayChieu;
+            command.Parameters["@SOCHO"].Value = phongchieu.SoCho;
+            command.Parameters["@LOA"].Value = phongchieu.Loa;
+            command.Parameters["@DIENTICH"].Value = phongchieu.DienTich;
+            command.Parameters["@TINHTRANG"].Value = phongchieu.TinhTrang;
+            command.Parameters["@TRANGTHIETBIKHAC"].Value = phongchieu.TrangThietBiKhac;
 
             // thực hiện câu lệnh
             command.ExecuteNonQuery();
@@ -96,35 +105,27 @@ namespace DAO
             connection.Close();
         }
 
-        public static void Xoa(string manv)
+        public static void Xoa(string mapc)
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC XoaNguoiDung '" + manv + "'";
-            //command.CommandText = "DELETE NV FROM NHANVIEN NV " +
-            //                      "WHERE NV.MANV='" + manv + "'";
-            //command.Parameters.Add("@MANV", SqlDbType.VarChar, 10);
-            // gán giá trị
-            //command.Parameters["@MANV"].Value = manv;
+            command.CommandText = "EXEC XoaPhongChieu '" + mapc + "'";
+            
             command.ExecuteNonQuery();
             connection.Close();
         }
 
-        public static DataTable TimTheoMaND(string manv)
+        public static DataTable TimTheoMaPC(string mapc)
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC TimTheoMaND '" + manv + "'";
-            //command.CommandText = "SELECT * FROM NHANVIEN " +
-            //                      "WHERE MANV LIKE'" + manv + "%'";
-
-            // gán giá trị
-
+            command.CommandText = "EXEC TimTheoMaPC '" + mapc + "'";
+            
             command.ExecuteNonQuery();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
             DataTable dataTable = new DataTable();
@@ -133,16 +134,16 @@ namespace DAO
             return dataTable;
         }
 
-        public static DataTable TimTheoHoTenNguoiDung(string hoten)
+        public static DataTable TimTheoTenPhongChieu(string tenpc)
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC TimTheoHoTenNguoiDung N'" + hoten + "'";
+            command.CommandText = "EXEC TimTheoTenPhongChieu N'" + tenpc + "'";
             //command.CommandText = "SELECT * FROM NHANVIEN " +
-            //                      "WHERE HOTEN LIKE N'" + hoten + "%'";
+            //                      "WHERE HOTEN LIKE N'" + tenpc + "%'";
 
             // gán giá trị
 

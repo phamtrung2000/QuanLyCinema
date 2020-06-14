@@ -98,7 +98,7 @@ namespace DAO
             //    " WHERE MAKH=@MAKH";
             command.Parameters.Add("@MAKH", SqlDbType.VarChar, 10);
             command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-            command.Parameters.Add("@DIACHI", SqlDbType.NVarChar, 20);
+            command.Parameters.Add("@DIACHI", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@NGAYSINH", SqlDbType.Date);
             command.Parameters.Add("@GIOITINH", SqlDbType.NVarChar, 4);
             command.Parameters.Add("@SDT", SqlDbType.VarChar, 20);
