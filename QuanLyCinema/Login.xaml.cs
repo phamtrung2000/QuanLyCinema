@@ -53,7 +53,7 @@ namespace QuanLyCinema
                             DANGNHAP = DangNhapNhanVienBUS.Login(tk, mk);
                             if (DANGNHAP == true)
                             {
-                                GiaoDien mainWindow = new GiaoDien();
+                                GiaoDienChinh mainWindow = new GiaoDienChinh();
                                 var pq = DangNhapNhanVienBUS.isstaff(tk, mk);
                                 if (pq == 1)
                                 {
