@@ -6,10 +6,7 @@
              xmlns:local="clr-namespace:QuanLyCinema.GiaoDien"
              mc:Ignorable="d" 
             Height="620" Width="950">
-    <Grid>
-        <Button></Button>
-    </Grid>
-    <!--<Grid x:Name="GridNguoiDung" Background="#FFF9F3F3" Loaded="GridNguoiDung_Loaded">
+    <Grid x:Name="GridNguoiDung" Background="#FFF9F3F3" Loaded="GridNguoiDung_Loaded">
 
 
         <GroupBox Header="Thông tin người dùng"
@@ -38,7 +35,7 @@
 
         <GroupBox Header="Danh sách người dùng" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSND" Height="400" VerticalAlignment="Top" Width="432" 
-                      SelectionChanged="dtgDSNV_SelectionChanged"
+                      SelectionChanged="dtgDSND_SelectionChanged"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </GroupBox>
 
@@ -49,7 +46,7 @@
                          LostFocus="txtTimKiem_LostFocus" 
                         GotFocus="txtTimKiem_GotFocus"/>
                 <ComboBox x:Name="cbbTimKiem" HorizontalAlignment="Left" Margin="160,75,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem Content="Mã người dùng" HorizontalAlignment="Left" Width="238"/>
+                    <ComboBoxItem Content="Mã Người Dùng" HorizontalAlignment="Left" Width="238"/>
                     <ComboBoxItem Content="Họ Tên" HorizontalAlignment="Left" Width="238"/>
                     <ComboBoxItem Content="Số Điện Thoại" HorizontalAlignment="Left" Width="238"/>
                 </ComboBox>
@@ -80,5 +77,5 @@
 
 
 
-    </Grid>-->
+    </Grid>
 </UserControl>
