@@ -48,6 +48,7 @@
     <Compile Include="DangNhapKhachHangDAO.cs" />
     <Compile Include="DangNhapNhanVienDAO.cs" />
     <Compile Include="KhachHangDAO.cs" />
+    <Compile Include="LoaiPhimDAO.cs" />
     <Compile Include="NguoiDungDAO.cs" />
     <Compile Include="NhanVienDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

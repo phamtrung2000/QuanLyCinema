@@ -90,6 +90,12 @@
     <Compile Include="KhachHang\frmAddKhachHang.xaml.cs">
       <DependentUpon>frmAddKhachHang.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoaiPhim\frmAddLoaiphim.xaml.cs">
+      <DependentUpon>frmAddLoaiphim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiPhim\LoaiPhim.xaml.cs">
+      <DependentUpon>LoaiPhim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -114,6 +120,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="KhachHang\frmAddKhachHang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoaiPhim\frmAddLoaiphim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoaiPhim\LoaiPhim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
