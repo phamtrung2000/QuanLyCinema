@@ -42,7 +42,7 @@ namespace DAO
             command.CommandText = "EXEC ThemNguoiDung @MAND,@HOTEN,@CHUCVU,@PHANQUYEN";
             command.Parameters.Add("@MAND", SqlDbType.VarChar, 10);
             command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-            command.Parameters.Add("@CHUCVU", SqlDbType.VarChar, 100);
+            command.Parameters.Add("@CHUCVU", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@PHANQUYEN", SqlDbType.VarChar, 100);
 
             // gán giá trị
