@@ -51,6 +51,7 @@
     <Compile Include="LoaiPhimDAO.cs" />
     <Compile Include="NguoiDungDAO.cs" />
     <Compile Include="NhanVienDAO.cs" />
+    <Compile Include="PhongChieuDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

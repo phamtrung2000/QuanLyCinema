@@ -8,7 +8,7 @@
      
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="20"
+        TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,7 +19,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="Đăng nhập" Height="600" Width="600"
+        Title="Đăng nhập" Height="478" Width="499"
         
         
       
@@ -28,93 +28,44 @@
         <ImageBrush ImageSource="mau-background-don-gian-27-1024x681.png"/>
     </Window.Background>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition ></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-           
-        </Grid>
-        <materialDesign:PackIcon Kind="Cinema" Width="Auto" Height="61" Margin="270,27,0,0" Grid.Row="1" />
-
-        <!--giao dien-->
-        <Grid Grid.Row="1">
-            <materialDesign:Card  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Margin="75,165,75,35"
-                                  Width="450"
-                                  Height="400" >
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="Grid">
-                            <Setter Property="Margin" Value="10"></Setter>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="10,10,15,10">
-                        <materialDesign:PackIcon Kind="User" Width="50" Height="35" Margin="10,-4,0,0"/>
-                        <Label Content="Tài khoản: " FontSize="16" FontFamily="Time new roman" Margin="60,0,260,75" />
-
-                        <TextBox x:Name="txtTaiKhoan" 
-                            materialDesign:HintAssist.Hint="Nhập Tài khoản"
-                            Text="{Binding UserName}"
-                            FontSize="18" RenderTransformOrigin="0.593,0.94" Margin="10,47,10,10" Height="50" 
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="10,10,15,10">
-                        <materialDesign:PackIcon Kind="Key" Width="50" Height="35" Margin="10,-5,0,0"/>
-                        <Label Content="Mật khẩu: " FontSize="16" FontFamily="Time new roman" Margin="60,0,260,75" />
-                        <PasswordBox x:Name="txtMatKhau"
-                        materialDesign:HintAssist.Hint="Nhập Mật khẩu"
-                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                        Width="385" Height="50" RenderTransformOrigin="0.481,1.22" Margin="10,47,10,10">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                   CommandParameter="{Binding ElementName=txtMatKhau}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </PasswordBox>
-
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btnDangNhap" Grid.Column="0"
-                                Width="150"
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                Background="BlueViolet"
-                                Content="Đăng nhập"
-                                FontSize="20" RenderTransformOrigin="0.48,1.562" Margin="25,47,30,27" 
-                                Click="btnDangNhap_Click" IsDefault="True"/>
-                        <Button x:Name="btnThoat" Grid.Column="1"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Thoát"
-                            FontSize="20" Margin="25,47,30,27"
-                                Command="{Binding ExitCommand}"
-                                CommandParameter="{Binding ElementName=loginWindow}" Click="btnThoat_Click">
-                        </Button>
-                        <CheckBox Content="Lưu mật khẩu"
-                                  Height="30" Width="150" Margin="10,0,45,76"
-                                  />
-                    </Grid>
-
-                </Grid>
-            </materialDesign:Card>
-            <Label Content="ĐĂNG NHẬP"
-                   Width="220" Height="50"
-                   Margin="195,98,185,452"
-                   FontSize="35"></Label>
-        </Grid>
+    <Grid Width="200" Height="40" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle HorizontalAlignment="Left" Margin="-62,-89,-73,-115" Width="335" RenderTransformOrigin="0.503,0.496" Grid.ColumnSpan="3">
+            <Rectangle.Fill>
+                <ImageBrush/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Tài khoản: " FontSize="16" FontFamily="Time new roman" Height="40" Margin="-39,-75,119,75" VerticalAlignment="Bottom" Background="{x:Null}" Grid.ColumnSpan="2" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="txtPassword" Content="Mật khẩu: " FontSize="16" FontFamily="Time new roman" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Width="99" Height="40" Margin="-39,22,0,-22" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtTaiKhoan"  Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" MaxLength="20" materialDesign:HintAssist.Hint="Enter the username" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="35" Margin="-38,-42,-35,0" FontSize="11.5" FontFamily="Time new roman" TextWrapping="Wrap"  VerticalAlignment="Top" Width="273" Foreground="#FF221F1F" BorderBrush="#FFEF0909" Background="#FFFCFCFC" Opacity="0.9" BorderThickness="1,1,1,1" TextAlignment="Justify" FontWeight="{DynamicResource {x:Static SystemFonts.SmallCaptionFontWeightKey}}" RenderTransformOrigin="1,1">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.235"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBlock x:Name="tb" Height="20" Margin="67,10,-35,10" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="2">
+            <Hyperlink NavigateUri="http://www.google.com" > Forgot password? </Hyperlink>
+        </TextBlock>
+        <PasswordBox x:Name="txtMatKhau" materialDesign:HintAssist.Hint="Enter the password" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" HorizontalAlignment="Left" Height="37" Margin="-39,55,-35,-52" FontSize="11.5" FontFamily="Time new roman" VerticalAlignment="Top" Width="274" Foreground="#FF221F1F" BorderBrush="#FFDA1919" Background="#FFFCFCFC" Opacity="0.9" BorderThickness="1,1,1,1"/>
+        <materialDesign:PackIcon Kind="Cinema" Width="Auto" Height="61" Margin="20,-196,35,0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Foreground="Black" />
+        <materialDesign:PackIcon Kind="Key" Width="21" Height="30" Margin="-58,20,0,-10" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
+        <materialDesign:PackIcon Kind="User" Width="26" Height="21" Margin="-62,-75,96,0" HorizontalAlignment="Right" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
+        <Label FontFamily="Time new roman" FontSize="24" HorizontalAlignment="Center" Content="Đăng Nhập" Margin="37,-135,-35,0" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="3" Height="41"/>
+        <Expander Header="Expander" HorizontalAlignment="Left" Height="8" Margin="-62,-168,0,0" VerticalAlignment="Top" Width="25"/>
+        <TextBox x:Name="txtPW" Background="#FFFCFCFC" FontSize="10" materialDesign:HintAssist.Hint="Enter the password" HorizontalAlignment="Left" Height="37" Margin="-39,55,-35,-52" TextWrapping="Wrap" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top" Width="274" Grid.ColumnSpan="3" BorderBrush="#89F21A1A" Visibility="Hidden" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}"/>
+        <CheckBox x:Name="rdoCheck" Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="12,58,-35,-48" VerticalAlignment="Top" Width="23" IsChecked="False"/>
+        <Button x:Name="btDangnhap" Content="Đăng nhập" Style="{StaticResource MaterialDesignFlatLightBgButton}" FontFamily="Time new roman" FontSize="18" Margin="-39,109,119,-101" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Click="btnDangNhap_Click" Grid.ColumnSpan="2" Background="#FF569DF5" IsDefault="True" Width="123"/>
+        <Button x:Name="guest_bt" Content="Log in as guest" Style="{StaticResource MaterialDesignFlatLightBgButton}" FontFamily="Time new roman" FontSize="10" Margin="55,109,-35,-101" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Background="#FF569DF5" Grid.Column="1" Click="guest_bt_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btExit" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="34,-190,-90,0" VerticalAlignment="Top" Width="56" Background="{x:Null}" BorderBrush="{x:Null}" Click="btExit_Click">
+            <materialDesign:PackIcon Kind="Shutdown" HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Width="23" Foreground="{DynamicResource {x:Static SystemColors.InfoTextBrushKey}}"/>
+        </Button>
     </Grid>
 </Window>

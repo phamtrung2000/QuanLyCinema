@@ -95,7 +95,6 @@ namespace QuanLyCinema.GiaoDien
         }
 
         private void btnLuu_Sua_Click(object sender, RoutedEventArgs e)
-
         {
             bool TrungMaND = false;
         SuaLai:

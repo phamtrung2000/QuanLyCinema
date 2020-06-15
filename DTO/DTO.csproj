@@ -50,6 +50,7 @@
     <Compile Include="LoaiPhimDTO.cs" />
     <Compile Include="NguoiDungDTO.cs" />
     <Compile Include="NhanVienDTO.cs" />
+    <Compile Include="PhongChieuDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
