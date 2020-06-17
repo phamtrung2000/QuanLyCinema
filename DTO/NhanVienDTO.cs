@@ -44,7 +44,7 @@ namespace DTO
             ChucVu = chucvu;
             SDT = sdt;
             GioiTinh = gioitinh;
-            NgaySinh = ngaysinh;
+            NgaySinh = ngaysinh.Date;
             DiaChi = diachi;
             Luong = luong;
             NgayVL = ngayvl;

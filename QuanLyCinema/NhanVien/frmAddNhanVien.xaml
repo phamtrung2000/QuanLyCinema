@@ -18,32 +18,32 @@
         <materialDesign:PackIcon Kind="AccountsAdd" HorizontalAlignment="Stretch" Height="Auto" Margin="330,15,330,320" VerticalAlignment="Stretch" Width="Auto" Foreground="#FFFBF1F1"/>
 
         <Label x:Name="Lb_MaNV" Content="Mã NV: " Margin="59,148,672,241" Foreground="#DDFAF6F6" Height="30"/>
-        <TextBox x:Name="txtMaNV" HorizontalAlignment="Left" Height="30" Margin="165,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="txtMaNV" HorizontalAlignment="Left" Height="30" Margin="165,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" TabIndex="0"/>
 
         <Label x:Name="lb_hoten" Content="Họ Tên:" Margin="59,196,672,193" Foreground="#DDFBF6F6" Height="30"/>
-        <TextBox x:Name="txtHoTen" HorizontalAlignment="Left" Height="23" Margin="165,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="txtHoTen" HorizontalAlignment="Left" Height="23" Margin="165,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" TabIndex="1"/>
 
         <Label x:Name="lbChucvu" Content="Chức vụ:" Margin="59,259,672,130" Foreground="#DDFEFCFC" Height="30"/>
-        <TextBox x:Name="txtChucVu" HorizontalAlignment="Left" Height="30" Margin="165,259,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="txtChucVu" HorizontalAlignment="Left" Height="30" Margin="165,259,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="195" TabIndex="2"/>
 
         <Label x:Name="lbSDT" Content="SDT:" Margin="59,315,683,74" Foreground="#DDFEFCFC" Width="50" Height="30"/>
-        <TextBox x:Name="txtSDT" HorizontalAlignment="Left" Height="30" Margin="165,315,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="195"/>
+        <TextBox x:Name="txtSDT" HorizontalAlignment="Left" Height="30" Margin="165,315,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="195" TabIndex="3"/>
 
         <Label x:Name="lbGioitinh" Content="Giới tính:" Margin="408,161,323,228" Foreground="#DDFAF7F7" Height="30"/>
-        <RadioButton x:Name="rdbNam" Content="Nam" HorizontalAlignment="Left" Margin="504,165,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rdbNu" Content="Nữ" HorizontalAlignment="Left" Margin="642,168,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rdbNam" Content="Nam" HorizontalAlignment="Left" Margin="504,165,0,0" VerticalAlignment="Top" TabIndex="4"/>
+        <RadioButton x:Name="rdbNu" Content="Nữ" HorizontalAlignment="Left" Margin="642,168,0,0" VerticalAlignment="Top" TabIndex="5"/>
 
         <Label x:Name="lbNgaysinh" Content="Ngày sinh:" Margin="408,201,314,188" Foreground="#DDFEFCFC" Height="30"/>
-        <DatePicker x:Name="dtpNgaySinh" Margin="504,201,62,188" VerticalAlignment="Stretch" Foreground="#FFFBF7F7" Panel.ZIndex="5"/>
+        <DatePicker x:Name="dtpNgaySinh" Margin="504,201,62,188" VerticalAlignment="Stretch" Foreground="#FFFBF7F7" Panel.ZIndex="5" TabIndex="6"/>
 
         <Label x:Name="lbLuong" Content="Lương:" Margin="408,317,324,72" Foreground="#DDF7F3F3" Height="30"/>
-        <TextBox x:Name="txtLuong" Margin="504,315,62,69" TextWrapping="Wrap" Foreground="#FFFCF8F8" TextChanged="txtLuong_TextChanged" />
+        <TextBox x:Name="txtLuong" Margin="504,315,62,69" TextWrapping="Wrap" Foreground="#FFFCF8F8" TextChanged="txtLuong_TextChanged" TabIndex="8" />
 
         <Label x:Name="lbDiachi" Content="Địa chỉ:" Margin="409,259,323,130"  Foreground="#DDFBF4F4" Height="30"/>
-        <TextBox x:Name="txtDiaChi" Margin="504,259,62,125" TextWrapping="Wrap" Foreground="#FFFCFAFA" Panel.ZIndex="6"/>
+        <TextBox x:Name="txtDiaChi" Margin="504,259,62,125" TextWrapping="Wrap" Foreground="#FFFCFAFA" Panel.ZIndex="6" TabIndex="7"/>
 
-        <Label x:Name="lbNVL" Content="Ngày vào làm:" Margin="221,376,486,13" Foreground="#DDFAF2F2" Height="30"/>
-        <DatePicker x:Name="dtpNgayVL" Margin="323,355,243,29" VerticalAlignment="Stretch" Foreground="#FFF8F6F6" Panel.ZIndex="8"/>
+        <Label x:Name="lbNVL" Content="Ngày vào làm:" Margin="215,376,486,13" Foreground="#DDFAF2F2" Height="30"/>
+        <DatePicker x:Name="dtpNgayVL" Margin="330,371,236,13" VerticalAlignment="Stretch" Foreground="#FFF8F6F6" Panel.ZIndex="8" TabIndex="9"/>
 
         <Button x:Name="btnHuy" Content="Hủy" Height="50" Margin="647,30,51,0" VerticalAlignment="Top" Click="btnHuy_Click"/>
         <Button x:Name="btnLamMoi" Content="Làm Mới" Height="54" Margin="555,85,51,0" RenderTransformOrigin="0.484,0.308" Background="#FF0078D7" Click="btnLamMoi_Click" VerticalAlignment="Top"/>
