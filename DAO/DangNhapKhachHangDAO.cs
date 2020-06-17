@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,96 +14,61 @@ namespace DAO
     {
         public static bool Login(string user, string pass)
         {
-            using (var connection = SQLConnectionData.HamKetNoi())
+            var result = false;
+
+            using (var connection = SqlServerConnection.KetNoiToiCSDL())
             {
                 connection.Open();
 
-                using (var command = new SqlCommand())
+                using (var command = new SqlCommand("DangNhapKhachHang", connection))
                 {
-                    command.Connection = connection;
-                    command.CommandText = "EXEC Dangnhapkhachhang '"+user+"','"+pass+"'";
-
-                    //command.CommandText = "SELECT KHTT.LOAIKH,DNKH.TAIKHOAN,DNKH.MATKHAU FROM KHACHHANGTHANTHIET KHTT INNER JOIN DANGNHAP_KHACHHANG DNKH ON DNKH.MAKH = KHTT.MAKH" +
-                    //    " WHERE DNKH.TAIKHOAN=@user AND DNKH.MATKHAU=@pass";
-
-                    // command.CommandText = "SELECT * FROM NGUOIDUNG WHERE TAIKHOAN=@user AND MATKHAU=@pass";
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@user", user);
                     command.Parameters.AddWithValue("@pass", pass);
-                    command.CommandType = CommandType.Text;
+
                     SqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows == true)
                     {
-
-                        while (reader.Read())
-
-                        {
-
-                            //// UserLoginCache.MaNV = reader.GetString(0);
-                            //DangNhapNhanVienDTO = reader.GetString(0);
-                            //UserLoginCache.ChucVu = reader.GetString(1);
-                            //UserLoginCache.SDT = reader.GetString(2);
-                        }
-
-                        return true;
-                        connection.Close();
+                        result = true;
                     }
-                    else
-                    {
-                        return false;
-                        connection.Close();
-                    }
-                    return false;
                 }
             }
+            return result;
         }
-        public static int Phanquyen(string user, string pass)
+        public static int PhanQuyen(string user, string pass)
         {
-            using (var connection = SQLConnectionData.HamKetNoi())
+            var result = 0;
+            using (var connection = SqlServerConnection.KetNoiToiCSDL())
             {
                 connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand("EXEC Phanquyenkhachhang '"+user+"', '"+pass+"'", connection))
+                using (var command = new SqlCommand("DangNhapKhachHang", connection))
                 {
-                    cmd.CommandType = CommandType.Text;
-                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@user", user);
+                    command.Parameters.AddWithValue("@pass", pass);
+
+                    using (SqlDataAdapter sda = new SqlDataAdapter(command))
                     {
                         DataSet ds = new DataSet();
                         sda.Fill(ds);
-                        string a = "";
+                        string LoaiKH = "";
 
                         foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            a = row["LOAIKH"].ToString();
+                            LoaiKH = row["LOAIKH"].ToString();
                         }
-                        /// quanly :1   nhanvien ban hang :2 
-                        if (a == "Đồng")
-                        {
-                            return 1;
-                        }
-                        else if (a == "Bạc")
-                        {
-                            return 2;
-                        }
-                        else if (a == "Vàng")
-                        {
-                            return 3;
-                        }
-                        else if (a == "Bạch kim")
-                        {
-                            return 4;
-                        }
-                        else if (a == "Kim cương")
-                        {
-                            return 5;
-                        }
-                        return 0;
+
+                        if (LoaiKH == "Đồng") result = 1;
+                        else if (LoaiKH == "Bạc") result = 2;
+                        else if (LoaiKH == "Vàng") result = 3;
+                        else if (LoaiKH == "Bạch kim") result = 4;
+                        else if (LoaiKH == "Kim cương") result = 5;
                     }
                 }
-                connection.Close();
             }
-
-
+            return result;
         }
     }
 }

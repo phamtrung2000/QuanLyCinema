@@ -6,15 +6,40 @@ using System.Threading.Tasks;
 using DTO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace DAO
 {
     public class NhanVienDAO
     {
+        //--------------------------------------------------------------------------------------------//
+        private SqlServerConnection sqlServerConnection;
+        public NhanVienDAO()
+        {
+            sqlServerConnection = new SqlServerConnection();
+        }
+        public DataTable TimTheoMaNhanVien(string manv)
+        {
+            string query = "Timtheo_MaNV";
+            SqlParameter[] sqlParameter = new SqlParameter[1];
+            sqlParameter[0] = new SqlParameter("@MaNV", manv);
+            return sqlServerConnection.executeSelectQuery(query, sqlParameter);
+        }
+        public DataTable getAll()
+        {
+            string query = "SelectAllNhanVien";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            return sqlServerConnection.executeSelectQuery(query, sqlParameters);   
+        }
+
+
+        //--------------------------------------------------------------------------------------------//
+
+
         //Load danh sách sv từ database
         public static DataTable LoadDSNV()
         {
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -31,7 +56,7 @@ namespace DAO
         public static void Them(NhanVienDTO nhanvien)
         {
             // mở kết nối
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
 
             // tạo câu lệnh Thêm
@@ -58,7 +83,7 @@ namespace DAO
             command.Parameters["@NGAYSINH"].Value = nhanvien.NgaySinh;
             command.Parameters["@DIACHI"].Value = nhanvien.DiaChi;
             command.Parameters["@LUONG"].Value = nhanvien.Luong;
-            command.Parameters["@NGAYVL"].Value = nhanvien.NgayVL;
+            command.Parameters["@NGAYVL"].Value = nhanvien.NgayBatDauLamViec;
 
             command.ExecuteNonQuery();
 
@@ -66,10 +91,11 @@ namespace DAO
             connection.Close();
         }
 
+
         public static void Sua(NhanVienDTO nhanvien)
         {
             // mở kết nối
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
 
             // tạo câu lệnh Sửa
@@ -106,7 +132,7 @@ namespace DAO
             command.Parameters["@NGAYSINH"].Value = nhanvien.NgaySinh;
             command.Parameters["@DIACHI"].Value = nhanvien.DiaChi;
             command.Parameters["@LUONG"].Value = nhanvien.Luong;
-            command.Parameters["@NGAYVL"].Value = nhanvien.NgayVL;
+            command.Parameters["@NGAYVL"].Value = nhanvien.NgayBatDauLamViec;
 
             // thực hiện câu lệnh
             command.ExecuteNonQuery();
@@ -117,7 +143,7 @@ namespace DAO
 
         public static void Xoa(string manv)
         {
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -133,7 +159,7 @@ namespace DAO
 
         public static DataTable TimTheoMaNV(string manv)
         {
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
@@ -154,7 +180,7 @@ namespace DAO
 
         public static DataTable TimTheoHoTen(string hoten)
         {
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
@@ -175,7 +201,7 @@ namespace DAO
 
         public static DataTable TimTheoSDT(string sdt)
         {
-            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();

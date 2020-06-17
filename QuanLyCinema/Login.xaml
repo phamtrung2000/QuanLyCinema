@@ -64,7 +64,7 @@
         <CheckBox x:Name="rdoCheck" Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="12,58,-35,-48" VerticalAlignment="Top" Width="23" IsChecked="False"/>
         <Button x:Name="btDangnhap" Content="Đăng nhập" Style="{StaticResource MaterialDesignFlatLightBgButton}" FontFamily="Time new roman" FontSize="18" Margin="-39,109,119,-101" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Click="btnDangNhap_Click" Grid.ColumnSpan="2" Background="#FF569DF5" IsDefault="True" Width="123"/>
         <Button x:Name="guest_bt" Content="Log in as guest" Style="{StaticResource MaterialDesignFlatLightBgButton}" FontFamily="Time new roman" FontSize="10" Margin="55,109,-35,-101" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Background="#FF569DF5" Grid.Column="1" Click="guest_bt_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btExit" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="34,-190,-90,0" VerticalAlignment="Top" Width="56" Background="{x:Null}" BorderBrush="{x:Null}" Click="btExit_Click">
+        <Button x:Name="btnExit" Grid.Column="2" HorizontalAlignment="Left" Height="50" Margin="34,-190,-90,0" VerticalAlignment="Top" Width="56" Background="{x:Null}" BorderBrush="{x:Null}" Click="btnExit_Click">
             <materialDesign:PackIcon Kind="Shutdown" HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Width="23" Foreground="{DynamicResource {x:Static SystemColors.InfoTextBrushKey}}"/>
         </Button>
     </Grid>

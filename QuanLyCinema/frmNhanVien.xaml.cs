@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 using BUS;
 using QuanLyCinema.NhanVien;
 using DTO;
@@ -27,14 +13,17 @@ namespace QuanLyCinema
     /// </summary>
     public partial class frmNhanVien : UserControl
     {
+        private NhanVienBUS nhanVienBUS;
         public frmNhanVien()
         {
             InitializeComponent();
+            nhanVienBUS = new NhanVienBUS();
         }
 
         void ChoPhepNhap()
         {
-            txtHoTen.IsReadOnly = txtMaNV.IsReadOnly = txtChucVu.IsReadOnly = txtSDT.IsReadOnly = txtDiaChi.IsReadOnly = txtLuong.IsReadOnly = false;
+            txtHoTen.IsReadOnly = txtMaNV.IsReadOnly = txtChucVu.IsReadOnly = txtSDT.IsReadOnly 
+                = txtDiaChi.IsReadOnly = txtLuong.IsReadOnly = false;
             dtpNgaySinh.IsEnabled = dtpNgayVL.IsEnabled = true;
             rdbNam.IsEnabled = rdbNu.IsEnabled = true;
             txtHoTen.Focus();
@@ -60,9 +49,12 @@ namespace QuanLyCinema
         private void GridNhanVien_Loaded(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
             panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+
+            var list_nv = nhanVienBUS.getAll();
+            dtgDSNV.ItemsSource = list_nv;
         }
+
 
         private void dtgDSNV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
