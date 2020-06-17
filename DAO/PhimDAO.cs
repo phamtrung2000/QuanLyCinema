@@ -35,7 +35,7 @@ namespace DAO
             // tạo câu lệnh Thêm
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            //command.CommandText = "INSERT INTO NHANVIEN VALUES(@MANV,@HOTEN,@CHUCVU,@SDT,@GIOITINH,@NGAYSINH,@DIACHI,@LUONG,@NGAYVL)";
+            //command.CommandText = "INSERT INTO PHIM VALUES(@MAPHIM,@TENPHIM,@DAODIEN,@DIENVIEN,@MALP,@NOIDUNG,@NAMSX,@NUOCSX,@THOILUONG)";
             command.CommandText = "EXEC Themphim @MAPHIM,@TENPHIM,@DAODIEN,@DIENVIEN,@MALP,@NOIDUNG,@NAMSX,@NUOCSX,@THOILUONG";
             command.Parameters.Add("@MAPHIM", SqlDbType.VarChar, 10);
             command.Parameters.Add("@TENPHIM", SqlDbType.NVarChar, 40);
