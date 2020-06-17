@@ -63,73 +63,84 @@
                     <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" 
                                                          OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                     </materialDesign:TransitioningContent>
-                    <ListView x:Name="ListViewMenu"
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListView x:Name="ListViewMenu"
                               Height="620"
                               Width="240"
                               Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0" Background="#FFEAE2E2">
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
-                            <StackPanel Orientation="Horizontal" Width="220" HorizontalAlignment="Left" Name="btnTongquan">
-                                <Image Source="Resources\tongquan.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Tổng Quan" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNhanvien">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\nhanvien.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Nhân Viên" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnKhachhang">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\khachhang.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Khách Hàng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNguoidung">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\nguoidung.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Người Dùng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhongchieu">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\audience.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Phòng Chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnLoaiphim">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\cinema.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Loại Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhim">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        
-                        <ListViewItem>
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
 
-                        <ListViewItem>
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Loại vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Width="220" HorizontalAlignment="Left" Name="btnTongquan">
+                                    <Image Source="Resources\tongquan.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Tổng Quan" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNhanvien">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\nhanvien.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Nhân Viên" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnKhachhang">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\khachhang.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Khách Hàng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNguoidung">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\nguoidung.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Người Dùng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhongchieu">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\audience.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Phòng Chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnLoaiphim">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\cinema.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Loại Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhim">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
 
-                        
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\Ve.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
 
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\LoaiVe.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Loại vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
 
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\CaChieu.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Ca chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
 
-                    </ListView>
-                   
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <Image Source="Resources\LichChieu.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                    <TextBlock Text="Lịch chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </ScrollViewer>
                 </Grid>
             </StackPanel>
         </Grid>

@@ -19,7 +19,7 @@
         </Grid.Background>
 
         <Label x:Name="lbTitle" Content="Thêm Loại Phim" FontFamily="Time new roman" FontSize="24" Style="{StaticResource MaterialDesignLabel}" Margin="3.915,100,295,280" RenderTransformOrigin="0.483,0.35" Foreground="#DDFCFAFA" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="1"/>
-
+        
         <Label x:Name="Lb_MaLP" Content="Mã loại phim: " Margin="10,148,181.085,241" Foreground="#DDFAF6F6" Height="30"/>
         <TextBox x:Name="txtMaLP" HorizontalAlignment="Left" Height="30" Margin="120,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Grid.ColumnSpan="2"/>
 

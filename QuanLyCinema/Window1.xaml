@@ -83,14 +83,14 @@
 
                     <ListViewItem>
                         <StackPanel Orientation="Horizontal" Width="220">
-                            <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                            <Image Source="Resources\Ve.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
                             <TextBlock Text="Vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
                         </StackPanel>
                     </ListViewItem>
 
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <Image Source="Resources\LoaiVe.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
                                 <TextBlock Text="Loại vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
                             </StackPanel>
                         </ListViewItem>
@@ -104,17 +104,11 @@
                         
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
+                                <Image Source="Resources\LichChieu.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
                                 <TextBlock Text="Lịch chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
                             </StackPanel>
                         </ListViewItem>
 
-                        <ListViewItem>
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Loại vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
                     </ListView>
                 </ScrollViewer>
             </Grid>
