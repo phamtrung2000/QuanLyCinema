@@ -102,6 +102,9 @@
     <Compile Include="NhanVien\frmAddNhanVien.xaml.cs">
       <DependentUpon>frmAddNhanVien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RefactoringTest.xaml.cs">
+      <DependentUpon>RefactoringTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TongQuan.xaml.cs">
       <DependentUpon>TongQuan.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NhanVien\frmAddNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RefactoringTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,9 +13,9 @@ namespace BUS
         {
             return DangNhapNhanVienDAO.Login(taikhoan,matkhau);
         }
-        public static int isstaff(string taikhoan, string matkhau)
+        public static int LaNhanVien(string taikhoan, string matkhau)
         {
-            return DangNhapNhanVienDAO.Phanquyen(taikhoan, matkhau);
+            return DangNhapNhanVienDAO.PhanQuyenTheoChucVu(taikhoan, matkhau);
         }
     }
 }

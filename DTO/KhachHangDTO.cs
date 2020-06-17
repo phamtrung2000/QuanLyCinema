@@ -8,22 +8,14 @@ namespace DTO
 {
     public class KhachHangDTO
     {
-        private string maKH;
-        private string hoten;
-        private string diachi;
-        private DateTime ngaysinh;
-        private string gioitinh;
-        private string sdt;
-        private string loaikh;
-        private DateTime ngaydk;
-        public string MaKH { get => maKH; set => maKH = value; }
-        public string Hoten { get => hoten; set => hoten = value; }
-        public string Diachi { get => diachi; set => diachi = value; }
-        public DateTime Ngaysinh { get => ngaysinh; set => ngaysinh = value; }
-        public string Gioitinh { get => gioitinh; set => gioitinh = value; }
-        public string Sdt { get => sdt; set => sdt = value; }
-        public string Loaikh { get => loaikh; set => loaikh = value; }
-        public DateTime Ngaydk { get => ngaydk; set => ngaydk = value; }
+        public string MaKH { get; set; }
+        public string Hoten { get; set; }
+        public string Diachi { get; set; }
+        public DateTime Ngaysinh { get; set; }
+        public string Gioitinh { get; set; }
+        public string Sdt { get; set; }
+        public string Loaikh { get; set; }
+        public DateTime Ngaydk { get; set; }
 
         public KhachHangDTO(string maKH, string hoten, string diachi, DateTime ngaysinh, string gioitinh, string sdt, string loaikh, DateTime ngaydk)
         {

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using QuanLyCinema.GiaoDien;
 
 namespace QuanLyCinema
@@ -22,20 +23,14 @@ namespace QuanLyCinema
     /// </summary>
     public partial class GiaoDienChinh : Window
     {
-       
         public GiaoDienChinh()
         {
             InitializeComponent();
         }
-
-       
-
         private void ButtonFechar_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
-      
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -69,6 +64,12 @@ namespace QuanLyCinema
         {
             //TrainsitionigContentSlide.OnApplyTemplate();
             //GridMenu.Margin = new Thickness(0, (100 + (60 * index)), 0, 0);
+        }
+
+        private void testRefactoring_Click(object sender, RoutedEventArgs e)
+        {
+            var wd = new RefactoringTest();
+            wd.Show();
         }
     }
 }
