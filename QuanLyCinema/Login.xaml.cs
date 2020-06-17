@@ -137,23 +137,7 @@ namespace QuanLyCinema
                 if (DANGNHAP == true)
                 {
                     GiaoDienChinh_KhachHang mainWindow = new GiaoDienChinh_KhachHang();
-                    var pq = DangNhapKhachHangBUS.isstaff(tk, mk);
-                    if (pq == 1)
-                    {
-                        mainWindow.Show();
-                    }
-                    if (pq == 2)
-                    {
-                        //mainWindow.btnNhanvien.IsEnabled = false;
-                        //mainWindow.btnPhongchieu.IsEnabled = false;
-                        //mainWindow.btnLichChieu.IsEnabled = false;
-                        mainWindow.Show();
-                    }
-                    if (pq == 3)
-                    {
-                        mainWindow.Show();
-                    }
-
+                    mainWindow.Show();
                     this.Close();
                 }
                 else

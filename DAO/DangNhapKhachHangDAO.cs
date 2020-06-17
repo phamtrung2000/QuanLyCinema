@@ -45,14 +45,11 @@ namespace DAO
                         }
 
                         return true;
-                        connection.Close();
                     }
                     else
                     {
                         return false;
-                        connection.Close();
                     }
-                    return false;
                 }
             }
         }
@@ -99,10 +96,7 @@ namespace DAO
                         return 0;
                     }
                 }
-                connection.Close();
             }
-
-
         }
     }
 }
