@@ -78,6 +78,7 @@ namespace QuanLyCinema.LoaiPhim
             btnLuu_Sua.Visibility = Visibility.Visible;
             btnHuy_Sua.Visibility = Visibility.Visible;
             btnSua.Visibility = Visibility.Hidden;
+            btnLamMoi.IsEnabled = false;
             btnThem.IsEnabled = btnXoa.IsEnabled = false;
         }
 
@@ -164,7 +165,7 @@ namespace QuanLyCinema.LoaiPhim
             if (result == MessageBoxResult.Yes)
             {
                 LoaiPhimBUS.Xoa(txtMalp.Text);
-                MessageBox.Show("Xóa người dùng thành công", "Thông Báo");
+                MessageBox.Show("Xóa phim thành công", "Thông Báo");
             }
             dtgDSLP.ItemsSource = LoaiPhimBUS.LoadDSLP().DefaultView;
         }

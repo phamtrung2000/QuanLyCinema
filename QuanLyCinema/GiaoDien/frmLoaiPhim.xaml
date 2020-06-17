@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="950">
     <Grid Name="GridLoaiPhim" Background="#FFF9F3F3" Loaded="GridLoaiPhim_Loaded">
-        <GroupBox Header="Thông tin người dùng"
+        <GroupBox Header="Thông tin loại phim"
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>

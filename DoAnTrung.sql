@@ -269,6 +269,7 @@ as
  insert into KHACHHANGTHANTHIET(MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,NGAYDK) VALUES (@makh,@hoten,@diachi,@sdt,@ngaysinh,@gioitinh,@loaikh,@ngaydk)
 
  go
+ ---EXEC Them_khachhang 'KH101',N'Trần Anh Tuấn',N'142/8/3 Lê Lợi, P.4, Gò Vấp, TP.HCM','0987685085','5/1/1994','Nữ',N'Bạch kim','15/5/2018'
 ----PROC XOAKHACHAHANG
  CREATE PROC Xoakhachhang(@makh varchar(10) )
  as
@@ -368,7 +369,7 @@ INSERT INTO NGUOIDUNG( MAND,HOTEN,CHUCVU,PHANQUYEN) VALUES
 --drop table NGUOIDUNG
 
 go
-----PROC THEMNHANVIEN
+----PROC THEMNGUOIDUNG
 create PROC ThemNguoiDung(@mand varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@phanquyen NVARCHAR(100))
 as
 begin
@@ -376,7 +377,7 @@ begin
  end
 
  go
- -----PROC XOANHANVIEN
+ -----PROC XOANGUOIDUNG
  CREATE PROC XoaNguoiDung(@mand varchar(10))
  as
  begin
@@ -387,7 +388,7 @@ end
 -- exec XoaNguoiDung 'NV1'
 
   go
-  ---PROC SUANHANVIEN
+  ---PROC SUANGUOIDUNG
   CREATE PROC SuaNguoiDung(@mand varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@phanquyen NVARCHAR(100))
   as
   begin
@@ -400,7 +401,7 @@ end
   end
 
   go
-   -----PROC TIMTHEOMANV
+   -----PROC TIMTHEOMAND
   CREATE PROC TimTheoMaND(@mand varchar(10))
   as
   begin
@@ -410,7 +411,7 @@ end
   -- exec TimTheoMaND 'NV1'
 
   go
-  ---PROC TIMTHEOHOTEN
+  ---PROC TIMTHEOHOTENNGUOIDUNG
   CREATE PROC TimTheoHoTenNguoiDung(@hoten nvarchar(40))
   as
   begin
@@ -488,7 +489,7 @@ end
   end
 
   go
-   -----PROC TIMTHEOMANV
+   -----PROC TIMTHEOMAPC
   CREATE PROC TimTheoMaPC(@mapc varchar(10))
   as
   begin
@@ -505,12 +506,11 @@ end
   select * from PhongChieu where TENPC like '%'+ @tenpc +'%'
   --select * from NHANVIEN where lower(tenpc) like '%' + lower(RTRIM(@tenpc)) + '%'
   end
-
-
-
-
-
 go
+
+
+
+
 CREATE TABLE LOAIPHIM
 (
     STT INT IDENTITY,
@@ -518,12 +518,64 @@ CREATE TABLE LOAIPHIM
 	TENLP NVARCHAR(40),
 	MOTA NVARCHAR(1000) --MÔ TẢ
 )
+SELECT *FROM LOAIPHIM ORDER BY STT ASC
 -- drop table LOAIPHIM
 go
 INSERT INTO LOAIPHIM(MALP,TENLP,MOTA) VALUES 
 ('LP1',N'Phim hành động',N'là một thể loại điện ảnh trong đó một hoặc nhiều nhân vật anh hùng bị đẩy vào một loạt những thử thách, thường bao gồm những kì công vật lý, các cảnh hành động kéo dài, yếu tố bạo lực và những cuộc rượt đuổi điên cuồng. Phim hành động có xu hướng mô tả một nhân vật có tài xoay xở đấu tranh chống lại những xung đột không tưởng, bao gồm các tình huống đe dọa đến tính mạng, một phản diện hay một sự theo đuổi mà thường kết thúc trong thắng lợi cho anh hùng')
-
 go
+
+create proc Loadloaiphim (@malp varchar(10))
+as 
+begin 
+select *from LOAIPHIM where LOAIPHIM.MALP!=@malp
+end
+go
+
+---PROC THEMLOAIPHIM
+CREATE PROC Themloaiphim(@malp varchar(10),@tenlp nvarchar(40),@mota nvarchar(1000))
+as
+begin 
+insert into LOAIPHIM(MALP,TENLP,MOTA) values (@malp,@tenlp,@mota)
+end
+go
+---PROC SUALOAIPHIM
+CREATE PROC Sualoaiphim(@malp varchar(10),@tenlp nvarchar(40),@mota nvarchar(1000))
+as
+begin
+update LOAIPHIM
+set MALP=@malp,TENLP=@tenlp,MOTA=@mota
+where MALP=@malp
+end 
+go
+---proc Xoaphongchieu
+create proc Xoaloaiphim(@malp varchar(10))
+as 
+begin
+delete from LOAIPHIM where MALP=@malp
+end
+go
+---PROC TIMTHEOMALP
+CREATE PROC TimTheoMaLP(@malp varchar(10))
+  as
+  begin
+  select * from LOAIPHIM where MALP like '%'+ @malp +'%'
+  end
+  go
+  ---proc tìm theo tên loại phim
+CREATE PROC TimTheoTenlp(@tenlp nvarchar(40))
+  as
+  begin
+  select * from LOAIPHIM where TENLP like '%'+ @tenlp +'%'
+  end
+  go
+
+
+exec Themloaiphim 'LP2',N'Phim hoạt hình',N'Phim hoạt hình là phim người đóng hoặc phim hoạt họa là một hình thức sử dụng ảo ảnh quang học về sự chuyển động do nhiều hình ảnh tĩnh được chiếu tiếp diễn liên tục. Trong phim và trong kỹ nghệ dàn dựng, hoạt họa ám chỉ đến kỹ thuật trong đó từng khung hình của phim(frame) được chế tác riêng rẽ. Người ta có thể dùng máy tính, hay bằng cách chụp từng hình ảnh đã vẽ, đã được tô màu, hoặc bằng cách chụp những cử động rất nhỏ của các mô hình để tạo nên những hình ảnh này'
+go
+
+
+
 CREATE TABLE PHIM
 (
     STT INT IDENTITY,
@@ -540,11 +592,52 @@ CREATE TABLE PHIM
 	CONSTRAINT FK_PHIM_MALP FOREIGN KEY(MALP) REFERENCES LOAIPHIM(MALP) ON DELETE CASCADE
 )
 -- drop table phim
+
 go
 INSERT INTO PHIM(MAPHIM,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) VALUES 
 ('PHIM1',N'Quái Vật Venom',N'Ruben Fleischer',N'Tom Hardy, Michelle William, Riz Ahmed','LP1',N'Quái Vật Venom là một kẻ thù nguy hiểm và nặng ký của Người nhện trong loạt series của Marvel. Chàng phóng viên Eddie Brock (do Tom Hardy thủ vai) bí mật theo dõi âm mưu xấu xa của một tổ chức và đã không may mắn khi nhiễm phải loại cộng sinh trùng ngoài hành tinh (Symbiote) và từ đó đã không còn làm chủ bản thân về thể chất lẫn tinh thần. Điều này đã dần biến anh thành quái vật đen tối và nguy hiểm nhất chống lại người Nhện - Venom','2018',N'Mỹ','115 phút')
+go
 
-GO
+---PROC Themphim
+create proc Themphim(@map varchar(10) ,@tenphim nvarchar(40),@daodien nvarchar(100),@dienvien nvarchar(100),@malp varchar(10),@noidung nvarchar(1000),@namsx varchar(10),@nuocsx nvarchar(100),@thoiluong nvarchar(100))
+as
+begin
+insert into PHIM(MALP,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) values(@map,@tenphim,@daodien,@dienvien,@malp,@noidung,@namsx,@nuocsx,@thoiluong)
+end 
+go
+---proc Suaphim
+create proc Suaphim(@map varchar(10) ,@tenphim nvarchar(40),@daodien nvarchar(100),@dienvien nvarchar(100),@malp varchar(10),@noidung nvarchar(1000),@namsx varchar(10),@nuocsx nvarchar(100),@thoiluong nvarchar(100))
+as
+begin
+update PHIM
+set MAPHIM=@map,TENPHIM=@tenphim,DAODIEN=@daodien,
+DIENVIEN=@dienvien,MALP=@malp,NOIDUNG=@noidung,NAMSX=@namsx,NUOCSX=@nuocsx,THOILUONG=@thoiluong
+where MAPHIM=@map
+end 
+go
+--exec Suaphim 'PHIM1',N'Quái Vật Venomn',N'Ruben Fleischer',N'Tom Hardy, Michelle William, Riz Ahmed','LP1',N'Quái Vật Venom là một kẻ thù nguy hiểm và nặng ký của Người nhện trong loạt series của Marvel. Chàng phóng viên Eddie Brock (do Tom Hardy thủ vai) bí mật theo dõi âm mưu xấu xa của một tổ chức và đã không may mắn khi nhiễm phải loại cộng sinh trùng ngoài hành tinh (Symbiote) và từ đó đã không còn làm chủ bản thân về thể chất lẫn tinh thần. Điều này đã dần biến anh thành quái vật đen tối và nguy hiểm nhất chống lại người Nhện - Venom','2018',N'Mỹ','115 phút'
+---proc Xoaphim
+create proc Xoaphim(@map varchar(10))
+as begin
+delete from PHIM where MAPHIM=@map 
+end
+go
+---proc Timtheo ma phim
+CREATE PROC TimTheoMaP(@map varchar(10))
+  as
+  begin
+  select * from PHIM where MAPHIM like '%'+ @map +'%'
+  end
+  go
+
+  CREATE PROC TimTheoTenP(@tenp varchar(10))
+  as
+  begin
+  select * from PHIM where TENPHIM like '%'+ @tenp +'%'
+  end
+  go
+
+
 CREATE TABLE CACHIEU
 (
     STT INT IDENTITY,

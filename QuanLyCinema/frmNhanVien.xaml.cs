@@ -337,11 +337,15 @@ namespace QuanLyCinema
         {
             KhongChoNhap();
             dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
-            panelTimKiem.Visibility = btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
-            if (btnSua.Visibility == Visibility.Hidden)
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility =btnLuu_Sua.Visibility= Visibility.Hidden;
+            if(btnSua.Visibility==Visibility.Hidden)
+            {
                 btnSua.Visibility = Visibility.Visible;
-            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+            }
+            if(btnThem.IsEnabled==btnXoa.IsEnabled==false)
+            {
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
         }
     }
 }
