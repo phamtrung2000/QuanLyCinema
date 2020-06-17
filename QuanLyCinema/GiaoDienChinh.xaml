@@ -46,7 +46,7 @@
             </Grid>
         </StackPanel>
 
-        <!--màn hình chính hiển thị các form-->
+        <!--màn hình hiển thị các form-->
         <Grid Margin="240,150,0,0" Width="950" Height="620">
             <Grid x:Name="GridHienThi" 
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -107,9 +107,6 @@
                                 <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
                                 <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
                             </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem>
-                            <Button x:Name="testRefactoring" Content="Testing" Click="testRefactoring_Click"/>
                         </ListViewItem>
                     </ListView>
                 </Grid>

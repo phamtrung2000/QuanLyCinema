@@ -28,98 +28,167 @@ namespace QuanLyCinema
 
         private void btnDangNhap_Click(object sender, RoutedEventArgs e)
         {
-            txtTaiKhoan.Focus();
-
             string tk = txtTaiKhoan.Text;
             string mk = txtMatKhau.Password;
-            if (string.IsNullOrWhiteSpace(tk)) MessageBox.Show("Vui lòng nhập Tài khoản");
-            if (string.IsNullOrWhiteSpace(mk)) MessageBox.Show("Vui lòng nhập Mật khẩu");
-
-            try
+            if (tk == "")
             {
-                var DANGNHAP = true;
-                if (res == MessageBoxResult.Yes)
-                {
-                    DANGNHAP = DangNhapNhanVienBUS.Login(tk, mk);
-                    if (DANGNHAP == true)
-                    {
-                        var mainWindow = new GiaoDienChinh();
-                        var pq = DangNhapNhanVienBUS.LaNhanVien(tk, mk);
-
-                        // Hiển thị các chức năng mỗi chức vụ có thể thực hiện được.
-                        switch (pq)
-                        {
-                            case 1:
-                                mainWindow.Show();
-                                break;
-                            case 2:
-                            case 3:
-                                mainWindow.btnNhanvien.IsEnabled = false;
-                                mainWindow.btnKhachhang.IsEnabled = false;
-                                mainWindow.btnNguoidung.IsEnabled = false;
-                                mainWindow.btnPhongchieu.IsEnabled = false;
-                                mainWindow.Show();
-                                break;
-                            case 4:
-                                mainWindow.btnNguoidung.IsEnabled = false;
-                                mainWindow.btnNhanvien.IsEnabled = false;
-                                mainWindow.btnKhachhang.IsEnabled = false;
-                                mainWindow.Show();
-                                break;
-                            case 5:
-                                var result = MessageBox.Show("Bạn không có quyền truy cập vào hệ thống này!", "Thông báo", MessageBoxButton.YesNo);
-                                if (result == MessageBoxResult.Yes)
-                                    Application.Current.Shutdown();
-                                break;
-                        }
-                    }
-                    else if (DANGNHAP == false)
-                    {
-                        MessageBox.Show("Tài khoản/Mật khẩu bạn đã nhập không chính xác! Vui lòng kiểm tra lại.",
-                            "Lỗi đăng nhập");
-                        txtTaiKhoan.Focus();
-                        txtMatKhau.Clear();
-                    }
-                }
-                else if (res == MessageBoxResult.No)
-                {
-                    DANGNHAP = DangNhapKhachHangBUS.Login(tk, mk);
-                    if (DANGNHAP == true)
-                    {
-                        GiaoDienChinh mainWindow = new GiaoDienChinh();
-                        var pq = DangNhapKhachHangBUS.isstaff(tk, mk);
-                        if (pq == 1)
-                        {
-                            mainWindow.Show();
-                        }
-                        if (pq == 2)
-                        {
-                            mainWindow.btnPhongchieu.IsEnabled = false;
-                            mainWindow.Show();
-                        }
-                        if (pq == 3)
-                        {
-                            mainWindow.Show();
-                        }
-
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Tài khoản/Mật khẩu bạn đã nhập không chính xác! Vui lòng kiểm tra lại.",
-                            "Lỗi đăng nhập");
-                        txtTaiKhoan.Focus();
-                        txtMatKhau.Password = "";
-                    }
-                }
+                MessageBox.Show("Vui lòng nhập Tài khoản");
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("Lỗi kết nối");
+                if (mk == "")
+                {
+                    MessageBox.Show("Vui lòng nhập Mật khẩu");
+                }
+                else
+                {
+                    try
+                    {
+                        var DANGNHAP = true;
+                        //var validLogin2 = DangNhapKhachHangBUS.Login(tk, mk);
+                        //var validLogin = DangNhapNhanVienBUS.Login(tk, mk);
+                        //var a = DangNhapNhanVienBUS.isstaff(tk, mk);
+                        if (res == MessageBoxResult.Yes)
+                        {
+                            DANGNHAP = DangNhapNhanVienBUS.Login(tk, mk);
+                            if (DANGNHAP == true)
+                            {
+                                GiaoDienChinh mainWindow = new GiaoDienChinh();
+                                var pq = DangNhapNhanVienBUS.isstaff(tk, mk);
+                                if (pq == 1)
+                                {
+                                    mainWindow.Show();
+
+                                }
+                                else if (pq == 2)
+                                {
+
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    mainWindow.btnPhongchieu.IsEnabled = false;
+                                    mainWindow.Show();
+                                }
+                                else if (pq == 3)
+                                {
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    mainWindow.btnLoaiphim.IsEnabled = false;
+                                    mainWindow.Show();
+
+                                }
+                                else if (pq == 4)
+                                {
+                                    mainWindow.btnNguoidung.IsEnabled = false;
+                                    //mainWindow.btnPhim.IsEnabled = false;
+                                    //mainWindow.btnLoaiphim.IsEnabled = false;
+                                    mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnKhachhang.IsEnabled = false;
+                                    mainWindow.Show();
+                                }
+                                else if (pq == 5)
+                                {
+                                    MessageBoxResult a;
+                                    a = MessageBox.Show("Bạn không có quyền truy cập vào hệ thống này!", "Thông báo", MessageBoxButton.OK);
+                                    if (a == MessageBoxResult.OK)
+                                    {
+                                        Application.Current.Shutdown();
+                                    }
+                                }
+
+                                //mainWindow.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Tài khoản/Mật khẩu bạn đã nhập không chính xác! Vui lòng kiểm tra lại.",
+                                    "Lỗi đăng nhập");
+                                txtTaiKhoan.Focus();
+                                txtMatKhau.Password = "";
+                            }
+                            /// file gốc .
+                        }
+                        else if (res == MessageBoxResult.No)
+                        {
+                            DANGNHAP = DangNhapKhachHangBUS.Login(tk, mk);
+                            if (DANGNHAP == true)
+                            {
+                                GiaoDienChinh mainWindow = new GiaoDienChinh();
+                                var pq = DangNhapKhachHangBUS.isstaff(tk, mk);
+                                if (pq == 1)
+                                {
+                                    mainWindow.Show();
+                                }
+                                if (pq == 2)
+                                {
+                                    //mainWindow.btnNhanvien.IsEnabled = false;
+                                    mainWindow.btnPhongchieu.IsEnabled = false;
+                                    //mainWindow.btnLichChieu.IsEnabled = false;
+                                    mainWindow.Show();
+                                }
+                                if (pq == 3)
+                                {
+                                    mainWindow.Show();
+                                }
+
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Tài khoản/Mật khẩu bạn đã nhập không chính xác! Vui lòng kiểm tra lại.",
+                                    "Lỗi đăng nhập");
+                                txtTaiKhoan.Focus();
+                                txtMatKhau.Password = "";
+                            }
+                        }
+
+
+
+                        //if (validLogin2 == true)
+                        //{
+                        //    MainWindow mainw = new MainWindow();
+                        //    mainw.Show();
+                        //    this.Close();
+                        //}
+
+
+                        //}
+                        //else if(validLogin2==true)
+                        //{
+                        //    MainWindow mainWindow1 = new MainWindow();
+
+                        //     mainWindow1.Show();
+                        //    this.Close();
+                        //}
+                        //frmWait_for_GiaoDienChinh welcome = new frmWait_for_GiaoDienChinh();
+                        //welcome.ShowDialog();
+
+
+
+                        // thêm sự kiện logout khi bấm nút logout bên frmGiaoDienChinh,
+                        // nếu không có thì khi bấm nút LogOut , frmLogin sẽ k xuất hiện
+                        //frmGiaoDienChinh.FormClosed += LogOut;
+                        // Ẩn frmLogin khi đăng nhập thành công
+                        // hàm Close sẽ đóng luôn frm -> đóng luôn chương trình
+
+
+                        else
+                        {
+                            MessageBox.Show("Tài khoản/Mật khẩu bạn đã nhập không chính xác! Vui lòng kiểm tra lại.",
+                                "Lỗi đăng nhập");
+                            txtTaiKhoan.Focus();
+                            txtMatKhau.Password = "";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Lỗi kết nối");
+                    }
+                }
             }
         }
 
-        // ?
         private void btnThoat_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -127,14 +196,14 @@ namespace QuanLyCinema
 
         private void guest_bt_Click(object sender, RoutedEventArgs e)
         {
-            Hide();
+            this.Hide();
             GiaoDienChinh giaoDien = new GiaoDienChinh();
             giaoDien.Show();
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void btExit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

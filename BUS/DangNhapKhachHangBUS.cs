@@ -15,7 +15,7 @@ namespace BUS
         }
         public static int isstaff(string taikhoan, string matkhau)
         {
-            return DangNhapKhachHangDAO.PhanQuyen(taikhoan, matkhau);
+            return DangNhapKhachHangDAO.Phanquyen(taikhoan, matkhau);
         }
 
     }

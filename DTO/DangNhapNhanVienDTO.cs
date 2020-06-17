@@ -6,15 +6,20 @@ namespace DTO
 {
     public partial class DangNhapNhanVienDTO
     {
-        public string MaNV { get; set; }
-        public string TaiKhoan { get; set; }
-        public string MatKhau { get; set; }
+        private string _MANV;
+        public string MaNV { get => _MANV; set => _MANV = value; }
 
-        public DangNhapNhanVienDTO(string manv, string taiKhoan, string matKhau)
+        private string _TAIKHOAN;
+        public string TAIKHOAN { get => _TAIKHOAN; set => _TAIKHOAN = value; }
+
+        private string _MATKHAU;
+        public string MATKHAU { get => _MATKHAU; set => _MATKHAU = value; }
+
+        public DangNhapNhanVienDTO(string manv, string taikhoan, string matkhau)
         {
             MaNV = manv;
-            TaiKhoan = taiKhoan;
-            MatKhau = matKhau;
+            TAIKHOAN = taikhoan;
+            MATKHAU = matkhau;
         }
     }
 }

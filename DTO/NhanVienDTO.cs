@@ -8,20 +8,34 @@ namespace DTO
 {
     public class NhanVienDTO
     {
-        public string MaNV { get; set; }
-        public string HoTen { get; set; }
-        public string ChucVu { get; set; }
-        public string SDT { get; set; }
-        public string GioiTinh { get; set; }
-        public DateTime NgaySinh { get; set; }
-        public string DiaChi { get; set; }
-        public string Luong { get; set; }
-        public DateTime NgayBatDauLamViec { get; set; }
+        private string manv;
+        public string MaNV { get => manv; set => manv = value; }
 
-        public NhanVienDTO()
-        {
+        private string hoten;
+        public string HoTen { get => hoten; set => hoten = value; }
 
-        }
+        private string chucvu;
+        public string ChucVu { get => chucvu; set => chucvu = value; }
+
+        private string sdt;
+        public string SDT { get => sdt; set => sdt = value; }
+
+        private string gioitinh;
+        public string GioiTinh { get => gioitinh; set => gioitinh = value; }
+
+        private DateTime ngaysinh;
+        public DateTime NgaySinh { get => ngaysinh; set => ngaysinh = value; }
+
+
+
+        private string diachi;
+        public string DiaChi { get => diachi; set => diachi = value; }
+
+        private string luong;
+        public string Luong { get => luong; set => luong = value; }
+
+        private DateTime ngayvl;
+        public DateTime NgayVL { get => ngayvl; set => ngayvl = value; }
 
         public NhanVienDTO(string manv, string hoten, string chucvu, string sdt, string gioitinh, DateTime ngaysinh, string diachi, string luong, DateTime ngayvl)
         {
@@ -33,7 +47,7 @@ namespace DTO
             NgaySinh = ngaysinh;
             DiaChi = diachi;
             Luong = luong;
-            NgayBatDauLamViec = ngayvl;
+            NgayVL = ngayvl;
         }
     }
 }

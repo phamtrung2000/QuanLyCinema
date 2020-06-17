@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
+   
     public class NguoiDungDTO
     {
-        public string MaND { get; set; }
-        public string HoTen { get; set; }
-        public string ChucVu { get; set; }
-        public string PhanQuyen { get; set; }
+        private string mand;
+        public string MaND { get => mand; set => mand = value; }
+
+        private string hoten;
+        public string HoTen { get => hoten; set => hoten = value; }
+
+        private string chucvu;
+        public string ChucVu { get => chucvu; set => chucvu = value; }
+
+        private string phanquyen;
+        public string PhanQuyen { get => phanquyen; set => phanquyen = value; }
+
+      
 
         public NguoiDungDTO(string mand, string hoten, string chucvu, string phanquyen)
         {

@@ -13,7 +13,7 @@ namespace DAO
     {
         public static DataTable LoadDSKH()
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -26,49 +26,44 @@ namespace DAO
             connection.Close();
             return dataTable;
         }
-        public static bool Them(KhachHangDTO khachhang)
+        public static void Them(KhachHangDTO khachhang)
         {
-            var result = false;
             // mở kết nối
-            using (SqlConnection connection = SqlServerConnection.KetNoiToiCSDL())
-            {
-                connection.Open();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
 
-                // tạo câu lệnh Thêm
-                SqlCommand command = connection.CreateCommand();
-                command.CommandType = CommandType.Text;
-                command.CommandText = "EXEC Them_khachhang @MAKH,@HOTEN,@DIACHI,@NGAYSINH,@GIOITINH,@SDT,@LOAIKH,@NGAYDK";
-                //command.CommandText = "INSERT INTO KHACHHANGTHANTHIET VALUES(@MAKH,@HOTEN,@DIACHI,@NGAYSINH,@GIOITINH,@SDT,@LOAIKH,@NGAYDK)";
+            // tạo câu lệnh Thêm
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = "EXEC Them_khachhang @MAKH,@HOTEN,@DIACHI,@NGAYSINH,@GIOITINH,@SDT,@LOAIKH,@NGAYDK";
+            //command.CommandText = "INSERT INTO KHACHHANGTHANTHIET VALUES(@MAKH,@HOTEN,@DIACHI,@NGAYSINH,@GIOITINH,@SDT,@LOAIKH,@NGAYDK)";
 
-                command.Parameters.Add("@MAKH", SqlDbType.VarChar, 10);
-                command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-                command.Parameters.Add("@DIACHI", SqlDbType.NVarChar, 100);
-                command.Parameters.Add("@NGAYSINH", SqlDbType.Date);
-                command.Parameters.Add("@GIOITINH", SqlDbType.NVarChar, 4);
-                command.Parameters.Add("@SDT", SqlDbType.VarChar, 20);
-                command.Parameters.Add("@LOAIKH", SqlDbType.NVarChar, 50);
-                command.Parameters.Add("@NGAYDK", SqlDbType.Date);
+            command.Parameters.Add("@MAKH", SqlDbType.VarChar, 10);
+            command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
+            command.Parameters.Add("@DIACHI", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@NGAYSINH", SqlDbType.Date);
+            command.Parameters.Add("@GIOITINH", SqlDbType.NVarChar, 4);
+            command.Parameters.Add("@SDT", SqlDbType.VarChar, 20);
+            command.Parameters.Add("@LOAIKH", SqlDbType.NVarChar, 50);
+            command.Parameters.Add("@NGAYDK", SqlDbType.Date);
 
-                // gán giá trị
-                command.Parameters["@MAKH"].Value = khachhang.MaKH;
-                command.Parameters["@HOTEN"].Value = khachhang.Hoten;
-                command.Parameters["@DIACHI"].Value = khachhang.Diachi;
-                command.Parameters["@NGAYSINH"].Value = khachhang.Ngaysinh;
-                command.Parameters["@GIOITINH"].Value = khachhang.Gioitinh;
-                command.Parameters["@SDT"].Value = khachhang.Sdt;
-                command.Parameters["@LOAIKH"].Value = khachhang.Loaikh;
-                command.Parameters["@NGAYDK"].Value = khachhang.Ngaydk;
+            // gán giá trị
+            command.Parameters["@MAKH"].Value = khachhang.MaKH;
+            command.Parameters["@HOTEN"].Value = khachhang.Hoten;
+            command.Parameters["@DIACHI"].Value = khachhang.Diachi;
+            command.Parameters["@NGAYSINH"].Value = khachhang.Ngaysinh;
+            command.Parameters["@GIOITINH"].Value = khachhang.Gioitinh;
+            command.Parameters["@SDT"].Value = khachhang.Sdt;
+            command.Parameters["@LOAIKH"].Value = khachhang.Loaikh;
+            command.Parameters["@NGAYDK"].Value = khachhang.Ngaydk;
+            command.ExecuteNonQuery();
 
-                command.ExecuteNonQuery();
-
-                // đóng kết nối
-                connection.Close();
-            }
-            return result;
+            // đóng kết nối
+            connection.Close();
         }
         public static void Xoa(string makh)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -84,7 +79,7 @@ namespace DAO
         public static void Sua(KhachHangDTO khachhang)
         {
             // mở kết nối
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             // tạo câu lệnh Sửa
@@ -126,7 +121,7 @@ namespace DAO
         }
         public static DataTable TimTheoMaKH(string makh)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
@@ -147,7 +142,7 @@ namespace DAO
 
         public static DataTable TimTheoHoTen(string hoten)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
@@ -168,7 +163,7 @@ namespace DAO
 
         public static DataTable TimTheoSDT(string sdt)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();

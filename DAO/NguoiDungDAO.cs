@@ -15,7 +15,7 @@ namespace DAO
         //Load danh sách sv từ database
         public static DataTable LoadDSND()
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -32,7 +32,7 @@ namespace DAO
         public static void Them(NguoiDungDTO nguoidung)
         {
             // mở kết nối
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             // tạo câu lệnh Thêm
@@ -60,7 +60,7 @@ namespace DAO
         public static void Sua(NguoiDungDTO nguoidung)
         {
             // mở kết nối
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             // tạo câu lệnh Sửa
@@ -98,7 +98,7 @@ namespace DAO
 
         public static void Xoa(string manv)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
@@ -114,7 +114,7 @@ namespace DAO
 
         public static DataTable TimTheoMaND(string manv)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
@@ -135,7 +135,7 @@ namespace DAO
 
         public static DataTable TimTheoHoTenNguoiDung(string hoten)
         {
-            SqlConnection connection = SqlServerConnection.KetNoiToiCSDL();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
