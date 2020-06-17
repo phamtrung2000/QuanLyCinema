@@ -105,9 +105,6 @@
     <Compile Include="LoaiPhim\frmPhim.xaml.cs">
       <DependentUpon>frmPhim.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoaiPhim\LoaiPhim.xaml.cs">
-      <DependentUpon>LoaiPhim.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -155,10 +152,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoaiPhim\frmPhim.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoaiPhim\LoaiPhim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
