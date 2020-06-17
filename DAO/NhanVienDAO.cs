@@ -89,7 +89,7 @@ namespace DAO
             //    "WHERE MANV=@MANV";
             command.Parameters.Add("@MANV", SqlDbType.VarChar, 10);
             command.Parameters.Add("@HOTEN", SqlDbType.NVarChar, 40);
-            command.Parameters.Add("@CHUCVU", SqlDbType.NVarChar, 100);
+            command.Parameters.Add("@CHUCVU", SqlDbType.VarChar, 20);
             command.Parameters.Add("@SDT", SqlDbType.VarChar, 20);
             command.Parameters.Add("@GIOITINH", SqlDbType.NVarChar, 4);
             command.Parameters.Add("@NGAYSINH", SqlDbType.Date);

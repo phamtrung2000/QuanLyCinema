@@ -60,6 +60,10 @@ namespace QuanLyCinema
                     GridHienThi.Children.Clear();
                     GridHienThi.Children.Add(new frmNguoiDung());
                     break;
+                case 5:
+                    GridHienThi.Children.Clear();
+                    GridHienThi.Children.Add(new LoaiPhim.LoaiPhim());
+;                    break;
                 default:
                     break;
             }
