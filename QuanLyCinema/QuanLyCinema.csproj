@@ -87,6 +87,9 @@
     <Compile Include="GiaoDienChinh_KhachHang.xaml.cs">
       <DependentUpon>GiaoDienChinh_KhachHang.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GiaoDien\frmLoaiPhim.xaml.cs">
+      <DependentUpon>frmLoaiPhim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiaoDien\frmNguoiDung.xaml.cs">
       <DependentUpon>frmNguoiDung.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
     <Page Include="GiaoDienChinh_KhachHang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDien\frmLoaiPhim.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GiaoDien\frmNguoiDung.xaml">
       <SubType>Designer</SubType>
