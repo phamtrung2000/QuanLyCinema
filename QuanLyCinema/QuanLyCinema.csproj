@@ -84,8 +84,14 @@
     <Compile Include="frmKhachHang.xaml.cs">
       <DependentUpon>frmKhachHang.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GiaoDienChinh_KhachHang.xaml.cs">
+      <DependentUpon>GiaoDienChinh_KhachHang.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiaoDien\frmNguoiDung.xaml.cs">
       <DependentUpon>frmNguoiDung.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDien\frmPhongChieu.xaml.cs">
+      <DependentUpon>frmPhongChieu.xaml</DependentUpon>
     </Compile>
     <Compile Include="KhachHang\frmAddKhachHang.xaml.cs">
       <DependentUpon>frmAddKhachHang.xaml</DependentUpon>
@@ -93,8 +99,8 @@
     <Compile Include="LoaiPhim\frmAddLoaiphim.xaml.cs">
       <DependentUpon>frmAddLoaiphim.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoaiPhim\LoaiPhim.xaml.cs">
-      <DependentUpon>LoaiPhim.xaml</DependentUpon>
+    <Compile Include="GiaoDien\frmLoaiPhim.xaml.cs">
+      <DependentUpon>frmLoaiPhim.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -111,11 +117,22 @@
     <Compile Include="TongQuan.xaml.cs">
       <DependentUpon>TongQuan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="frmKhachHang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GiaoDienChinh_KhachHang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GiaoDien\frmNguoiDung.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDien\frmPhongChieu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +144,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoaiPhim\LoaiPhim.xaml">
+    <Page Include="GiaoDien\frmLoaiPhim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TongQuan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,10 +205,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="mau-background-don-gian-27-1024x681.png" />
+    <Resource Include="Resources\mau-background-don-gian-27-1024x681.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="film-movie-industry-creative-symbol-concept-play-stop-pause-button-cinema-abstract-business-logo-vintage-video-camera-media-137072254.jpg" />
+    <Resource Include="Resources\film-movie-industry-creative-symbol-concept-play-stop-pause-button-cinema-abstract-business-logo-vintage-video-camera-media-137072254.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -243,6 +264,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cinema_toolbar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CaChieu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets')" />

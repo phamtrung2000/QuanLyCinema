@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLyCinema.GiaoDienChinh"
+﻿<Window x:Class="QuanLyCinema.GiaoDienChinh_KhachHang"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:QuanLyCinema"
         mc:Ignorable="d"
         
-         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
@@ -24,7 +24,6 @@
         Width="1200"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-
     <Grid Background="#FFFBF2F2" >
 
         <!--panel toolbar-->
@@ -63,7 +62,7 @@
                     <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" 
                                                          OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
                     </materialDesign:TransitioningContent>
-                    <ListView x:Name="ListViewMenu"
+                    <!--<ListView x:Name="ListViewMenu"
                               Height="620"
                               Width="240"
                               Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0" Background="#FFEAE2E2">
@@ -109,27 +108,7 @@
                                 <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
                             </StackPanel>
                         </ListViewItem>
-                        
-                        <ListViewItem>
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-
-                        <ListViewItem>
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Loại vé" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-
-                        
-
-
-
-                    </ListView>
-                   
+                    </ListView>-->
                 </Grid>
             </StackPanel>
         </Grid>

@@ -7,8 +7,6 @@
              mc:Ignorable="d" 
              Height="620" Width="950">
     <Grid x:Name="GridNhanVien" Background="#FFF9F3F3" Loaded="GridNhanVien_Loaded">
-
-
         <GroupBox Header="Thông tin nhân viên"
                   Margin="20,140,480,25"  
                   Width="450">

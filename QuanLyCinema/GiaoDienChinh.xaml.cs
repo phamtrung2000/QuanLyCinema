@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuanLyCinema.GiaoDien;
+using QuanLyCinema.LoaiPhim;
 
 namespace QuanLyCinema
 {
@@ -60,10 +61,15 @@ namespace QuanLyCinema
                     GridHienThi.Children.Clear();
                     GridHienThi.Children.Add(new frmNguoiDung());
                     break;
+                case 4:
+                    GridHienThi.Children.Clear();
+                    GridHienThi.Children.Add(new frmPhongChieu());
+                    break;
                 case 5:
                     GridHienThi.Children.Clear();
-                    GridHienThi.Children.Add(new LoaiPhim.LoaiPhim());
+                    GridHienThi.Children.Add(new frmLoaiPhim());
 ;                    break;
+
                 default:
                     break;
             }

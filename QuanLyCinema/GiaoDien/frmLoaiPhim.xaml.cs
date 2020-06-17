@@ -25,9 +25,9 @@ namespace QuanLyCinema.LoaiPhim
     /// <summary>
     /// Interaction logic for LoaiPhim.xaml
     /// </summary>
-    public partial class LoaiPhim : UserControl
+    public partial class frmLoaiPhim : UserControl
     {
-        public LoaiPhim()
+        public frmLoaiPhim()
         {
             InitializeComponent();
         }
@@ -53,12 +53,10 @@ namespace QuanLyCinema.LoaiPhim
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
-            {
+            { 
                 txtMalp.Text = dr["MALP"].ToString();
                 txtTenloaiphim.Text = dr["TENLP"].ToString();
                 txtMota.Text = dr["MOTA"].ToString();
-                
-
             }
         }
 
@@ -233,7 +231,7 @@ namespace QuanLyCinema.LoaiPhim
             if (txtTimKiem.Text == "")
             {
                 txtTimKiem.Text = "Tìm Kiếm...";
-                dtgDSLP.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+                dtgDSLP.ItemsSource = LoaiPhimBUS.LoadDSLP().DefaultView;
             }
         }
 

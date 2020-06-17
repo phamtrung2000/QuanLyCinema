@@ -32,6 +32,8 @@ namespace QuanLyCinema
             InitializeComponent();
         }
 
+        bool Selected = false;
+
         void ChoPhepNhap()
         {
             txtHoTen.IsReadOnly = txtMaNV.IsReadOnly = txtChucVu.IsReadOnly = txtSDT.IsReadOnly = txtDiaChi.IsReadOnly = txtLuong.IsReadOnly = false;
@@ -66,6 +68,7 @@ namespace QuanLyCinema
 
         private void dtgDSNV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Selected = true;
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
             if (dr != null)
@@ -111,11 +114,16 @@ namespace QuanLyCinema
 
         private void btnSua_Click(object sender, RoutedEventArgs e)
         {
-            ChoPhepNhap();
-            btnLuu_Sua.Visibility = Visibility.Visible;
-            btnHuy_Sua.Visibility = Visibility.Visible;
-            btnSua.Visibility = Visibility.Hidden;
-            btnThem.IsEnabled = btnXoa.IsEnabled = false;
+            if (Selected == false)
+                MessageBox.Show("Bạn chưa chọn nhân viên để sửa thông tin");
+            else
+            {
+                ChoPhepNhap();
+                btnLuu_Sua.Visibility = Visibility.Visible;
+                btnHuy_Sua.Visibility = Visibility.Visible;
+                btnSua.Visibility = Visibility.Hidden;
+                btnThem.IsEnabled = btnXoa.IsEnabled = false;
+            }    
         }
 
         private void btnLuu_Sua_Click(object sender, RoutedEventArgs e)
@@ -247,7 +255,8 @@ namespace QuanLyCinema
         int type_timkiem = -1;
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            String a = cbbTimKiem.SelectedItem.ToString();
+            if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
+                txtTimKiem.Text = "";
             if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã Nhân Viên")
             {
                 type_timkiem = 0;
@@ -260,6 +269,7 @@ namespace QuanLyCinema
             {
                 type_timkiem = 2;
             }
+            txtTimKiem.Focus();
         }
 
 
@@ -300,7 +310,10 @@ namespace QuanLyCinema
                 cbbTimKiem.Focus();
             }
             else if (txtTimKiem.Text == "Tìm Kiếm...")
+            {
                 txtTimKiem.Text = "";
+            }
+                
         }
 
         private void txtTimKiem_LostFocus(object sender, RoutedEventArgs e)
@@ -324,7 +337,11 @@ namespace QuanLyCinema
         {
             KhongChoNhap();
             dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            panelTimKiem.Visibility = btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            if (btnSua.Visibility == Visibility.Hidden)
+                btnSua.Visibility = Visibility.Visible;
+            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
         }
     }
 }
