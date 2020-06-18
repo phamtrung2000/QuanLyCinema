@@ -102,10 +102,7 @@ namespace DAO
                         return 0;
                     }
                 }
-                connection.Close();
             }
-
-
         }
     }
 }

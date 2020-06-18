@@ -48,11 +48,13 @@
     <Compile Include="DangNhapNhanVienDTO.cs" />
     <Compile Include="KhachHangDTO.cs" />
     <Compile Include="LoaiPhimDTO.cs" />
+    <Compile Include="LoaiVeDTO.cs" />
     <Compile Include="NguoiDungDTO.cs" />
     <Compile Include="NhanVienDTO.cs" />
     <Compile Include="PhimDTO.cs" />
     <Compile Include="PhongChieuDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VeDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

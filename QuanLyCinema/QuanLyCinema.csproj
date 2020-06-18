@@ -90,6 +90,9 @@
     <Compile Include="GiaoDien\frmLoaiPhim.xaml.cs">
       <DependentUpon>frmLoaiPhim.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GiaoDien\frmLoaiVe.xaml.cs">
+      <DependentUpon>frmLoaiVe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiaoDien\frmNguoiDung.xaml.cs">
       <DependentUpon>frmNguoiDung.xaml</DependentUpon>
     </Compile>
@@ -105,7 +108,7 @@
     <Compile Include="LoaiPhim\frmAddPhim.xaml.cs">
       <DependentUpon>frmAddPhim.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoaiPhim\frmPhim.xaml.cs">
+    <Compile Include="GiaoDien\frmPhim.xaml.cs">
       <DependentUpon>frmPhim.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
@@ -120,11 +123,11 @@
     <Compile Include="NhanVien\frmAddNhanVien.xaml.cs">
       <DependentUpon>frmAddNhanVien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TongQuan.xaml.cs">
       <DependentUpon>TongQuan.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="frmKhachHang.xaml">
       <SubType>Designer</SubType>
@@ -137,6 +140,10 @@
     <Page Include="GiaoDien\frmLoaiPhim.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GiaoDien\frmLoaiVe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GiaoDien\frmNguoiDung.xaml">
       <SubType>Designer</SubType>
@@ -158,7 +165,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoaiPhim\frmPhim.xaml">
+    <Page Include="GiaoDien\frmPhim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,11 +189,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TongQuan.xaml">
+    <Page Include="Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
+    <Page Include="TongQuan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

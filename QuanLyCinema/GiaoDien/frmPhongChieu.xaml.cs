@@ -17,7 +17,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using BUS;
-using QuanLyCinema.NhanVien;
+using QuanLyCinema.GiaoDien;
 using DTO;
 
 namespace QuanLyCinema.GiaoDien
@@ -84,12 +84,12 @@ namespace QuanLyCinema.GiaoDien
 
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
-            frmAddNhanVien addNhanVien = new frmAddNhanVien();
-            addNhanVien.ShowDialog();
-            dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
-            KhongChoNhap();
-            btnThem.Visibility = Visibility.Visible;
-            btnSua.IsEnabled = btnXoa.IsEnabled = true;
+            //frmAddNhanVien addNhanVien = new frmAddNhanVien();
+            //addNhanVien.ShowDialog();
+            //dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+            //KhongChoNhap();
+            //btnThem.Visibility = Visibility.Visible;
+            //btnSua.IsEnabled = btnXoa.IsEnabled = true;
         }
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)

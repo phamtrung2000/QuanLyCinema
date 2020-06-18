@@ -75,6 +75,7 @@ namespace QuanLyCinema.NhanVien
                 gioitinh = "Nữ";
 
             DateTime ngaysinh = dtpNgaySinh.DisplayDate;
+           
 
             string sdt = null;
             if (txtSDT.Text.Length != 0)
@@ -174,6 +175,20 @@ namespace QuanLyCinema.NhanVien
                 }
             }    
             
+        }
+
+        private void txtSDT_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int n = txtSDT.Text.Length;
+            if (n > 0)
+            {
+                if ('a' <= txtSDT.Text[n - 1] && txtSDT.Text[n - 1] <= 'z' || ('A' <= txtSDT.Text[n - 1] && txtSDT.Text[n - 1] <= 'Z'))
+                {
+                    MessageBox.Show("Số điện thoại chỉ có thế là số, vui lòng nhập lại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtSDT.Text = txtSDT.Text.Remove(n - 1, 1);
+                    txtSDT.SelectionStart = n - 1;
+                }
+            }
         }
     }
 }

@@ -32,6 +32,55 @@ namespace QuanLyCinema
             InitializeComponent();
         }
 
+        string Money(string money) // chuyển từ 100000.00 hay thành 100.000 ( nhìn cho đẹp )
+        {
+            int n = money.Length;
+            string kq = "";
+            for (int i = n - 1; i >= 3; i -= 3)
+            {
+                kq = kq.Insert(0, money.Substring(i - 2, 3));
+                // kq = 000
+                kq = kq.Insert(0, ".");
+                // .000
+                money = money.Remove(i - 2, 3);
+            }
+            kq = kq.Insert(0, money);
+            return kq;
+        }
+        //int rowcount = 0;
+        List<NhanVienDTO> listnhanVien = new List<NhanVienDTO>();
+
+        void Load_Data(DataTable dataTable)
+        {
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                object[] a = new object[10];
+                a = dataTable.Rows[i].ItemArray;
+                string stt = a[0].ToString();
+                string manv = a[1].ToString();
+                string hoten = a[2].ToString();
+                string chucvu = a[3].ToString();
+                string sdt = a[4].ToString();
+                string gioitinh = a[5].ToString();
+
+                DateTime ngaysinh_temp = DateTime.Parse(a[6].ToString());
+                string ngaysinh = ngaysinh_temp.Day.ToString() + "/" + ngaysinh_temp.Month.ToString() + "/" + ngaysinh_temp.Year.ToString();
+
+                string diachi = a[7].ToString();
+
+                string luong = a[8].ToString();
+                double luong1 = double.Parse(luong);
+                luong = Money(luong1.ToString());
+
+                DateTime ngayvl_temp = DateTime.Parse(a[9].ToString());
+                string ngayvl = ngayvl_temp.Day.ToString() + "/" + ngayvl_temp.Month.ToString() + "/" + ngayvl_temp.Year.ToString();
+
+                listnhanVien.Add(new NhanVienDTO(stt, manv, hoten, chucvu, sdt, gioitinh, ngaysinh, diachi, luong, ngayvl));
+                dtgDSNV.Items.Add(listnhanVien[i]);
+            }
+            //dtgDSNV.ItemsSource = listnhanVien;
+            //rowcount = dataTable.Rows.Count;
+        }
         bool Selected = false;
 
         void ChoPhepNhap()
@@ -62,33 +111,76 @@ namespace QuanLyCinema
         private void GridNhanVien_Loaded(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
+
+            DataTable dataTable = new DataTable();
+            dataTable = NhanVienBUS.LoadDSNV();
+            Load_Data(dataTable);
+            //dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
+
             panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
 
         private void dtgDSNV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // khúc này dr null vì nó ko phải datarowview mà là 1 nhân viên dto
+
+            //DataGrid dg = sender as DataGrid;
+            //DataRowView dr = dg.SelectedItem as DataRowView;
+            //if (dr != null) 
+            //{
+            //    txtMaNV.Text = dr["Mã nhân viên"].ToString();
+            //    txtHoTen.Text = dr["Họ tên"].ToString();
+            //    txtChucVu.Text = dr["Chức vụ"].ToString();
+            //    txtSDT.Text = dr["SĐT"].ToString();
+
+            //    string gioitinh = dr["Giới tính"].ToString();
+            //    if (gioitinh == "Nam")
+            //        rdbNam.IsChecked = true;
+            //    else if (gioitinh == "Nữ")
+            //        rdbNu.IsChecked = true;
+
+            //    dtpNgaySinh.SelectedDate = DateTime.Parse(dr["Ngày sinh"].ToString());
+            //    txtDiaChi.Text = dr["Địa chỉ"].ToString();
+            //    txtLuong.Text = dr["Lương (VND)"].ToString();
+            //    dtpNgayVL.SelectedDate = DateTime.Parse(dr["Ngày vào làm"].ToString());
+            //}
+
             Selected = true;
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtMaNV.Text = dr["MANV"].ToString();
-                txtHoTen.Text = dr["HOTEN"].ToString();
-                txtChucVu.Text = dr["CHUCVU"].ToString();
-                txtSDT.Text = dr["SDT"].ToString();
+            NhanVienDTO nv = dtgDSNV.SelectedItem as NhanVienDTO;
+            txtMaNV.Text = nv.MaNV;
+            txtHoTen.Text = nv.HoTen;
+            txtChucVu.Text = nv.ChucVu;
+            txtSDT.Text = nv.SDT;
+            string gioitinh = nv.GioiTinh;
+            if (gioitinh == "Nam")
+                rdbNam.IsChecked = true;
+            else if (gioitinh == "Nữ")
+                rdbNu.IsChecked = true;
 
-                string gioitinh = dr["GIOITINH"].ToString();
-                if (gioitinh == "Nam")
-                    rdbNam.IsChecked = true;
-                else if (gioitinh == "Nữ")
-                    rdbNu.IsChecked = true;
+            string abc = nv.NgaySinh.ToString();
 
-                dtpNgaySinh.SelectedDate = DateTime.Parse(dr["NGAYSINH"].ToString());
-                txtDiaChi.Text = dr["DIACHI"].ToString();
-                txtLuong.Text = dr["LUONG"].ToString();
-                dtpNgayVL.SelectedDate = DateTime.Parse(dr["NGAYVL"].ToString());
-            }
+            // "1/1/0001 12:00:00 AM"
+            string abcd = nv.NgaySinh_String;
+            // "22/10/1960"
+            string abcde = nv.NgaySinh_String.Trim() + " 12:00:00 AM";
+            dtpNgaySinh.SelectedDate= DateTime.Parse(nv.NgaySinh_String);
+
+            // dtpNgaySinh.SelectedDate = nv.NgaySinh;
+
+            txtDiaChi.Text = nv.DiaChi;
+            txtLuong.Text = nv.Luong;
+            //dtpNgayVL.SelectedDate = DateTime.Parse(nv.NgayVL_String);
+        }
+
+        string thaythengay(string a,string b)
+        {
+            string kq = "";
+            int vitri = a.IndexOf(' ');
+            vitri = 0;
+            while (a[vitri] != ' ')
+                vitri++;
+
+            return kq;
         }
 
         private void btnThem_Click(object sender, RoutedEventArgs e)
@@ -233,7 +325,7 @@ namespace QuanLyCinema
                 MessageBox.Show("Sửa thông tin nhân viên  thành công", "Thông báo");
                 dtgDSNV.ItemsSource = NhanVienBUS.LoadDSNV().DefaultView;
                 KhongChoNhap();
-                btnLuu_Sua.Visibility = Visibility.Hidden;
+                btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
                 btnSua.Visibility = Visibility.Visible;
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
                 dtgDSNV.IsEnabled = true;

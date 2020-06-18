@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="QuanLyCinema.GiaoDien.frmLoaiVe"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyCinema.GiaoDien"
+             mc:Ignorable="d" 
+              Height="620" Width="950">
+    <Grid x:Name="GridLoaiVe" Background="#FFF9F3F3" Loaded="GridLoaiVe_Loaded">
+        <GroupBox Header="Thông tin loại vé"
+                  Margin="20,140,480,25"  
+                  Width="450">
+            <Grid>
+                <TextBox x:Name="txtMaLV"  Margin="156,25,10,355" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblMaLV" Content="Mã loại vé:"
+                       Margin="10,25,321,355"/>
+
+                <TextBox x:Name="txtTenLV" Height="25" Margin="156,60,10,318" TextWrapping="Wrap" Text="" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblTenLV" Content="Tên loại vé:"
+                       Margin="10,60,321,320"/>
+
+                <TextBox x:Name="txtLoaiChoNgoi" Height="25" Margin="156,95,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblLoaiChoNgoi" Content="Loại chỗ ngồi:"
+                       Margin="10,95,321,285"/>
+
+                <TextBox x:Name="txtGia" Height="25" Margin="156,130,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblGia" Content="Giá:"
+                       Margin="10,130,321,250" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+
+            </Grid>
+        </GroupBox>
+
+
+        <GroupBox Header="Danh sách loại vé" Margin="480,140,20,20" Width="450">
+            <DataGrid x:Name="dtgDSLoaiVe" Height="400" VerticalAlignment="Top" Width="432" 
+                      SelectionChanged="dtgDSLoaiVe_SelectionChanged"
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        </GroupBox>
+
+        <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">
+            <Grid Height="120">
+                <TextBox x:Name="txtTimKiem" Height="39" TextWrapping="Wrap" Text="Tìm Kiếm..." Margin="10,10,10,71" Opacity="0.5"
+                        TextChanged="txtTimKiem_TextChanged" 
+                         LostFocus="txtTimKiem_LostFocus" 
+                        GotFocus="txtTimKiem_GotFocus"/>
+                <ComboBox x:Name="cbbTimKiem" HorizontalAlignment="Left" Margin="160,75,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Mã loại vé" HorizontalAlignment="Left" Width="238"/>
+                    <ComboBoxItem Content="Tên loại vé" HorizontalAlignment="Left" Width="238"/>
+                </ComboBox>
+
+            </Grid>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="112" Margin="470,10,0,0"
+                    VerticalAlignment="Top" Width="460">
+            <Grid Height="120">
+                <Button x:Name="btnTimKiem" Content="Tìm Kiếm" Width="135" Height="44" Margin="10,10,315,66" Click="btnTimKiem_Click"/>
+                <Button x:Name="btnThem" Content="Thêm" Width="135" Height="44" Margin="165,10,160,66" Click="btnThem_Click"/>
+                <Button x:Name="btnSua" Content="Sửa" Width="135" Height="44" Margin="165,66,160,10" Click="btnSua_Click"/>
+                <Button x:Name="btnLamMoi" Content="Làm mới" Width="135" Height="44" Margin="10,66,315,10" Click="btnLamMoi_Click"/>
+
+                <Button x:Name="btnLuu_Sua" Content="Lưu" Width="135" Height="44" Margin="165,66,160,10" Visibility="Hidden" Click="btnLuu_Sua_Click"/>
+                <Button x:Name="btnXoa" Content="Xóa" Width="135" Height="44" Margin="315,10,10,66" Click="btnXoa_Click"/>
+                <Button x:Name="btnHuy_Sua" Content="Hủy" Width="135" Height="44" Margin="315,66,10,10" Background="#FF673AB7" Click="btnHuy_Sua_Click"/>
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
