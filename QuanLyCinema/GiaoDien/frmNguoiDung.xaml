@@ -9,7 +9,7 @@
     <Grid x:Name="GridNguoiDung" Background="#FFF9F3F3" Loaded="GridNguoiDung_Loaded">
 
 
-        <GroupBox Header="Thông tin người dùng"
+        <GroupBox x:Name="grpThongTinNguoiDung" Header="Thông tin người dùng"
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>
@@ -36,6 +36,7 @@
         <GroupBox Header="Danh sách người dùng" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSND" Height="400" VerticalAlignment="Top" Width="432" 
                       SelectionChanged="dtgDSND_SelectionChanged"
+                      MouseUp="dtgDSND_MouseUp"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </GroupBox>
 

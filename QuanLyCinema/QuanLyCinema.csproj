@@ -120,6 +120,9 @@
     <Compile Include="frmNhanVien.xaml.cs">
       <DependentUpon>frmNhanVien.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NguoiDung\frmAddNguoiDung.xaml.cs">
+      <DependentUpon>frmAddNguoiDung.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NhanVien\frmAddNhanVien.xaml.cs">
       <DependentUpon>frmAddNhanVien.xaml</DependentUpon>
     </Compile>
@@ -182,6 +185,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NguoiDung\frmAddNguoiDung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

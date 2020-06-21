@@ -51,7 +51,7 @@ namespace QuanLyCinema
                         if (DANGNHAP == true)
                         {
                             GiaoDienChinh mainWindow = new GiaoDienChinh();
-                            var pq = DangNhapNhanVienBUS.isstaff(tk, mk);
+                            var pq = DangNhapNhanVienBUS.PhanQuyen(tk, mk);
                             if (pq == 1)
                             {
                                 mainWindow.Show();
@@ -59,7 +59,6 @@ namespace QuanLyCinema
                             }
                             else if (pq == 2)
                             {
-
                                 mainWindow.btnNhanvien.IsEnabled = false;
                                 mainWindow.btnKhachhang.IsEnabled = false;
                                 mainWindow.btnNguoidung.IsEnabled = false;

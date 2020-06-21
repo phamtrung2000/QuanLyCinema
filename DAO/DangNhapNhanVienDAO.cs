@@ -62,7 +62,8 @@ namespace DAO
             {
                 connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand("EXEC Phanquyennhanvien '"+user+"','"+pass+"'", connection))
+                // using (SqlCommand cmd = new SqlCommand("EXEC Phanquyennhanvien '"+user+"','"+pass+"'", connection))
+                using (SqlCommand cmd = new SqlCommand("EXEC PhanQuyen '" + user + "','" + pass + "'", connection))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
@@ -73,28 +74,31 @@ namespace DAO
 
                         foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            a = row["CHUCVU"].ToString();
-
+                            //a = row["CHUCVU"].ToString();
+                            a = row["PHANQUYEN"].ToString();
                         }
-                        /// quanly :1   nhanvien ban hang :2 
+                        
                         if (a == "Quản trị")
                         {
                             return 1;
                         }
-                        else if (a == "Nhân viên quản lý phim")
+                        // else if (a == "Nhân viên quản lý phim")
+                        else if (a == "Quản lý phim, Quản lý loại phim")
                         {
                             return 2;
                         }
-                        else if (a == "Nhân viên quản lý phòng chiếu")
+                        // else if (a == "Nhân viên quản lý phòng chiếu")
+                        else if (a == "Quản lý phòng chiếu")
                         {
                             return 3;
                         }
-                        else if (a == "Nhân viên quản lý lịch chiếu")
+                        //     else if (a == "Nhân viên quản lý lịch chiếu")
+                        else if (a == "Quản lý lịch chiếu")
                         {
                             return 4;
                         }
-
-                        else if (a == "Nhân viên bán vé")
+                        // else if (a == "Nhân viên bán vé")
+                        else if (a == "Quản lý loại vé, Quản lý vé")
                         {
                             return 5;
                         }

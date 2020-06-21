@@ -19,6 +19,7 @@ using System.Configuration;
 using BUS;
 using QuanLyCinema.NhanVien;
 using DTO;
+using QuanLyCinema.NguoiDung;
 
 namespace QuanLyCinema.GiaoDien
 {
@@ -36,6 +37,7 @@ namespace QuanLyCinema.GiaoDien
         {
             txtHoTen.IsReadOnly = txtMaND.IsReadOnly = txtChucVu.IsReadOnly = txtPhanQuyen.IsReadOnly = false;
             txtHoTen.Focus();
+            grpThongTinNguoiDung.IsEnabled = true;
         }
 
         void KhongChoNhap()
@@ -48,27 +50,65 @@ namespace QuanLyCinema.GiaoDien
             txtHoTen.IsReadOnly = txtMaND.IsReadOnly = txtChucVu.IsReadOnly = txtPhanQuyen.IsReadOnly = true;
         }
 
-        
+        List<NguoiDungDTO> listNguoiDung = new List<NguoiDungDTO>();
 
+        void Load_Data(DataTable dataTable)
+        {
+            // dtgDSND.Items.Clear();
+            dtgDSND.ItemsSource = null;
+            listNguoiDung = new List<NguoiDungDTO>();
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                object[] a = new object[5];
+                a = dataTable.Rows[i].ItemArray;
+                string stt = a[0].ToString();
+                string manv = a[1].ToString();
+                string hoten = a[2].ToString();
+                string chucvu = a[3].ToString();
+                string phanquyen = a[4].ToString();
+
+                listNguoiDung.Add(new NguoiDungDTO(stt, manv, hoten, chucvu,phanquyen));
+                // dtgDSND.Items.Add(listNguoiDung[i]);
+            }
+            dtgDSND.ItemsSource = listNguoiDung;
+            //rowcount = dataTable.Rows.Count;
+        }
+
+        private void GridNguoiDung_Loaded(object sender, RoutedEventArgs e)
+        {
+            KhongChoNhap();
+            DataTable dataTable = new DataTable();
+            dataTable = NguoiDungBUS.LoadDSND();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+        }
+
+        bool Selected = false;
+        
         private void dtgDSND_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtMaND.Text = dr["MAND"].ToString();
-                txtHoTen.Text = dr["HOTEN"].ToString();
-                txtChucVu.Text = dr["CHUCVU"].ToString();
-                txtPhanQuyen.Text = dr["PHANQUYEN"].ToString();
+            //DataGrid dg = sender as DataGrid;
+            //DataRowView dr = dg.SelectedItem as DataRowView;
+            //if (dr != null)
+            //{
+            //    txtMaND.Text = dr["MAND"].ToString();
+            //    txtHoTen.Text = dr["HOTEN"].ToString();
+            //    txtChucVu.Text = dr["CHUCVU"].ToString();
+            //    txtPhanQuyen.Text = dr["PHANQUYEN"].ToString();
 
-            }
+            //}
         }
 
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
-            frmAddNhanVien addNhanVien = new frmAddNhanVien();
-            addNhanVien.ShowDialog();
-            dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+            frmAddNguoiDung frmAddNguoiDung = new frmAddNguoiDung();
+            frmAddNguoiDung.ShowDialog();
+
+            DataTable dataTable = new DataTable();
+            dataTable = NguoiDungBUS.LoadDSND();
+            Load_Data(dataTable);
+
             KhongChoNhap();
             btnThem.Visibility = Visibility.Visible;
             btnSua.IsEnabled = btnXoa.IsEnabled = true;
@@ -82,16 +122,23 @@ namespace QuanLyCinema.GiaoDien
                 NguoiDungBUS.Xoa(txtMaND.Text);
                 MessageBox.Show("Xóa người dùng thành công", "Thông Báo");
             }
-            dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+            DataTable dataTable = new DataTable();
+            dataTable = NguoiDungBUS.LoadDSND();
+            Load_Data(dataTable);
         }
 
         private void btnSua_Click(object sender, RoutedEventArgs e)
         {
-            ChoPhepNhap();
-            btnLuu_Sua.Visibility = Visibility.Visible;
-            btnHuy_Sua.Visibility = Visibility.Visible;
-            btnSua.Visibility = Visibility.Hidden;
-            btnThem.IsEnabled = btnXoa.IsEnabled = false;
+            if (Selected == false)
+                MessageBox.Show("Bạn chưa chọn nhân viên để sửa thông tin");
+            else
+            {
+                ChoPhepNhap();
+                btnLuu_Sua.Visibility = Visibility.Visible;
+                btnHuy_Sua.Visibility = Visibility.Visible;
+                btnSua.Visibility = Visibility.Hidden;
+                btnThem.IsEnabled = btnXoa.IsEnabled = false;
+            }
         }
 
         private void btnLuu_Sua_Click(object sender, RoutedEventArgs e)
@@ -119,9 +166,7 @@ namespace QuanLyCinema.GiaoDien
                 phanquyen = txtPhanQuyen.Text;
             }
 
-           
             NguoiDungDTO nv = new NguoiDungDTO(mand, hoten, chucvu, phanquyen);
-
 
             if (mand == null)
             {
@@ -163,12 +208,17 @@ namespace QuanLyCinema.GiaoDien
                     goto SuaLai;
                 }
                 MessageBox.Show("Sửa thông tin người dùng  thành công", "Thông báo");
-                dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+
+                DataTable dataTable = new DataTable();
+                dataTable = NguoiDungBUS.LoadDSND();
+                Load_Data(dataTable);
+
                 KhongChoNhap();
                 btnLuu_Sua.Visibility = Visibility.Hidden;
                 btnSua.Visibility = Visibility.Visible;
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
                 dtgDSND.IsEnabled = true;
+                Selected = false;
             }
         }
 
@@ -187,7 +237,8 @@ namespace QuanLyCinema.GiaoDien
         int type_timkiem = -1;
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            String a = cbbTimKiem.SelectedItem.ToString();
+            if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
+                txtTimKiem.Text = "";
             if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã Người Dùng")
             {
                 type_timkiem = 0;
@@ -196,27 +247,26 @@ namespace QuanLyCinema.GiaoDien
             {
                 type_timkiem = 1;
             }
-            
         }
 
 
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtTimKiem.Text.Length > 1)
+            DataTable dataTable = new DataTable();
+            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
                     case 0:
                         {
-                            dtgDSND.ItemsSource = NguoiDungBUS.TimTheoMaND(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = NguoiDungBUS.TimTheoMaND(txtTimKiem.Text.ToString());
                         }
                         break;
                     case 1:
                         {
-                            dtgDSND.ItemsSource = NguoiDungBUS.TimTheoHoTenNguoiDung(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = NguoiDungBUS.TimTheoHoTenNguoiDung(txtTimKiem.Text.ToString());
                         }
                         break;
-                   
                 }
             }
             else if (txtTimKiem.Text.Length == 0)
@@ -241,7 +291,9 @@ namespace QuanLyCinema.GiaoDien
             if (txtTimKiem.Text == "")
             {
                 txtTimKiem.Text = "Tìm Kiếm...";
-                dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+                DataTable dataTable = new DataTable();
+                dataTable = NguoiDungBUS.LoadDSND();
+                Load_Data(dataTable);
             }
         }
 
@@ -256,15 +308,29 @@ namespace QuanLyCinema.GiaoDien
         private void btnLamMoi_Click(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            DataTable dataTable = new DataTable();
+            dataTable = NguoiDungBUS.LoadDSND();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
+            if (btnSua.Visibility == Visibility.Hidden)
+            {
+                btnSua.Visibility = Visibility.Visible;
+            }
+            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+            {
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
         }
 
-        private void GridNguoiDung_Loaded(object sender, RoutedEventArgs e)
+        private void dtgDSND_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            KhongChoNhap();
-            dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            Selected = true;
+            NguoiDungDTO nv = dtgDSND.SelectedItem as NguoiDungDTO;
+            txtMaND.Text = nv.MaND;
+            txtHoTen.Text = nv.HoTen;
+            txtChucVu.Text = nv.ChucVu;
+            txtPhanQuyen.Text = nv.PhanQuyen;
         }
     }
 }
