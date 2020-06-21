@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaChieuDTO.cs" />
     <Compile Include="DangNhapKhachHangDTO.cs" />
     <Compile Include="DangNhapNhanVienDTO.cs" />
     <Compile Include="KhachHangDTO.cs" />
+    <Compile Include="LichChieuDTO.cs" />
     <Compile Include="LoaiPhimDTO.cs" />
     <Compile Include="LoaiVeDTO.cs" />
     <Compile Include="NguoiDungDTO.cs" />
