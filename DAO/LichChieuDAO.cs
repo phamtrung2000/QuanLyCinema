@@ -146,7 +146,7 @@ namespace DAO
 
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC Timtheomapc '" + mapc + "'";
+            command.CommandText = "EXEC Timtheomapc1 '" + mapc + "'";
             //command.CommandText = "SELECT * FROM NHANVIEN " +
             //                      "WHERE MANV LIKE'" + manv + "%'";
 

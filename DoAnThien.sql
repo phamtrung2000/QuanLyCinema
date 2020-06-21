@@ -1,6 +1,6 @@
-﻿create database DOA
+﻿create database DOAN
 GO
-use DOA
+use DOAN
 GO
 --DROP DATABASE DOAN
 CREATE TABLE NHANVIEN 
@@ -18,52 +18,6 @@ CREATE TABLE NHANVIEN
 )
 --DROP TABLE NHANVIEN
 GO
-
-----PROC THEMNHANVIEN
-create PROC Themnhanvien(@manv varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@sdt VARCHAR(20),@gioitinh NVARCHAR(4),
-@ngaysinh DATE,@diachi NVARCHAR(100),@luong MONEY,@ngayvl DATE)
-as
- insert into NHANVIEN(MANV,HOTEN,CHUCVU,SDT,GIOITINH,NGAYSINH,DIACHI,LUONG,NGAYVL) VALUES (@manv,@hoten,@chucvu,@sdt,@gioitinh,@ngaysinh,@diachi,@luong,@ngayvl)
- 
- -----PROC XOANHANVIEN
- CREATE PROC Xoanhanvien(@manv varchar(10) )
- as
- DELETE FROM NHANVIEN 
-  WHERE NHANVIEN.MANV=@manv
-
-  ---PROC SUANHANVIEN
-  CREATE PROC Suanhanvien(@manv varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@sdt VARCHAR(20),@gioitinh NVARCHAR(4),
-  @ngaysinh DATE,@diachi NVARCHAR(100),@luong MONEY,@ngayvl DATE)
-  as
-  update NHANVIEN
-  set MANV=@manv,
-  HOTEN=@hoten,
-  CHUCVU=@chucvu,
-  SDT=@sdt,
-  GIOITINH=@gioitinh,
-  NGAYSINH=@ngaysinh, DIACHI=@diachi,LUONG=@luong,NGAYVL=@ngayvl
-  WHERE MANV=@manv
-  
-  -----PROC TIMTHEOMANV
-  CREATE PROC Timtheo_manv(@manv varchar(10))
-  as
-  select *from NHANVIEN where MANV like @manv
-
-  ---PROC TIMTHEOHOTEN
-  CREATE PROC Timtheo_hoten(@hoten nvarchar(40))
-  as
-  select *from NHANVIEN where HOTEN like @hoten
-  -------PROC TIMTHEOSDT
-  CREATE PROC Timtheo_sdt(@sdt varchar(20))
-  as
-  select *from NHANVIEN where SDT like @sdt
-
-EXEC Timtheo_sdt '0982692458'
-EXEC Timtheo_manv 'NV2'
-EXEC Suanhanvien'NV4',N'Trần Thanh',N'Nhân viên quản lý lịch chiếu','0982692450',N'Nữ','19/11/1972' ,N'199/4 Linh Trung 1 , Thủ Đức, TPHCM',100000000,'11/10/2017'
-EXEC Xoanhanvien'NV200'
-EXEC Themnhanvien 'NV200',N'Trần Đức Minh',N'Quản Lý','0982692145','Nam','3/4/1974',N'12/5 Linh Tây, Thủ Đức, TPHCM',20000000,'10/11/2017'
- 
 SET DATEFORMAT DMY 
 INSERT INTO NHANVIEN VALUES ('NV1',N'Trần Nguyễn Thanh Phương',N'Quản trị','098269245',N'Nữ','22/10/1960',N'1/4 Linh Xuân , Thủ Đức, TPHCM',100000000,'10/10/2017')
 
@@ -88,8 +42,65 @@ INSERT INTO NHANVIEN VALUES ('NV6',N'Trần Thanh Nhàn',N'Nhân viên bán vé'
 --INSERT INTO NHANVIEN VALUES ('NV19',N'Ngô Thanh Trọng',N'Thủ Kho','0957676689','Nam','28/3/1993',N'67/4/118 Vũ Huy Tấn, P. 3,  Quận Bình Thạnh, TP. HCM',150000000,'12/7/2017')
 --INSERT INTO NHANVIEN VALUES ('NV20',N'Nguyễn Duy Thành',N'Thủ Kho','0953857361','Nam','21/5/1991',N'181/2 Đường 3 Tháng 2,  Quận 10, TP. HCM',150000000,'22/1/2017')
 
+go
+----PROC THEMNHANVIEN
+create PROC Themnhanvien(@manv varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@sdt VARCHAR(20),@gioitinh NVARCHAR(4),
+@ngaysinh DATE,@diachi NVARCHAR(100),@luong MONEY,@ngayvl DATE)
+as
+ insert into NHANVIEN(MANV,HOTEN,CHUCVU,SDT,GIOITINH,NGAYSINH,DIACHI,LUONG,NGAYVL) VALUES (@manv,@hoten,@chucvu,@sdt,@gioitinh,@ngaysinh,@diachi,@luong,@ngayvl)
+ 
+ go
+ -----PROC XOANHANVIEN
+ CREATE PROC Xoanhanvien(@manv varchar(10) )
+ as
+ DELETE FROM NHANVIEN 
+  WHERE NHANVIEN.MANV=@manv
 
+  go
+  ---PROC SUANHANVIEN
+  CREATE PROC Suanhanvien(@manv varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@sdt VARCHAR(20),@gioitinh NVARCHAR(4),
+  @ngaysinh DATE,@diachi NVARCHAR(100),@luong MONEY,@ngayvl DATE)
+  as
+  begin
+  update NHANVIEN
+  set MANV=@manv,
+  HOTEN=@hoten,
+  CHUCVU=@chucvu,
+  SDT=@sdt,
+  GIOITINH=@gioitinh,
+  NGAYSINH=@ngaysinh, DIACHI=@diachi,LUONG=@luong,NGAYVL=@ngayvl
+  WHERE MANV=@manv
+  end
 
+  go
+   -----PROC TIMTHEOMANV
+  CREATE PROC Timtheo_manv(@manv varchar(10))
+  as
+  begin
+  select *from NHANVIEN where MANV like '%'+ @manv +'%'
+  end
+  -- drop PROC Timtheo_manv
+  -- exec Timtheo_manv 'NV'
+
+  go
+  ---PROC TIMTHEOHOTEN
+  CREATE PROC Timtheo_hoten(@hoten nvarchar(40))
+  as
+  begin
+  select *from NHANVIEN where HOTEN like '%'+ @hoten +'%'
+  --select * from NHANVIEN where lower(HOTEN) like '%' + lower(RTRIM(@hoten)) + '%'
+  end
+
+  -- drop proc Timtheo_hoten
+  --select *from NHANVIEN where HOTEN like N''
+ -- exec Timtheo_hoten N'Trần'
+  go
+  -------PROC TIMTHEOSDT
+  CREATE PROC Timtheo_sdt(@sdt varchar(20))
+  as
+  select *from NHANVIEN where SDT like '%'+ @sdt +'%'
+
+  go
 CREATE TABLE DANGNHAP_NHANVIEN
 (
 MANV VARCHAR(10),
@@ -98,18 +109,6 @@ MATKHAU VARCHAR(50),
 CONSTRAINT PK_DANGNHAP_NHANVIEN PRIMARY KEY(MANV,MATKHAU),
 CONSTRAINT FK_DANGNHAP_NHANVIEN_MANV FOREIGN KEY(MANV) REFERENCES NHANVIEN(MANV) ON DELETE CASCADE
 )
-SELECT NV.CHUCVU,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
-                         WHERE DN.TAIKHOAN =   'thanhphuong' and DN.MATKHAU='thanhphuong'
-
----PROC DANGNHAP
-CREATE PROC Phanquyennhanvien(@user varchar(50),@pass varchar(50))
-as SELECT NV.CHUCVU,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
-   WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
-  
-
-  CREATE PROC Dangnhapnhanvien(@user varchar(50),@pass varchar(50))
-as SELECT NV.HOTEN,NV.CHUCVU,NV.SDT,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
-   WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
 
 INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV1','thanhphuong','thanhphuong')
 INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV2','thienhuong','thienhuong')
@@ -127,6 +126,15 @@ INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV6','thanhnhan','thanhnhan')
 --INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV12','tranvien','tranvien')
 --INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV13','thanhtruc','thanhtruc')
 --INSERT INTO DANGNHAP_NHANVIEN VALUES ('NV14','anhtin','anhtin')
+go
+  CREATE PROC Dangnhapnhanvien(@user varchar(50),@pass varchar(50))
+as SELECT NV.HOTEN,NV.CHUCVU,NV.SDT,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
+   WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
+go
+---PROC DANGNHAP
+CREATE PROC Phanquyennhanvien(@user varchar(50),@pass varchar(50))
+as SELECT NV.CHUCVU,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
+   WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
 GO
 CREATE TABLE KHACHHANGTHANTHIET
 (
@@ -137,41 +145,18 @@ CREATE TABLE KHACHHANGTHANTHIET
 	NGAYSINH DATE,
 	GIOITINH NVARCHAR(4) check (GIOITINH IN ('Nam',N'Nữ')),
 	SDT VARCHAR(20),
-	LOAIKH NVARCHAR(50),
+	LOAIKH NVARCHAR(50), -- cái này sẽ cút MALOAIKH
 	NGAYDK DATE
-)
----PROC THEMKHACHHANG
-create PROC Them_khachhang( @makh varchar(10),@hoten NVARCHAR(40),@diachi NVARCHAR(100),@ngaysinh DATE,@gioitinh nvarchar(4), @sdt varchar(20) ,@loaikh NVARCHAR(50),@ngaydk date)
-as
- insert into KHACHHANGTHANTHIET(MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,NGAYDK) VALUES (@makh,@hoten,@diachi,@sdt,@ngaysinh,@gioitinh,@loaikh,@ngaydk)
-----PROC XOAKHACHAHANG
- CREATE PROC Xoakhachhang(@makh varchar(10) )
- as
- DELETE FROM KHACHHANGTHANTHIET
-  WHERE KHACHHANGTHANTHIET.MAKH=@makh
-  ---PROC SUANHANVIEN
-  CREATE PROC Suakhachhang(@makh varchar(10),@hoten NVARCHAR(40),@diachi NVARCHAR(100),@ngaysinh DATE,@gioitinh nvarchar(4), @sdt varchar(20) ,@loaikh NVARCHAR(50),@ngaydk date)
-as update KHACHHANGTHANTHIET
-  set MAKH=@makh,
-  HOTEN=@hoten,
-  DIACHI=@diachi,
-  NGAYSINH=@ngaysinh,
-  NGAYDK=@ngaydk,
-  GIOITINH=@gioitinh,
-  SDT=@sdt,
-  LOAIKH=@loaikh
-  WHERE MAKH=@makh
-----PROC TIMTHEOHOTEN
-CREATE PROC Timkhachhang_hoten(@hoten nvarchar(40))
-as select *from KHACHHANGTHANTHIET where HOTEN=@hoten
-----PROC TIMTHEOsdt
-CREATE PROC Timkhachhang_sdt(@sdt nvarchar(40))
-as select *from KHACHHANGTHANTHIET where SDT=@sdt
-----PROC TIMTHEOmakh
-CREATE PROC Timkhachhang_makh(@makh nvarchar(40))
-as select *from KHACHHANGTHANTHIET where MAKH=@makh
 
-select * from KHACHHANGTHANTHIET
+)
+
+--CREATE TABLE LOAIKHACHHANG
+--(
+--    MALOAIKH NVARCHAR(50),
+--	TENLOAIKH NVARCHAR(50),
+--	MUCGIAMGIA INT -- PHAN TRAM
+--)
+
 INSERT INTO KHACHHANGTHANTHIET (MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,NGAYDK) VALUES 
 ('KH1',N'Nguyễn Văn An',N'731 Trần Hưng Đạo, Q5, TpHCM','08823451','22/10/1960','Nam',N'Bạc','22/07/2018'),
 ('KH2',N'Trần Ngọc Hân',N'23/5 Nguyễn Trãi, Q5, TpHCM','0908256478','3/4/1974',N'Nữ',N'Vàng','30/07/2018'),
@@ -277,7 +262,63 @@ INSERT INTO KHACHHANGTHANTHIET (MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,N
 ('KH99',N'Hoàng Trọng Chính',N'320 Cộng Hòa, P.13, Tân Bình, TP.HCM','0986196068','12/4/1993','Nam',N'Đồng','21/4/2018'),
 ('KH100',N'Trần Anh Tuấn',N'142/8/3 Lê Lợi, P.4, Gò Vấp, TP.HCM','0987685085','5/1/1994','Nam',N'Bạch kim','15/5/2018')
 
+go
+---PROC THEMKHACHHANG
+create PROC Them_khachhang( @makh varchar(10),@hoten NVARCHAR(40),@diachi NVARCHAR(100),@ngaysinh DATE,@gioitinh nvarchar(4), @sdt varchar(20) ,@loaikh NVARCHAR(50),@ngaydk date)
+as
+ insert into KHACHHANGTHANTHIET(MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,NGAYDK) VALUES (@makh,@hoten,@diachi,@sdt,@ngaysinh,@gioitinh,@loaikh,@ngaydk)
 
+ go
+ ---EXEC Them_khachhang 'KH101',N'Trần Anh Tuấn',N'142/8/3 Lê Lợi, P.4, Gò Vấp, TP.HCM','0987685085','5/1/1994','Nữ',N'Bạch kim','15/5/2018'
+----PROC XOAKHACHAHANG
+ CREATE PROC Xoakhachhang(@makh varchar(10) )
+ as
+ DELETE FROM KHACHHANGTHANTHIET
+  WHERE KHACHHANGTHANTHIET.MAKH=@makh
+
+  go
+  ---PROC SUANHANVIEN
+  CREATE PROC Suakhachhang(@makh varchar(10),@hoten NVARCHAR(40),@diachi NVARCHAR(100),@ngaysinh DATE,@gioitinh nvarchar(4), @sdt varchar(20) ,@loaikh NVARCHAR(50),@ngaydk date)
+as
+begin
+update KHACHHANGTHANTHIET
+  set MAKH=@makh,
+  HOTEN=@hoten,
+  DIACHI=@diachi,
+  NGAYSINH=@ngaysinh,
+  NGAYDK=@ngaydk,
+  GIOITINH=@gioitinh,
+  SDT=@sdt,
+  LOAIKH=@loaikh
+  WHERE MAKH=@makh
+end
+
+ go
+---PROC TIMTHEOHOTEN
+  CREATE PROC Timkhachhang_hoten(@hoten nvarchar(40))
+  as
+  begin
+ select * from KHACHHANGTHANTHIET where HOTEN like '%'+ @hoten +'%'
+  end
+
+-- drop proc Timkhachhang_hoten
+-- exec Timkhachhang_hoten N'Nguyễn'
+go
+----PROC TIMTHEOsdt
+CREATE PROC Timkhachhang_sdt(@sdt varchar(20))
+as 
+begin
+ select *from KHACHHANGTHANTHIET where SDT like '%'+ @sdt +'%'
+ end
+
+go
+----PROC TIMTHEOmakh
+CREATE PROC Timkhachhang_makh(@makh varchar(10))
+as begin
+select *from KHACHHANGTHANTHIET where MAKH like '%'+ @makh +'%'
+end
+
+GO
 CREATE TABLE DANGNHAP_KHACHHANG
 (
 MAKH VARCHAR(10),
@@ -286,21 +327,29 @@ MATKHAU VARCHAR(50),
 CONSTRAINT PK_DANGNHAP_KHACHHANG PRIMARY KEY(MAKH,MATKHAU),
 CONSTRAINT FK_DANGNHAP_KHACHHANG_MAKH FOREIGN KEY(MAKH) REFERENCES KHACHHANGTHANTHIET(MAKH) ON DELETE CASCADE
 )
-INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH1','AB','AB')
-INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH1','vanan','vanan')
+
+INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH1','thanhphuong','thanhphuong')
 INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH2','thienhuong','thienhuong')
 INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH3','trungquan','trungquan')
 INSERT INTO DANGNHAP_KHACHHANG VALUES ('KH4','tranthanh','tranthanh')
 
+go
 CREATE PROC Phanquyenkhachhang(@user varchar(50),@pass varchar(50))
-as SELECT KH.LOAIKH,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_KHACHHANG DN INNER JOIN KHACHHANGTHANTHIET KH ON DN.MAKH=KH.MAKH
+as 
+begin
+ SELECT KH.LOAIKH,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_KHACHHANG DN INNER JOIN KHACHHANGTHANTHIET KH ON DN.MAKH=KH.MAKH
    WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
-  
-
+end
+ 
+  go
   CREATE PROC Dangnhapkhachhang(@user varchar(50),@pass varchar(50))
-as SELECT KH.HOTEN,KH.LOAIKH,KH.SDT,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_KHACHHANG DN INNER JOIN KHACHHANGTHANTHIET KH ON DN.MAKH=KH.MAKH
+as
+begin
+ SELECT KH.HOTEN,KH.LOAIKH,KH.SDT,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_KHACHHANG DN INNER JOIN KHACHHANGTHANTHIET KH ON DN.MAKH=KH.MAKH
    WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
+end
 
+go
 CREATE TABLE NGUOIDUNG
 (
     STT INT IDENTITY,
@@ -317,9 +366,64 @@ INSERT INTO NGUOIDUNG( MAND,HOTEN,CHUCVU,PHANQUYEN) VALUES
 ('NV3',N'Trần Nguyễn Trung Quân',N'Nhân viên quản lý phòng chiếu',N'Quản lý phòng chiếu'),
 ('NV4',N'Trần Thanh',N'Nhân viên quản lý lịch chiếu',N'Quản lý lịch chiếu'),
 ('NV5',N'Nguyễn Thanh Phương',N'Nhân viên quản lý vé',N'Quản lý loại vé, Quản lý vé')
+--drop table NGUOIDUNG
 
---SELECT * 
---FROM DANGNHAP_NHANVIEN DNNV JOIN NGUOIDUNG ND ON DNNV.MANV=ND.MAND
+go
+----PROC THEMNGUOIDUNG
+create PROC ThemNguoiDung(@mand varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@phanquyen NVARCHAR(100))
+as
+begin
+ insert into NGUOIDUNG(MAND,HOTEN,CHUCVU,PHANQUYEN) VALUES (@mand,@hoten,@chucvu,@phanquyen)
+ end
+
+ go
+ -----PROC XOANGUOIDUNG
+ CREATE PROC XoaNguoiDung(@mand varchar(10))
+ as
+ begin
+ DELETE FROM NGUOIDUNG 
+  WHERE NGUOIDUNG.MAND=@mand
+end
+
+-- exec XoaNguoiDung 'NV1'
+
+  go
+  ---PROC SUANGUOIDUNG
+  CREATE PROC SuaNguoiDung(@mand varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@phanquyen NVARCHAR(100))
+  as
+  begin
+  update NGUOIDUNG
+  set MAND=@mand,
+  HOTEN=@hoten,
+  CHUCVU=@chucvu,
+  PHANQUYEN=@phanquyen
+  WHERE MAND=@mand
+  end
+
+  go
+   -----PROC TIMTHEOMAND
+  CREATE PROC TimTheoMaND(@mand varchar(10))
+  as
+  begin
+  select *from NGUOIDUNG where MAND like '%'+ @mand +'%'
+  end
+  -- drop PROC Timtheo_manv
+  -- exec TimTheoMaND 'NV1'
+
+  go
+  ---PROC TIMTHEOHOTENNGUOIDUNG
+  CREATE PROC TimTheoHoTenNguoiDung(@hoten nvarchar(40))
+  as
+  begin
+  select *from NGUOIDUNG where HOTEN like '%'+ @hoten +'%'
+  --select * from NHANVIEN where lower(HOTEN) like '%' + lower(RTRIM(@hoten)) + '%'
+  end
+
+  -- drop proc Timtheo_hoten
+  --select *from NHANVIEN where HOTEN like N''
+ -- exec Timtheo_hoten N'Trần'
+
+ 
 GO
 CREATE TABLE PHONGCHIEU
 (
@@ -348,6 +452,65 @@ INSERT INTO PHONGCHIEU(MAPC,TENPC,SOCHO,MAYCHIEU,LOA,DIENTICH,TINHTRANG,TRANGTHI
 ('PC1',N'Phòng chiếu 1',100,N'Viewsonic PX727 4K HDR (US)',N'Bộ dàn âm thanh xem phim 5.1 Yamaha YHT-299',200,N'Tốt',N'Có')
 
 go
+----PROC ThemPhongChieu
+create PROC ThemPhongChieu(@mapc varchar(10),@tenpc NVARCHAR(40),@socho INT,@maychieu NVARCHAR(100), @loa NVARCHAR(100), @dientich INT, @tinhtrang NVARCHAR(20), @trangthietbikhac NVARCHAR(100))
+
+as
+begin
+ insert into PhongChieu(MAPC,TENPC,SOCHO,MAYCHIEU,LOA,DIENTICH,TINHTRANG,TRANGTHIETBIKHAC) VALUES (@mapc,@tenpc,@socho,@maychieu,@loa,@dientich,@tinhtrang,@trangthietbikhac)
+ end
+
+ go
+ -----PROC XoaPhongChieu
+ CREATE PROC XoaPhongChieu(@mapc varchar(10))
+ as
+ begin
+ DELETE FROM PHONGCHIEU
+  WHERE PHONGCHIEU.MAPC=@mapc
+end
+
+-- exec XoaPhongChieu 'NV1'
+
+  go
+  ---PROC SuaPhongChieu
+  CREATE PROC SuaPhongChieu(@mapc varchar(10),@tenpc NVARCHAR(40),@socho INT,@maychieu NVARCHAR(100), @loa NVARCHAR(100), @dientich INT, @tinhtrang NVARCHAR(20), @trangthietbikhac NVARCHAR(100))
+  as
+  begin
+  update PHONGCHIEU
+  set MAPC=@mapc,
+  TENPC=@tenpc,
+  SOCHO=@socho,
+  MAYCHIEU=@maychieu,
+  LOA=@loa,
+  DIENTICH=@dientich,
+  TINHTRANG=@tinhtrang,
+  TRANGTHIETBIKHAC=@trangthietbikhac
+  WHERE MAPC=@mapc
+  end
+
+  go
+   -----PROC TIMTHEOMAPC
+  CREATE PROC TimTheoMaPC(@mapc varchar(10))
+  as
+  begin
+  select * from PHONGCHIEU where MAPC like '%'+ @mapc +'%'
+  end
+  -- drop PROC Timtheo_manv
+  -- exec TimTheomapc 'NV1'
+
+  go
+  ---PROC TIMTHEOtenpc
+  CREATE PROC TimTheoTenPhongChieu(@tenpc nvarchar(40))
+  as
+  begin
+  select * from PhongChieu where TENPC like '%'+ @tenpc +'%'
+  --select * from NHANVIEN where lower(tenpc) like '%' + lower(RTRIM(@tenpc)) + '%'
+  end
+go
+
+
+
+
 CREATE TABLE LOAIPHIM
 (
     STT INT IDENTITY,
@@ -355,12 +518,64 @@ CREATE TABLE LOAIPHIM
 	TENLP NVARCHAR(40),
 	MOTA NVARCHAR(1000) --MÔ TẢ
 )
+SELECT *FROM LOAIPHIM ORDER BY STT ASC
 -- drop table LOAIPHIM
 go
 INSERT INTO LOAIPHIM(MALP,TENLP,MOTA) VALUES 
 ('LP1',N'Phim hành động',N'là một thể loại điện ảnh trong đó một hoặc nhiều nhân vật anh hùng bị đẩy vào một loạt những thử thách, thường bao gồm những kì công vật lý, các cảnh hành động kéo dài, yếu tố bạo lực và những cuộc rượt đuổi điên cuồng. Phim hành động có xu hướng mô tả một nhân vật có tài xoay xở đấu tranh chống lại những xung đột không tưởng, bao gồm các tình huống đe dọa đến tính mạng, một phản diện hay một sự theo đuổi mà thường kết thúc trong thắng lợi cho anh hùng')
-
 go
+
+create proc Loadloaiphim (@malp varchar(10))
+as 
+begin 
+select *from LOAIPHIM where LOAIPHIM.MALP!=@malp
+end
+go
+
+---PROC THEMLOAIPHIM
+CREATE PROC Themloaiphim(@malp varchar(10),@tenlp nvarchar(40),@mota nvarchar(1000))
+as
+begin 
+insert into LOAIPHIM(MALP,TENLP,MOTA) values (@malp,@tenlp,@mota)
+end
+go
+---PROC SUALOAIPHIM
+CREATE PROC Sualoaiphim(@malp varchar(10),@tenlp nvarchar(40),@mota nvarchar(1000))
+as
+begin
+update LOAIPHIM
+set MALP=@malp,TENLP=@tenlp,MOTA=@mota
+where MALP=@malp
+end 
+go
+---proc Xoaphongchieu
+create proc Xoaloaiphim(@malp varchar(10))
+as 
+begin
+delete from LOAIPHIM where MALP=@malp
+end
+go
+---PROC TIMTHEOMALP
+CREATE PROC TimTheoMaLP(@malp varchar(10))
+  as
+  begin
+  select * from LOAIPHIM where MALP like '%'+ @malp +'%'
+  end
+  go
+  ---proc tìm theo tên loại phim
+CREATE PROC TimTheoTenlp(@tenlp nvarchar(40))
+  as
+  begin
+  select * from LOAIPHIM where TENLP like '%'+ @tenlp +'%'
+  end
+  go
+
+
+exec Themloaiphim 'LP2',N'Phim hoạt hình',N'Phim hoạt hình là phim người đóng hoặc phim hoạt họa là một hình thức sử dụng ảo ảnh quang học về sự chuyển động do nhiều hình ảnh tĩnh được chiếu tiếp diễn liên tục. Trong phim và trong kỹ nghệ dàn dựng, hoạt họa ám chỉ đến kỹ thuật trong đó từng khung hình của phim(frame) được chế tác riêng rẽ. Người ta có thể dùng máy tính, hay bằng cách chụp từng hình ảnh đã vẽ, đã được tô màu, hoặc bằng cách chụp những cử động rất nhỏ của các mô hình để tạo nên những hình ảnh này'
+go
+
+
+
 CREATE TABLE PHIM
 (
     STT INT IDENTITY,
@@ -377,11 +592,52 @@ CREATE TABLE PHIM
 	CONSTRAINT FK_PHIM_MALP FOREIGN KEY(MALP) REFERENCES LOAIPHIM(MALP) ON DELETE CASCADE
 )
 -- drop table phim
+
 go
 INSERT INTO PHIM(MAPHIM,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) VALUES 
 ('PHIM1',N'Quái Vật Venom',N'Ruben Fleischer',N'Tom Hardy, Michelle William, Riz Ahmed','LP1',N'Quái Vật Venom là một kẻ thù nguy hiểm và nặng ký của Người nhện trong loạt series của Marvel. Chàng phóng viên Eddie Brock (do Tom Hardy thủ vai) bí mật theo dõi âm mưu xấu xa của một tổ chức và đã không may mắn khi nhiễm phải loại cộng sinh trùng ngoài hành tinh (Symbiote) và từ đó đã không còn làm chủ bản thân về thể chất lẫn tinh thần. Điều này đã dần biến anh thành quái vật đen tối và nguy hiểm nhất chống lại người Nhện - Venom','2018',N'Mỹ','115 phút')
+go
 
-GO
+---PROC Themphim
+create proc Themphim(@map varchar(10) ,@tenphim nvarchar(40),@daodien nvarchar(100),@dienvien nvarchar(100),@malp varchar(10),@noidung nvarchar(1000),@namsx varchar(10),@nuocsx nvarchar(100),@thoiluong nvarchar(100))
+as
+begin
+insert into PHIM(MALP,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) values(@map,@tenphim,@daodien,@dienvien,@malp,@noidung,@namsx,@nuocsx,@thoiluong)
+end 
+go
+---proc Suaphim
+create proc Suaphim(@map varchar(10) ,@tenphim nvarchar(40),@daodien nvarchar(100),@dienvien nvarchar(100),@malp varchar(10),@noidung nvarchar(1000),@namsx varchar(10),@nuocsx nvarchar(100),@thoiluong nvarchar(100))
+as
+begin
+update PHIM
+set MAPHIM=@map,TENPHIM=@tenphim,DAODIEN=@daodien,
+DIENVIEN=@dienvien,MALP=@malp,NOIDUNG=@noidung,NAMSX=@namsx,NUOCSX=@nuocsx,THOILUONG=@thoiluong
+where MAPHIM=@map
+end 
+go
+--exec Suaphim 'PHIM1',N'Quái Vật Venomn',N'Ruben Fleischer',N'Tom Hardy, Michelle William, Riz Ahmed','LP1',N'Quái Vật Venom là một kẻ thù nguy hiểm và nặng ký của Người nhện trong loạt series của Marvel. Chàng phóng viên Eddie Brock (do Tom Hardy thủ vai) bí mật theo dõi âm mưu xấu xa của một tổ chức và đã không may mắn khi nhiễm phải loại cộng sinh trùng ngoài hành tinh (Symbiote) và từ đó đã không còn làm chủ bản thân về thể chất lẫn tinh thần. Điều này đã dần biến anh thành quái vật đen tối và nguy hiểm nhất chống lại người Nhện - Venom','2018',N'Mỹ','115 phút'
+---proc Xoaphim
+create proc Xoaphim(@map varchar(10))
+as begin
+delete from PHIM where MAPHIM=@map 
+end
+go
+---proc Timtheo ma phim
+CREATE PROC TimTheoMaP(@map varchar(10))
+  as
+  begin
+  select * from PHIM where MAPHIM like '%'+ @map +'%'
+  end
+  go
+
+  CREATE PROC TimTheoTenP(@tenp varchar(10))
+  as
+  begin
+  select * from PHIM where TENPHIM like '%'+ @tenp +'%'
+  end
+  go
+
+
 CREATE TABLE CACHIEU
 (
     STT INT IDENTITY,
@@ -389,6 +645,7 @@ CREATE TABLE CACHIEU
 	TENCC NVARCHAR(100),
 	BATDAU TIME,
 	KETHUC TIME
+	--BATDAU <= THOILUONG <= KETTHUC
 )
 -- DROP TABLE CACHIEU
 GO
@@ -400,7 +657,7 @@ CREATE TABLE LICHCHIEU
     STT INT IDENTITY,
 	NGAYCHIEU DATE,
 	MAPHIM VARCHAR(10),
-	MACC NVARCHAR(10), -- CA CHIẾU
+	MACC VARCHAR(10), -- CA CHIẾU
 	MAPC VARCHAR(10),
 	CONSTRAINT PK_LICHCHIEU PRIMARY KEY(NGAYCHIEU,MAPHIM,MACC,MAPC),
 	CONSTRAINT FK_LICHCHIEU_MAPHIM FOREIGN KEY(MAPHIM) REFERENCES PHIM(MAPHIM) ON DELETE CASCADE,
@@ -431,15 +688,16 @@ GO
 CREATE TABLE VE
 (
 STT INT IDENTITY,
+MAVE VARCHAR(10) PRIMARY KEY,
 MAPHIM VARCHAR(10),
 MAPC VARCHAR(10),
 MALV VARCHAR(10),
-MACACHIEU VARCHAR(10),
+MACACHIEU VARCHAR(10)
 )
-GO
-INSERT INTO VE(MAPHIM,MAPC,MALV,MACACHIEU) VALUES 
-('PHIM1','PC1','LV1','CC1')
-GO
+--GO
+--INSERT INTO VE(MAPHIM,MAPC,MALV,MACACHIEU) VALUES 
+--('PHIM1','PC1','LV1','CC1')
+--GO
 
 
 
@@ -2603,6 +2861,7 @@ SELECT TOP 5 TENHH,COUNT(CTHD.MAHH) AS 'Số lần bán'
 FROM CTHD INNER JOIN HANGHOA HH ON HH.MAHH=CTHD.MAHH
 GROUP BY CTHD.MAHH,TENHH
 ORDER BY COUNT(CTHD.MAHH) DESC
+
 
 GO
 CREATE PROC SoSPBanDuocMoiLoai
