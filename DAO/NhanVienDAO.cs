@@ -92,10 +92,10 @@ namespace DAO
             command.Parameters.Add("@CHUCVU", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@SDT", SqlDbType.VarChar, 20);
             command.Parameters.Add("@GIOITINH", SqlDbType.NVarChar, 4);
-            command.Parameters.Add("@NGAYSINH", SqlDbType.Date);
+            command.Parameters.Add("@NGAYSINH", SqlDbType.DateTime);
             command.Parameters.Add("@DIACHI", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@LUONG", SqlDbType.Money);
-            command.Parameters.Add("@NGAYVL", SqlDbType.Date);
+            command.Parameters.Add("@NGAYVL", SqlDbType.DateTime);
 
             // gán giá trị
             command.Parameters["@MANV"].Value = nhanvien.MaNV;

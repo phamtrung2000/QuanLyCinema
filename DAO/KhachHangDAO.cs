@@ -49,12 +49,12 @@ namespace DAO
 
             // gán giá trị
             command.Parameters["@MAKH"].Value = khachhang.MaKH;
-            command.Parameters["@HOTEN"].Value = khachhang.Hoten;
-            command.Parameters["@DIACHI"].Value = khachhang.Diachi;
+            command.Parameters["@HOTEN"].Value = khachhang.HoTen;
+            command.Parameters["@DIACHI"].Value = khachhang.DiaChi;
             command.Parameters["@NGAYSINH"].Value = khachhang.Ngaysinh;
-            command.Parameters["@GIOITINH"].Value = khachhang.Gioitinh;
-            command.Parameters["@SDT"].Value = khachhang.Sdt;
-            command.Parameters["@LOAIKH"].Value = khachhang.Loaikh;
+            command.Parameters["@GIOITINH"].Value = khachhang.GioiTinh;
+            command.Parameters["@SDT"].Value = khachhang.SDT;
+            command.Parameters["@LOAIKH"].Value = khachhang.LoaiKH;
             command.Parameters["@NGAYDK"].Value = khachhang.Ngaydk;
             command.ExecuteNonQuery();
 
@@ -107,12 +107,12 @@ namespace DAO
 
             // gán giá trị
             command.Parameters["@MAKH"].Value = khachhang.MaKH;
-            command.Parameters["@HOTEN"].Value = khachhang.Hoten;
-            command.Parameters["@DIACHI"].Value = khachhang.Diachi;
+            command.Parameters["@HOTEN"].Value = khachhang.HoTen;
+            command.Parameters["@DIACHI"].Value = khachhang.DiaChi;
             command.Parameters["@NGAYSINH"].Value = khachhang.Ngaysinh;
-            command.Parameters["@GIOITINH"].Value = khachhang.Gioitinh;
-            command.Parameters["@SDT"].Value = khachhang.Sdt;
-            command.Parameters["@LOAIKH"].Value = khachhang.Loaikh;
+            command.Parameters["@GIOITINH"].Value = khachhang.GioiTinh;
+            command.Parameters["@SDT"].Value = khachhang.SDT;
+            command.Parameters["@LOAIKH"].Value = khachhang.LoaiKH;
             command.Parameters["@NGAYDK"].Value = khachhang.Ngaydk;
             command.ExecuteNonQuery();
 

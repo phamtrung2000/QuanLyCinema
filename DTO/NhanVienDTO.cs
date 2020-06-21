@@ -45,6 +45,7 @@ namespace DTO
         private string ngayvl_string;
         public string NgayVL_String { get => ngayvl_string; set => ngayvl_string = value; }
 
+        // bản gốc
         public NhanVienDTO(string manv, string hoten, string chucvu, string sdt, string gioitinh, DateTime ngaysinh, string diachi, string luong, DateTime ngayvl)
         {
             MaNV = manv;
@@ -57,6 +58,8 @@ namespace DTO
             Luong = luong;
             NgayVL = ngayvl;
         }
+
+        // có stt để xuất trong datagrid
         public NhanVienDTO(string stt,string manv, string hoten, string chucvu, string sdt, string gioitinh, DateTime ngaysinh, string diachi, string luong, DateTime ngayvl)
         {
             STT=stt;
@@ -71,6 +74,7 @@ namespace DTO
             NgayVL = ngayvl;
         }
 
+        // chuyển ngày sinh + ngày vl thành string để bỏ cái 12h
         public NhanVienDTO(string manv, string hoten, string chucvu, string sdt, string gioitinh, string ngaysinh_string, string diachi, string luong, string ngayvl_string)
         {
             MaNV = manv;
@@ -83,6 +87,8 @@ namespace DTO
             Luong = luong;
             NgayVL_String = ngayvl_string;
         }
+
+        // như trên mà có thêm stt để xuất trong datagrid
         public NhanVienDTO(string stt, string manv, string hoten, string chucvu, string sdt, string gioitinh, string ngaysinh_string, string diachi, string luong, string ngayvl_string)
         {
             STT = stt;

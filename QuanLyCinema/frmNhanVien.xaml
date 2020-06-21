@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="620" Width="950">
     <Grid x:Name="GridNhanVien" Background="#FFF9F3F3" Loaded="GridNhanVien_Loaded">
-        <GroupBox Header="Thông tin nhân viên"
+        <GroupBox x:Name="grpThongTinNV" Header="Thông tin nhân viên"
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>
@@ -32,11 +32,14 @@
                 <Label x:Name="lblGioiTinh" Content="Giới tính:"
                        Margin="10,165,340,215" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
-                <DatePicker x:Name="dtpNgaySinh" Margin="131,202,10,177"  Text="" HorizontalContentAlignment="Left" SelectedDate="{Binding NgaySinh_String,StringFormat='dd/MM/yyyy'}"/>
+                <DatePicker x:Name="dtpNgaySinh" Margin="131,202,10,177"  Text="" HorizontalContentAlignment="Left"  SelectedDateFormat="Short" Visibility="Hidden"/>
+                <TextBox x:Name="txtNgaySinh" Margin="131,202,10,177" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+
                 <Label x:Name="lblNgaySinh" Content="Ngày sinh:"
                        Margin="10,200,340,175" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
                 <TextBox x:Name="txtDiaChi" Margin="131,247,10,128" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+                
                 <Label x:Name="lblDiaChi" Content="Địa chỉ:"
                        Margin="10,247,340,131" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
@@ -44,7 +47,8 @@
                 <Label x:Name="lblLuong" Content="Lương:"
                        Margin="10,292,331,86" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
-                <DatePicker x:Name="dtpNgayVL" Margin="161,334,10,45"  Text="" HorizontalContentAlignment="Left"></DatePicker>
+                <TextBox x:Name="txtNgayVL" Margin="161,334,10,45" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+                <DatePicker x:Name="dtpNgayVL" Margin="161,334,10,45"  Text="" HorizontalContentAlignment="Left" Visibility="Hidden"></DatePicker>
                 <Label x:Name="lblNgayVL" Content="Ngày vào làm:"
                        Margin="10,333,331,0" HorizontalContentAlignment="Stretch" MaxWidth="100" Height="25" MaxHeight="25" VerticalAlignment="Top"/>
 
@@ -56,6 +60,7 @@
         <GroupBox Header="Danh sách nhân viên" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSNV" Height="400" VerticalAlignment="Top" Width="432" 
                       SelectionChanged="dtgDSNV_SelectionChanged"
+                      MouseUp="dtgDSNV_MouseUp"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>

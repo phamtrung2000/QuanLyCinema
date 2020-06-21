@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="950">
     <Grid x:Name="GridKhachHang" Background="#FFF9F3F3" Loaded="GridKhachHang_Loaded" >
-        <GroupBox Header="Thông tin nhân viên"
+        <GroupBox x:Name="grpThongTinKH" Header="Thông tin khách hàng"
                   Margin="20,145,480,20"  
                   Width="450">
-            <Grid>
+            <!--<Grid>
                 <TextBox x:Name="txtMaKH"  Margin="120,25,10,355" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblMaKH" Content="Mã khách hàng:"
                        Margin="10,25,317,348"/>
@@ -23,7 +23,11 @@
                 <Label x:Name="lblDiachi" Content="Địa chỉ:"
                        Margin="10,95,340,285"/>
 
-                <DatePicker x:Name="dtpNgaySinh" Height="25" Margin="120,130,10,0"  Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <DatePicker  x:Name="dtpNgaySinh" HorizontalAlignment="Left" Margin="120,130,0,0" VerticalAlignment="Top" Width="290"/>
+
+                <DatePicker Margin="120,130,10,0"  Text="" HorizontalContentAlignment="Left"  SelectedDateFormat="Short" Visibility="Hidden" Width="300" Height="25"/>
+                <TextBox x:Name="txtNgaySinh" Margin="120,130,10,0" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" Width="291" Height="24"/>
+
                 <Label x:Name="lblNgaysinh" Content="Ngày sinh:"
                        Margin="10,130,340,248" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
@@ -33,24 +37,79 @@
                        Margin="10,165,340,215" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
                 <TextBox x:Name="txtSDTKH" Margin="120,200,10,175"  Text="" TextWrapping="Wrap" HorizontalContentAlignment="Left"></TextBox>
-                <Label x:Name="lblSDTKH" Content="Số điện thoại:"
+                
+            <Label x:Name="lblSDTKH" Content="Số điện thoại:"
                        Margin="10,200,340,175" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
                 <TextBox x:Name="txtLoaiKH" Margin="120,247,10,128" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
                 <Label x:Name="lblLoaiKH" Content="Loại khách hàng:"
                        Margin="10,247,326,128" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="100" MaxHeight="25"/>
 
-                <DatePicker x:Name="dtpNgayDK" Margin="120,292,10,83"  Text="" HorizontalContentAlignment="Left"/>
+                <DatePicker x:Name="dtpNgayDK" Margin="120,292,10,83"  Text="" HorizontalContentAlignment="Left" Width="300" Height="25"/>
+
                 <Label x:Name="lblNgayDK" Content="Ngày đăng ký:"
                        Margin="10,292,326,86" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="100" Height="25" MaxHeight="25"/>
+                
+            </Grid>-->
+            <Grid>
+                <TextBox x:Name="txtMaKH"  Margin="131,25,10,355" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" MaxWidth="300" MaxHeight="25"/>
+                <Label  x:Name="lblMaKH" Content="Mã khách hàng:"
+                       Margin="10,25,331,355"/>
 
+                <TextBox x:Name="txtHoTen" Height="25" Margin="131,60,10,318" TextWrapping="Wrap" Text="" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblHoTen" Content="Họ tên:"
+                       Margin="10,60,340,320"/>
+
+                <TextBox  x:Name="txtDiachiKH" Height="25" Margin="131,95,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <Label x:Name="lblDiachi" Content="Địa chỉ:"
+                       Margin="10,95,340,285"/>
+
+                <DatePicker x:Name="dtpNgaySinh" Margin="131,130,10,0"  Text="" VerticalAlignment="Top"  HorizontalContentAlignment="Left"  SelectedDateFormat="Short"/>
+                
+                <TextBox x:Name="txtNgaySinh" Margin="131,130,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  HorizontalContentAlignment="Left"/>
+                <Label x:Name="lblNgaysinh" Content="Ngày sinh:"
+                       Margin="10,130,340,250" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+
+                <RadioButton x:Name="rdbNam" Height="25" Margin="131,165,241,213" Content="Nam" Width="60"/>
+                <RadioButton x:Name="rdbNu" Height="25" Margin="226,165,146,213" Content="Nữ" Width="60"/>
+                <Label x:Name="lblGioiTinh" Content="Giới tính:"
+                       Margin="10,165,340,215" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+
+                <TextBox x:Name="txtSDTKH" Margin="120,200,10,175"  Text="" TextWrapping="Wrap" HorizontalContentAlignment="Left"></TextBox>
+                <Label x:Name="lblSDTKH" Content="Số điện thoại:"
+                       Margin="10,200,340,175" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
+
+
+                <TextBox x:Name="txtLoaiKH" Margin="131,247,10,128" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+                <Label x:Name="lblLoaiKH" Content="Loại khách hàng:"
+                       Margin="10,247,321,131" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Height="25"/>
+
+
+                <TextBox x:Name="txtNgayDK" Margin="131,292,10,83" TextWrapping="Wrap" Text=""  Height="25" HorizontalContentAlignment="Left"/>
+                <DatePicker x:Name="dtpNgayDK" Margin="131,292,10,83"  Text="" HorizontalContentAlignment="Left" ></DatePicker>
+                <Label x:Name="lblNgayDK" Content="Ngày đăng ký:"
+                       Margin="10,292,331,86" HorizontalContentAlignment="Stretch" Height="25"  VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-       
+
         <GroupBox Header="Danh sách khách hàng" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSKH" Height="400" VerticalAlignment="Top" Width="432" 
-                      
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionChanged="DtgDSKH_SelectionChanged"/>
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                      SelectionChanged="DtgDSKH_SelectionChanged"
+                      MouseUp="dtgDSKH_MouseUp">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã khách hàng" Binding="{Binding MaKH}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding HoTen}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding NgaySinh_String}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Giới tính" Binding="{Binding GioiTinh}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="SĐT" Binding="{Binding SDT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Loại khách hàng" Binding="{Binding LoaiKH}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ngày đăng ký" Binding="{Binding NgayDK_String}"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
         </GroupBox>
 
         <StackPanel HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">
