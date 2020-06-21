@@ -81,6 +81,14 @@ namespace QuanLyCinema
                     GridHienThi.Children.Clear();
                     GridHienThi.Children.Add(new frmLoaiVe());
                     break;
+                case 9:
+                    GridHienThi.Children.Clear();
+                    GridHienThi.Children.Add(new frmCaChieu());
+                    break;
+                case 10:
+                    GridHienThi.Children.Clear();
+                    GridHienThi.Children.Add(new frmLichChieu());
+                    break;
                 default:
                     break;
             }

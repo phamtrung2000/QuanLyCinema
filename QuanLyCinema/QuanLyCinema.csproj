@@ -81,11 +81,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CaChieu\frmAddCaChieu.xaml.cs">
+      <DependentUpon>frmAddCaChieu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaChieu\frmAddLichChieu.xaml.cs">
+      <DependentUpon>frmAddLichChieu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmKhachHang.xaml.cs">
       <DependentUpon>frmKhachHang.xaml</DependentUpon>
     </Compile>
     <Compile Include="GiaoDienChinh_KhachHang.xaml.cs">
       <DependentUpon>GiaoDienChinh_KhachHang.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDien\frmCaChieu.xaml.cs">
+      <DependentUpon>frmCaChieu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDien\frmLichChieu.xaml.cs">
+      <DependentUpon>frmLichChieu.xaml</DependentUpon>
     </Compile>
     <Compile Include="GiaoDien\frmLoaiPhim.xaml.cs">
       <DependentUpon>frmLoaiPhim.xaml</DependentUpon>
@@ -132,11 +144,27 @@
     <Compile Include="TongQuan.xaml.cs">
       <DependentUpon>TongQuan.xaml</DependentUpon>
     </Compile>
+    <Page Include="CaChieu\frmAddCaChieu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CaChieu\frmAddLichChieu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmKhachHang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GiaoDienChinh_KhachHang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDien\frmCaChieu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDien\frmLichChieu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
