@@ -34,6 +34,7 @@ namespace QuanLyCinema
 
         void Load_Data(DataTable dataTable)
         {
+            dtgDSKH.Items.Clear();
             dtgDSKH.ItemsSource = null;
             listkhachhang = new List<KhachHangDTO>();
             for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -58,8 +59,9 @@ namespace QuanLyCinema
                 string ngaydk = ngaydk_temp.Day.ToString() + "/" + ngaydk_temp.Month.ToString() + "/" + ngaydk_temp.Year.ToString();
 
                 listkhachhang.Add(new KhachHangDTO(stt, makh, hoten, diachi, ngaysinh, gioitinh, sdt ,loaikh, ngaydk));
+                dtgDSKH.Items.Add(listkhachhang[i]);
             }
-            dtgDSKH.ItemsSource = listkhachhang;
+           // dtgDSKH.ItemsSource = listkhachhang;
         }
 
         bool Selected = false;
@@ -424,20 +426,25 @@ namespace QuanLyCinema
 
         private void dtgDSKH_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Selected = true;
-            KhachHangDTO nv = dtgDSKH.SelectedItem as KhachHangDTO;
-            txtMaKH.Text = nv.MaKH;
-            txtHoTen.Text = nv.HoTen;
-            txtDiachiKH.Text = nv.DiaChi;
-            ngaythangnamsinh = txtNgaySinh.Text = nv.NgaySinh_String;
-            string gioitinh = nv.GioiTinh;
-            if (gioitinh == "Nam")
-                rdbNam.IsChecked = true;
-            else if (gioitinh == "Nữ")
-                rdbNu.IsChecked = true;
-            txtSDTKH.Text = nv.SDT;
-            txtLoaiKH.Text = nv.LoaiKH;
-            ngaythangnamdangky = txtNgayDK.Text = nv.NgayDK_String;
+            int index = dtgDSKH.SelectedIndex;
+            if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
+            {
+                Selected = true;
+                KhachHangDTO nv = dtgDSKH.SelectedItem as KhachHangDTO;
+                txtMaKH.Text = nv.MaKH;
+                txtHoTen.Text = nv.HoTen;
+                txtDiachiKH.Text = nv.DiaChi;
+                ngaythangnamsinh = txtNgaySinh.Text = nv.NgaySinh_String;
+                string gioitinh = nv.GioiTinh;
+                if (gioitinh == "Nam")
+                    rdbNam.IsChecked = true;
+                else if (gioitinh == "Nữ")
+                    rdbNu.IsChecked = true;
+                txtSDTKH.Text = nv.SDT;
+                txtLoaiKH.Text = nv.LoaiKH;
+                ngaythangnamdangky = txtNgayDK.Text = nv.NgayDK_String;
+            }    
+                
         }
     }
 }

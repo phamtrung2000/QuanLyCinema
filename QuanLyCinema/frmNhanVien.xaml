@@ -32,7 +32,7 @@
                 <Label x:Name="lblGioiTinh" Content="Giới tính:"
                        Margin="10,165,340,215" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
-                <DatePicker x:Name="dtpNgaySinh" Margin="131,202,10,177"  Text="" HorizontalContentAlignment="Left"  SelectedDateFormat="Short" Visibility="Hidden"/>
+                <DatePicker x:Name="dtpNgaySinh" Margin="131,202,10,177"  Text="" HorizontalContentAlignment="Left"  SelectedDateFormat="Short" Visibility="Visible"/>
                 <TextBox x:Name="txtNgaySinh" Margin="131,202,10,177" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
 
                 <Label x:Name="lblNgaySinh" Content="Ngày sinh:"
@@ -48,7 +48,7 @@
                        Margin="10,292,331,86" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
                 <TextBox x:Name="txtNgayVL" Margin="161,334,10,45" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
-                <DatePicker x:Name="dtpNgayVL" Margin="161,334,10,45"  Text="" HorizontalContentAlignment="Left" Visibility="Hidden"></DatePicker>
+                <DatePicker x:Name="dtpNgayVL" Margin="161,334,10,45"  Text="" HorizontalContentAlignment="Left" Visibility="Visible"></DatePicker>
                 <Label x:Name="lblNgayVL" Content="Ngày vào làm:"
                        Margin="10,333,331,0" HorizontalContentAlignment="Stretch" MaxWidth="100" Height="25" MaxHeight="25" VerticalAlignment="Top"/>
 
@@ -59,7 +59,6 @@
 
         <GroupBox Header="Danh sách nhân viên" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSNV" Height="400" VerticalAlignment="Top" Width="432" 
-                      SelectionChanged="dtgDSNV_SelectionChanged"
                       MouseUp="dtgDSNV_MouseUp"
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsReadOnly="True">
                 <DataGrid.Columns>
@@ -102,18 +101,7 @@
                 <Button x:Name="btnLuu_Sua" Content="Lưu" Width="135" Height="44" Margin="165,66,160,10" Visibility="Hidden" Click="btnLuu_Sua_Click"/>
                 <Button x:Name="btnXoa" Content="Xóa" Width="135" Height="44" Margin="315,10,10,66" Click="btnXoa_Click"/>
                 <Button x:Name="btnHuy_Sua" Content="Hủy" Width="135" Height="44" Margin="315,66,10,10" Background="#FF673AB7" Click="btnHuy_Sua_Click"/>
-            
             </Grid>
         </StackPanel>
-
-
-
-
-
-
-
-
-
-
     </Grid>
 </UserControl>

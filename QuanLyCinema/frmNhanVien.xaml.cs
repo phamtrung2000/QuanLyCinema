@@ -67,14 +67,14 @@ namespace QuanLyCinema
 
         void Load_Data(DataTable dataTable)
         {
-           // dtgDSNV.Items.Clear();
+            dtgDSNV.Items.Clear();
             dtgDSNV.ItemsSource = null;
             listnhanVien = new List<NhanVienDTO>();
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
             {
                 object[] a = new object[10];
                 a = dataTable.Rows[i].ItemArray;
-                string stt = a[0].ToString();
+                string stt = (i+1).ToString();
                 string manv = a[1].ToString();
                 string hoten = a[2].ToString();
                 string chucvu = a[3].ToString();
@@ -94,9 +94,9 @@ namespace QuanLyCinema
                 string ngayvl = ngayvl_temp.Day.ToString() + "/" + ngayvl_temp.Month.ToString() + "/" + ngayvl_temp.Year.ToString();
 
                 listnhanVien.Add(new NhanVienDTO(stt, manv, hoten, chucvu, sdt, gioitinh, ngaysinh, diachi, luong, ngayvl));
-               // dtgDSNV.Items.Add(listnhanVien[i]);
+                dtgDSNV.Items.Add(listnhanVien[i]);
             }
-            dtgDSNV.ItemsSource = listnhanVien;
+            // dtgDSNV.ItemsSource = listnhanVien;
             //rowcount = dataTable.Rows.Count;
         }
 
@@ -107,7 +107,8 @@ namespace QuanLyCinema
             txtHoTen.IsReadOnly = txtMaNV.IsReadOnly = txtChucVu.IsReadOnly = txtSDT.IsReadOnly = txtDiaChi.IsReadOnly = txtLuong.IsReadOnly = false;
             dtpNgaySinh.IsEnabled = dtpNgayVL.IsEnabled = true;
             rdbNam.IsEnabled = rdbNu.IsEnabled = true;
-            txtHoTen.Focus();
+            
+            txtMaNV.Focus();
             grpThongTinNV.IsEnabled = true;
         }
 
@@ -133,8 +134,6 @@ namespace QuanLyCinema
             rdbNam.IsEnabled = rdbNu.IsEnabled = false;
             rdbNam.Opacity = 100;
             rdbNu.Opacity = 100;
-
-          
         }
 
         private void GridNhanVien_Loaded(object sender, RoutedEventArgs e)
@@ -150,51 +149,6 @@ namespace QuanLyCinema
         }
 
         string ngaythangnamsinh = null, ngaythangnamvaolam = null;
-
-        private void dtgDSNV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // khúc này dr null vì nó ko phải datarowview mà là 1 nhân viên dto
-
-            //DataGrid dg = sender as DataGrid;
-            //DataRowView dr = dg.SelectedItem as DataRowView;
-            //if (dr != null) 
-            //{
-            //    txtMaNV.Text = dr["Mã nhân viên"].ToString();
-            //    txtHoTen.Text = dr["Họ tên"].ToString();
-            //    txtChucVu.Text = dr["Chức vụ"].ToString();
-            //    txtSDT.Text = dr["SĐT"].ToString();
-
-            //    string gioitinh = dr["Giới tính"].ToString();
-            //    if (gioitinh == "Nam")
-            //        rdbNam.IsChecked = true;
-            //    else if (gioitinh == "Nữ")
-            //        rdbNu.IsChecked = true;
-
-            //    dtpNgaySinh.SelectedDate = DateTime.Parse(dr["Ngày sinh"].ToString());
-            //    txtDiaChi.Text = dr["Địa chỉ"].ToString();
-            //    txtLuong.Text = dr["Lương (VND)"].ToString();
-            //    dtpNgayVL.SelectedDate = DateTime.Parse(dr["Ngày vào làm"].ToString());
-            //}
-
-            //Selected = true;
-            //NhanVienDTO nv = dtgDSNV.SelectedItem as NhanVienDTO;
-            //txtMaNV.Text = nv.MaNV;
-            //txtHoTen.Text = nv.HoTen;
-            //txtChucVu.Text = nv.ChucVu;
-            //txtSDT.Text = nv.SDT;
-            //string gioitinh = nv.GioiTinh;
-            //if (gioitinh == "Nam")
-            //    rdbNam.IsChecked = true;
-            //else if (gioitinh == "Nữ")
-            //    rdbNu.IsChecked = true;
-
-            //ngaythangnamsinh = txtNgaySinh.Text = nv.NgaySinh_String;
-            //ngaythangnamvaolam = txtNgayVL.Text = nv.NgayVL_String;
-
-            //txtDiaChi.Text = nv.DiaChi;
-            //txtLuong.Text = nv.Luong;
-           
-        }
 
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
@@ -377,6 +331,57 @@ namespace QuanLyCinema
             }
         }
 
+        private void btnHuy_Sua_Click(object sender, RoutedEventArgs e)
+        {
+            KhongChoNhap();
+            btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            btnSua.Visibility = Visibility.Visible;
+            btnThem.IsEnabled = btnXoa.IsEnabled = true;
+        }
+
+        private void dtgDSNV_MouseUp(object sender, MouseButtonEventArgs e)
+        { 
+            {
+                Selected = true;
+                NhanVienDTO nv = dtgDSNV.SelectedItem as NhanVienDTO;
+                txtMaNV.Text = nv.MaNV;
+                txtHoTen.Text = nv.HoTen;
+                txtChucVu.Text = nv.ChucVu;
+                txtSDT.Text = nv.SDT;
+                string gioitinh = nv.GioiTinh;
+                if (gioitinh == "Nam")
+                    rdbNam.IsChecked = true;
+                else if (gioitinh == "Nữ")
+                    rdbNu.IsChecked = true;
+
+                ngaythangnamsinh = txtNgaySinh.Text = nv.NgaySinh_String;
+                ngaythangnamvaolam = txtNgayVL.Text = nv.NgayVL_String;
+
+                txtDiaChi.Text = nv.DiaChi;
+                txtLuong.Text = nv.Luong;
+            }
+
+        }
+
+        private void btnLamMoi_Click(object sender, RoutedEventArgs e)
+        {
+            KhongChoNhap();
+
+            DataTable dataTable = new DataTable();
+            dataTable = NhanVienBUS.LoadDSNV();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
+            if (btnSua.Visibility == Visibility.Hidden)
+            {
+                btnSua.Visibility = Visibility.Visible;
+            }
+            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+            {
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
+        }
+
         private void btnTimKiem_Click(object sender, RoutedEventArgs e)
         {
             if (panelTimKiem.Visibility == Visibility.Visible)
@@ -451,7 +456,6 @@ namespace QuanLyCinema
             {
                 txtTimKiem.Text = "";
             }
-                
         }
 
         private void txtTimKiem_LostFocus(object sender, RoutedEventArgs e)
@@ -465,52 +469,5 @@ namespace QuanLyCinema
             }
         }
 
-        private void btnHuy_Sua_Click(object sender, RoutedEventArgs e)
-        {
-            KhongChoNhap();
-            btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
-            btnSua.Visibility = Visibility.Visible;
-            btnThem.IsEnabled = btnXoa.IsEnabled = true;
-        }
-
-        private void dtgDSNV_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Selected = true;
-            NhanVienDTO nv = dtgDSNV.SelectedItem as NhanVienDTO;
-            txtMaNV.Text = nv.MaNV;
-            txtHoTen.Text = nv.HoTen;
-            txtChucVu.Text = nv.ChucVu;
-            txtSDT.Text = nv.SDT;
-            string gioitinh = nv.GioiTinh;
-            if (gioitinh == "Nam")
-                rdbNam.IsChecked = true;
-            else if (gioitinh == "Nữ")
-                rdbNu.IsChecked = true;
-
-            ngaythangnamsinh = txtNgaySinh.Text = nv.NgaySinh_String;
-            ngaythangnamvaolam = txtNgayVL.Text = nv.NgayVL_String;
-
-            txtDiaChi.Text = nv.DiaChi;
-            txtLuong.Text = nv.Luong;
-        }
-
-        private void btnLamMoi_Click(object sender, RoutedEventArgs e)
-        {
-            KhongChoNhap();
-
-            DataTable dataTable = new DataTable();
-            dataTable = NhanVienBUS.LoadDSNV();
-            Load_Data(dataTable);
-
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility =btnLuu_Sua.Visibility= Visibility.Hidden;
-            if(btnSua.Visibility==Visibility.Hidden)
-            {
-                btnSua.Visibility = Visibility.Visible;
-            }
-            if(btnThem.IsEnabled==btnXoa.IsEnabled==false)
-            {
-                btnThem.IsEnabled = btnXoa.IsEnabled = true;
-            }
-        }
     }
 }

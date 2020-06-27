@@ -26,7 +26,6 @@ namespace QuanLyCinema
         {
             InitializeComponent();
         }
-     
 
         private void btnDangNhap_Click(object sender, RoutedEventArgs e)
         {
@@ -147,6 +146,11 @@ namespace QuanLyCinema
                     txtMatKhau.Password = "";
                 }
             }   
+        }
+
+        private void GridDangNhap_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtTaiKhoan.Focus();
         }
     }
 }

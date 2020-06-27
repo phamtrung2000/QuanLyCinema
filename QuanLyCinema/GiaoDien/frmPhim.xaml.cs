@@ -27,157 +27,115 @@ namespace QuanLyCinema.LoaiPhim
     /// </summary>
     public partial class frmPhim : UserControl
     {
-        public frmPhim()
+        public frmPhim()  
         {
             InitializeComponent();
         }
 
+        List<PhimDTO> listPhim = new List<PhimDTO>();
+
+        void Load_Data(DataTable dataTable)
+        {
+            dtgDSPhim.Items.Clear();
+            dtgDSPhim.ItemsSource = null;
+            listPhim = new List<PhimDTO>();
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                object[] a = new object[10];
+                a = dataTable.Rows[i].ItemArray;
+                string stt = (i + 1).ToString();
+                string maphim = a[1].ToString();
+                string tenphim = a[2].ToString();
+                string daodien = a[3].ToString();
+                string dienvien = a[4].ToString();
+                string malp = a[5].ToString();
+                string noidung = a[6].ToString();
+                string namsx = a[7].ToString();
+                string nuocsx = a[8].ToString();
+                string thoiluong = a[9].ToString();
+
+                listPhim.Add(new PhimDTO(stt, maphim, tenphim, daodien, dienvien, malp, noidung, namsx,nuocsx, thoiluong));
+                dtgDSPhim.Items.Add(listPhim[i]);
+            }
+        }
+
+        bool Selected = false;
+
         void ChoPhepNhap()
         {
-            txtMaphim.IsReadOnly =txtTenphim.IsReadOnly=txtDaodien.IsReadOnly=txtDienvien.IsReadOnly=txtMalp.IsReadOnly=txtNoidung.IsReadOnly
-                =txtNuocsx.IsReadOnly=txtNamsx.IsReadOnly=txtThoiluong.IsReadOnly= false;
-            txtMaphim.Focus();
+            txtMaPhim.IsReadOnly =txtTenPhim.IsReadOnly=txtDaoDien.IsReadOnly=txtDienVien.IsReadOnly=txtMaLP.IsReadOnly=txtNoiDung.IsReadOnly
+                =txtNuocSX.IsReadOnly=txtNamSX.IsReadOnly=txtThoiLuong.IsReadOnly= false;
+            
+            txtMaPhim.Focus();
+            grpThongTinPhim.IsEnabled = true;
         }
 
         void KhongChoNhap()
         {
-            txtMaphim.Clear();
-            txtTenphim.Clear();
-            txtDaodien.Clear();
-            txtDienvien.Clear();
-            txtNoidung.Clear();
-            txtNamsx.Clear();
-            txtNuocsx.Clear();
-            txtThoiluong.Clear();
-            txtMalp.Clear();
+            txtMaPhim.Clear();
+            txtTenPhim.Clear();
+            txtDaoDien.Clear();
+            txtDienVien.Clear();
+            txtNoiDung.Clear();
+            txtNamSX.Clear();
+            txtNuocSX.Clear();
+            txtThoiLuong.Clear();
+            txtMaLP.Clear();
 
 
-            txtMaphim.IsReadOnly = txtTenphim.IsReadOnly = txtDaodien.IsReadOnly = txtDienvien.IsReadOnly = txtMalp.IsReadOnly = txtNoidung.IsReadOnly
-                = txtNuocsx.IsReadOnly = txtNamsx.IsReadOnly = txtThoiluong.IsReadOnly = true;
+            txtMaPhim.IsReadOnly = txtTenPhim.IsReadOnly = txtDaoDien.IsReadOnly = txtDienVien.IsReadOnly = txtMaLP.IsReadOnly = txtNoiDung.IsReadOnly
+            = txtNuocSX.IsReadOnly = txtNamSX.IsReadOnly = txtThoiLuong.IsReadOnly = true;
         }
 
-        private void DtgDSP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void GridPhim_Loaded(object sender, RoutedEventArgs e)
         {
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtMalp.Text = dr["MALP"].ToString();
-                txtMaphim.Text = dr["MAPHIM"].ToString();
-                txtTenphim.Text = dr["TENPHIM"].ToString();
-                txtDaodien.Text= dr["DAODIEN"].ToString();
-                txtDienvien.Text= dr["DIENVIEN"].ToString();
-                txtNoidung.Text= dr["DIENVIEN"].ToString();
-                txtNuocsx.Text= dr["NUOCSX"].ToString();
-                txtNamsx.Text= dr["NAMSX"].ToString();
-                txtThoiluong.Text= dr["THOILUONG"].ToString();
-            }
-        }
+            KhongChoNhap();
 
-        private void TxtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txtTimKiem.Text.Length > 1)
-            {
-                switch (type_timkiem)
-                {
-                    case 0:
-                        {
-                            dtgDSP.ItemsSource = PhimBUS.TimTheoMaP(txtTimKiem.Text.ToString()).DefaultView;
-                        }
-                        break;
-                    case 1:
-                        {
-                            dtgDSP.ItemsSource = PhimBUS.TimTheoTenPhim(txtTimKiem.Text.ToString()).DefaultView;
-                        }
-                        break;
+            DataTable dataTable = new DataTable();
+            dataTable = PhimBUS.LoadDSPhim();
+            Load_Data(dataTable);
 
-                }
-            }
-            else if (txtTimKiem.Text.Length == 0)
-            {
-                dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
-            }
-        }
-
-        private void TxtTimKiem_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (txtTimKiem.Text == "")
-            {
-                txtTimKiem.Text = "Tìm Kiếm...";
-                dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
-            }
-        }
-
-        private void TxtTimKiem_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (type_timkiem == -1)
-            {
-                MessageBox.Show("Chưa chọn mục tìm kiếm");
-                cbbTimKiem.Focus();
-            }
-            else if (txtTimKiem.Text == "Tìm Kiếm...")
-                txtTimKiem.Text = "";
-        }
-
-        int type_timkiem = -1;
-        private void CbbTimKiem_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            String a = cbbTimKiem.SelectedItem.ToString();
-            if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã Phim")
-            {
-                type_timkiem = 0;
-            }
-            else if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Tên Phim")
-            {
-                type_timkiem = 1;
-            }
-            
-        }
-
-        private void BtnTimKiem_Click(object sender, RoutedEventArgs e)
-        {
-            if (panelTimKiem.Visibility == Visibility.Visible)
-            {
-                panelTimKiem.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                panelTimKiem.Visibility = Visibility.Visible;
-            }
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
 
         private void BtnThem_Click(object sender, RoutedEventArgs e)
         {
             frmAddPhim addPhim = new frmAddPhim();
             addPhim.ShowDialog();
-            dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
+
+            DataTable dataTable = new DataTable();
+            dataTable = PhimBUS.LoadDSPhim();
+            Load_Data(dataTable);
+           
             KhongChoNhap();
             btnThem.Visibility = Visibility.Visible;
             btnSua.IsEnabled = btnXoa.IsEnabled = true;
         }
 
-        private void BtnSua_Click(object sender, RoutedEventArgs e)
+        private void BtnXoa_Click(object sender, RoutedEventArgs e)
         {
-            ChoPhepNhap();
-            btnLuu_Sua.Visibility = Visibility.Visible;
-            btnHuy_Sua.Visibility = Visibility.Visible;
-            btnSua.Visibility = Visibility.Hidden;
-            //btnLamMoi.IsEnabled = false;
-            btnThem.IsEnabled = btnXoa.IsEnabled = false;
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phim này không?", "Thông Báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                PhimBUS.Xoa(txtMaPhim.Text);
+                MessageBox.Show("Xóa phim thành công", "Thông Báo");
+            }
+            DataTable dataTable = new DataTable();
+            dataTable = PhimBUS.LoadDSPhim();
+            Load_Data(dataTable);
         }
 
-        private void BtnLamMoi_Click(object sender, RoutedEventArgs e)
+        private void BtnSua_Click(object sender, RoutedEventArgs e)
         {
-            KhongChoNhap();
-            dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
-            if (btnSua.Visibility == Visibility.Hidden)
+            if (Selected == false)
+                MessageBox.Show("Bạn chưa chọn nhân viên để sửa thông tin");
+            else
             {
-                btnSua.Visibility = Visibility.Visible;
-            }
-            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
-            {
-                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+                ChoPhepNhap();
+                btnLuu_Sua.Visibility = Visibility.Visible;
+                btnHuy_Sua.Visibility = Visibility.Visible;
+                btnSua.Visibility = Visibility.Hidden;
+                btnThem.IsEnabled = btnXoa.IsEnabled = false;
             }
         }
 
@@ -186,54 +144,54 @@ namespace QuanLyCinema.LoaiPhim
             bool TrungMaP = false;
         SuaLai:
             string maphim = null;
-            if (txtMaphim.Text.Length != 0)
+            if (txtMaPhim.Text.Length != 0)
             {
-                maphim = txtMaphim.Text;
+                maphim = txtMaPhim.Text;
             }
             string tenphim = null;
-            if (txtTenphim.Text.Length != 0)
+            if (txtTenPhim.Text.Length != 0)
             {
-                tenphim = txtTenphim.Text;
+                tenphim = txtTenPhim.Text;
             }
             string daodien = null;
-            if (txtDaodien.Text.Length != 0)
+            if (txtDaoDien.Text.Length != 0)
             {
-                daodien = txtDaodien.Text;
+                daodien = txtDaoDien.Text;
             }
             string dienvien = null;
-            if (txtDienvien.Text.Length != 0)
+            if (txtDienVien.Text.Length != 0)
             {
-                dienvien = txtDienvien.Text;
+                dienvien = txtDienVien.Text;
             }
             string malp = null;
-            if(txtMalp.Text.Length!=0)
+            if (txtMaLP.Text.Length != 0)
             {
-                malp = txtMalp.Text;
+                malp = txtMaLP.Text;
             }
 
             string noidung = null;
-            if(txtNoidung.Text.Length!=0)
+            if (txtNoiDung.Text.Length != 0)
             {
-                noidung = txtNoidung.Text;
+                noidung = txtNoiDung.Text;
             }
             string namsx = null;
-            if (txtNamsx.Text.Length != 0)
+            if (txtNamSX.Text.Length != 0)
             {
-                namsx = txtNamsx.Text;
+                namsx = txtNamSX.Text;
             }
             string nuocsx = null;
-            if (txtNuocsx.Text.Length != 0)
+            if (txtNuocSX.Text.Length != 0)
             {
-                nuocsx = txtNuocsx.Text;
+                nuocsx = txtNuocSX.Text;
             }
             string thoiluong = null;
-            if (txtThoiluong.Text.Length != 0)
+            if (txtThoiLuong.Text.Length != 0)
             {
-                thoiluong = txtThoiluong.Text;
+                thoiluong = txtThoiLuong.Text;
             }
 
 
-            PhimDTO phim = new PhimDTO(maphim, tenphim, daodien, dienvien, malp, noidung, namsx, nuocsx,thoiluong);
+            PhimDTO phim = new PhimDTO(maphim, tenphim, daodien, dienvien, malp, noidung, namsx, nuocsx, thoiluong);
 
 
             if (maphim == null)
@@ -246,7 +204,7 @@ namespace QuanLyCinema.LoaiPhim
                 {
                     MessageBox.Show("Mã phim bị trùng");
                 }
-                txtMaphim.Focus();
+                txtMaPhim.Focus();
             }
             else if (tenphim == null)
             {
@@ -255,38 +213,38 @@ namespace QuanLyCinema.LoaiPhim
             else if (daodien == null)
             {
                 MessageBox.Show("Đạo diễn không được để trống");
-                txtDaodien.Focus();
+                txtDaoDien.Focus();
             }
             else if (dienvien == null)
             {
                 MessageBox.Show("Diễn viên không được để trống");
-                txtDienvien.Focus();
+                txtDienVien.Focus();
             }
             else if (noidung == null)
             {
                 MessageBox.Show("Nội dung không được để trống");
-                txtNoidung.Focus();
+                txtNoiDung.Focus();
             }
             else if (namsx == null)
             {
                 MessageBox.Show("Địa chỉ không được để trống");
-                txtNamsx.Focus();
+                txtNamSX.Focus();
             }
 
             else if (nuocsx == null)
             {
                 MessageBox.Show("Lương không được để trống");
-                txtNuocsx.Focus();
+                txtNuocSX.Focus();
             }
-            else if(malp==null)
+            else if (malp == null)
             {
                 MessageBox.Show("Mã loại phim không được để trống");
-                txtMalp.Focus();
+                txtMaLP.Focus();
             }
-            else if(thoiluong==null)
+            else if (thoiluong == null)
             {
                 MessageBox.Show("Thời lượng phim không được để trống");
-                txtThoiluong.Focus();
+                txtThoiLuong.Focus();
             }
             else
             {
@@ -296,17 +254,22 @@ namespace QuanLyCinema.LoaiPhim
                 }
                 catch
                 {
-                    txtMaphim.Clear();
+                    txtMaPhim.Clear();
                     TrungMaP = true;
                     goto SuaLai;
                 }
                 MessageBox.Show("Sửa thông tin phim  thành công", "Thông báo");
-                dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
+
+                DataTable dataTable = new DataTable();
+                dataTable = PhimBUS.LoadDSPhim();
+                Load_Data(dataTable);
+
                 KhongChoNhap();
-                btnLuu_Sua.Visibility = Visibility.Hidden;
+                btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
                 btnSua.Visibility = Visibility.Visible;
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
-                dtgDSP.IsEnabled = true;
+                dtgDSPhim.IsEnabled = true;
+                Selected = false;
             }
         }
 
@@ -318,22 +281,121 @@ namespace QuanLyCinema.LoaiPhim
             btnThem.IsEnabled = btnXoa.IsEnabled = true;
         }
 
-        private void GroupBox_Loaded(object sender, RoutedEventArgs e)
+        private void BtnLamMoi_Click(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+
+            DataTable dataTable = new DataTable();
+            dataTable = PhimBUS.LoadDSPhim();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
+            if (btnSua.Visibility == Visibility.Hidden)
+            {
+                btnSua.Visibility = Visibility.Visible;
+            }
+            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+            {
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
+        }
+        
+        private void BtnTimKiem_Click(object sender, RoutedEventArgs e)
+        {
+            if (panelTimKiem.Visibility == Visibility.Visible)
+            {
+                panelTimKiem.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                panelTimKiem.Visibility = Visibility.Visible;
+            }
         }
 
-        private void BtnXoa_Click(object sender, RoutedEventArgs e)
+        int type_timkiem = -1;
+        private void CbbTimKiem_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phim này không?", "Thông Báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
+                txtTimKiem.Text = "";
+            if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã Phim")
             {
-                PhimBUS.Xoa(txtMaphim.Text);
-                MessageBox.Show("Xóa phim thành công", "Thông Báo");
+                type_timkiem = 0;
             }
-            dtgDSP.ItemsSource = PhimBUS.LoadDSP().DefaultView;
+            else if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Tên Phim")
+            {
+                type_timkiem = 1;
+            }
+            txtTimKiem.Focus();
+        }
+
+        private void TxtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            if (txtTimKiem.Text.Length > 1)
+            {
+                switch (type_timkiem)
+                {
+                    case 0:
+                        {
+                            dataTable = PhimBUS.TimTheoMaP(txtTimKiem.Text.ToString());
+                        }
+                        break;
+                    case 1:
+                        {
+                            dataTable = PhimBUS.TimTheoTenPhim(txtTimKiem.Text.ToString());
+                        }
+                        break;
+
+                }
+            }
+            else if (txtTimKiem.Text.Length == 0)
+            {
+                dataTable = PhimBUS.LoadDSPhim();
+            }
+            Load_Data(dataTable);
+        }
+
+        private void TxtTimKiem_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (type_timkiem == -1)
+            {
+                MessageBox.Show("Chưa chọn mục tìm kiếm");
+                cbbTimKiem.Focus();
+            }
+            else if (txtTimKiem.Text == "Tìm Kiếm...")
+            {
+                txtTimKiem.Text = "";
+            }
+        }
+
+        private void TxtTimKiem_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtTimKiem.Text == "")
+            {
+                txtTimKiem.Text = "Tìm Kiếm...";
+                DataTable dataTable = new DataTable();
+                dataTable = PhimBUS.LoadDSPhim();
+                Load_Data(dataTable);
+            }
+        }
+
+        private void dtgDSPhim_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            int index = dtgDSPhim.SelectedIndex;
+            if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
+            {
+                Selected = true;
+                PhimDTO nv = dtgDSPhim.SelectedItem as PhimDTO;
+                txtMaPhim.Text = nv.MaPhim;
+                txtTenPhim.Text = nv.TenPhim;
+                txtDaoDien.Text = nv.DaoDien;
+                txtDienVien.Text = nv.DienVien;
+                txtMaLP.Text = nv.MaLP;
+                txtNoiDung.Text = nv.NoiDung;
+                txtNamSX.Text = nv.NamSX;
+                txtNuocSX.Text = nv.NuocSX;
+                txtThoiLuong.Text = nv.ThoiLuong;
+            }
         }
     }
 }

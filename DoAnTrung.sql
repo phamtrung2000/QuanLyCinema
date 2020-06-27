@@ -43,12 +43,22 @@ INSERT INTO NHANVIEN VALUES ('NV6',N'Trần Thanh Nhàn',N'Nhân viên bán vé'
 --INSERT INTO NHANVIEN VALUES ('NV20',N'Nguyễn Duy Thành',N'Thủ Kho','0953857361','Nam','21/5/1991',N'181/2 Đường 3 Tháng 2,  Quận 10, TP. HCM',150000000,'22/1/2017')
 
 go
+create PROC LoadNhanVien
+as
+begin
+SELECT * FROM NHANVIEN ORDER BY STT ASC
+end
+
+
+go
 ----PROC THEMNHANVIEN
 create PROC Themnhanvien(@manv varchar(10),@hoten NVARCHAR(40),@chucvu NVARCHAR(100),@sdt VARCHAR(20),@gioitinh NVARCHAR(4),
 @ngaysinh DATE,@diachi NVARCHAR(100),@luong MONEY,@ngayvl DATE)
 as
+begin
  insert into NHANVIEN(MANV,HOTEN,CHUCVU,SDT,GIOITINH,NGAYSINH,DIACHI,LUONG,NGAYVL) VALUES (@manv,@hoten,@chucvu,@sdt,@gioitinh,@ngaysinh,@diachi,@luong,@ngayvl)
- 
+end
+
  go
  -----PROC XOANHANVIEN
  CREATE PROC Xoanhanvien(@manv varchar(10) )
@@ -132,9 +142,20 @@ as SELECT NV.HOTEN,NV.CHUCVU,NV.SDT,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIE
    WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
 go
 ---PROC DANGNHAP
-CREATE PROC Phanquyennhanvien(@user varchar(50),@pass varchar(50))
-as SELECT NV.CHUCVU,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
-   WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
+ CREATE PROC Phanquyennhanvien(@user varchar(50),@pass varchar(50))
+ as 
+ begin
+ SELECT NV.CHUCVU,DN.TAIKHOAN,DN.MATKHAU FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV
+  WHERE DN.TAIKHOAN =@user and DN.MATKHAU=@pass
+end
+
+go
+CREATE PROC PhanQuyen(@user varchar(50),@pass varchar(50))
+as 
+begin
+SELECT ND.PHANQUYEN FROM DANGNHAP_NHANVIEN DN INNER JOIN NHANVIEN NV ON DN.MANV=NV.MANV INNER JOIN NGUOIDUNG ND ON ND.MAND=NV.MANV WHERE DN.TAIKHOAN = 'thanhphuong' and DN.MATKHAU='thanhphuong'
+end
+-- exec PhanQuyen 'thanhphuong','thanhphuong'
 GO
 CREATE TABLE KHACHHANGTHANTHIET
 (
@@ -147,7 +168,6 @@ CREATE TABLE KHACHHANGTHANTHIET
 	SDT VARCHAR(20),
 	LOAIKH NVARCHAR(50), -- cái này sẽ cút MALOAIKH
 	NGAYDK DATE
-
 )
 
 --CREATE TABLE LOAIKHACHHANG
@@ -263,10 +283,19 @@ INSERT INTO KHACHHANGTHANTHIET (MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,N
 ('KH100',N'Trần Anh Tuấn',N'142/8/3 Lê Lợi, P.4, Gò Vấp, TP.HCM','0987685085','5/1/1994','Nam',N'Bạch kim','15/5/2018')
 
 go
+create PROC LoadKhachHang
+as
+begin
+SELECT * FROM KHACHHANGTHANTHIET ORDER BY STT ASC
+end
+
+go
 ---PROC THEMKHACHHANG
 create PROC Them_khachhang( @makh varchar(10),@hoten NVARCHAR(40),@diachi NVARCHAR(100),@ngaysinh DATE,@gioitinh nvarchar(4), @sdt varchar(20) ,@loaikh NVARCHAR(50),@ngaydk date)
 as
+begin
  insert into KHACHHANGTHANTHIET(MAKH,HOTEN,DIACHI,SDT,NGAYSINH,GIOITINH,LOAIKH,NGAYDK) VALUES (@makh,@hoten,@diachi,@sdt,@ngaysinh,@gioitinh,@loaikh,@ngaydk)
+end
 
  go
  ---EXEC Them_khachhang 'KH101',N'Trần Anh Tuấn',N'142/8/3 Lê Lợi, P.4, Gò Vấp, TP.HCM','0987685085','5/1/1994','Nữ',N'Bạch kim','15/5/2018'
@@ -523,16 +552,16 @@ SELECT *FROM LOAIPHIM ORDER BY STT ASC
 go
 INSERT INTO LOAIPHIM(MALP,TENLP,MOTA) VALUES 
 ('LP1',N'Phim hành động',N'là một thể loại điện ảnh trong đó một hoặc nhiều nhân vật anh hùng bị đẩy vào một loạt những thử thách, thường bao gồm những kì công vật lý, các cảnh hành động kéo dài, yếu tố bạo lực và những cuộc rượt đuổi điên cuồng. Phim hành động có xu hướng mô tả một nhân vật có tài xoay xở đấu tranh chống lại những xung đột không tưởng, bao gồm các tình huống đe dọa đến tính mạng, một phản diện hay một sự theo đuổi mà thường kết thúc trong thắng lợi cho anh hùng')
-go
 
-create proc Loadloaiphim (@malp varchar(10))
+go
+create proc LoadLoaiPhim
 as 
 begin 
-select *from LOAIPHIM where LOAIPHIM.MALP!=@malp
+select * from LOAIPHIM ORDER BY STT ASC
 end
-go
 
----PROC THEMLOAIPHIM
+--  exec LoadLoaiPhim
+go
 CREATE PROC Themloaiphim(@malp varchar(10),@tenlp nvarchar(40),@mota nvarchar(1000))
 as
 begin 
@@ -592,6 +621,12 @@ CREATE TABLE PHIM
 	CONSTRAINT FK_PHIM_MALP FOREIGN KEY(MALP) REFERENCES LOAIPHIM(MALP) ON DELETE CASCADE
 )
 -- drop table phim
+go
+create proc LoadPhim
+as 
+begin 
+select * from PHIM ORDER BY STT ASC
+end
 
 go
 INSERT INTO PHIM(MAPHIM,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) VALUES 
@@ -602,7 +637,7 @@ go
 create proc Themphim(@map varchar(10) ,@tenphim nvarchar(40),@daodien nvarchar(100),@dienvien nvarchar(100),@malp varchar(10),@noidung nvarchar(1000),@namsx varchar(10),@nuocsx nvarchar(100),@thoiluong nvarchar(100))
 as
 begin
-insert into PHIM(MALP,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) values(@map,@tenphim,@daodien,@dienvien,@malp,@noidung,@namsx,@nuocsx,@thoiluong)
+insert into PHIM(MAPHIM,TENPHIM,DAODIEN,DIENVIEN,MALP,NOIDUNG,NAMSX,NUOCSX,THOILUONG) values(@map,@tenphim,@daodien,@dienvien,@malp,@noidung,@namsx,@nuocsx,@thoiluong)
 end 
 go
 ---proc Suaphim
@@ -683,6 +718,55 @@ INSERT INTO LOAIVE(MALV,TENLV,LOAICHONGOI,GIA) VALUES
 ('LV1',N'Vé thường',N'Ghế thường',40000),
 ('LV2',N'Vé VIP',N'Ghế VIP',50000),
 ('LV3',N'Vé đôi',N'Ghế đôi',110000)
+-- select * from loaive
+go
+  -------PROC LOADDSLOAIVE
+  CREATE PROC LoadDSLoaiVe
+  as
+  BEGIN
+  select *from LOAIVE ORDER BY STT ASC
+  END
+-- exec LoadDSLoaiVe
+go
+----PROC Them loai ve
+create PROC ThemLoaiVe(@malv varchar(10),@tenlv NVARCHAR(100),@loaichongoi NVARCHAR(100),@gia MONEY)
+as
+begin
+ insert into LOAIVE(malv,tenlv,loaichongoi,gia) VALUES (@malv,@tenlv,@loaichongoi,@gia)
+end
+
+go
+----PROC Them loai ve
+create PROC SuaLoaiVe(@malv varchar(10),@tenlv NVARCHAR(100),@loaichongoi NVARCHAR(100),@gia MONEY)
+as
+begin
+ UPDATE LOAIVE 
+ SET MALV=@malv,TENLV=@tenlv,LOAICHONGOI=@loaichongoi,GIA=@gia WHERE MALV=@malv
+end 
+
+GO
+---proc Xoa loai ve
+create proc XoaLoaiVe(@malv varchar(10))
+as 
+begin
+delete from LOAIVE where MALV=@malv
+end
+
+go
+   -----PROC tim theo ma loai ve
+  CREATE PROC TimTheoMaLV(@malv varchar(10))
+  as
+  begin
+  select * from LOAIVE where MALV like '%'+ @malv +'%'
+  end
+
+go
+ -----PROC tim theo ma loai ve
+  CREATE PROC TimTheoTenLV(@tenlv NVARCHAR(100))
+  as
+  begin
+  select * from LOAIVE where TENLV like '%'+ @tenlv +'%'
+  end
 
 GO
 CREATE TABLE VE

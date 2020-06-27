@@ -19,6 +19,7 @@ using System.Configuration;
 using BUS;
 using QuanLyCinema.GiaoDien;
 using DTO;
+using QuanLyCinema.PhongChieu;
 
 namespace QuanLyCinema.GiaoDien
 {
@@ -38,6 +39,7 @@ namespace QuanLyCinema.GiaoDien
         {
             txtTenPC.IsReadOnly = txtMaPC.IsReadOnly = txtSoCho.IsReadOnly = txtMayChieu.IsReadOnly = txtLoa.IsReadOnly = txtDienTich.IsReadOnly = txtTinhTrang.IsReadOnly = txtTrangThietBiKhac.IsReadOnly = false;
             txtMaPC.Focus();
+            grpThongTinPhongChieu.IsEnabled = true;
         }
 
         void KhongChoNhap()
@@ -51,45 +53,80 @@ namespace QuanLyCinema.GiaoDien
             txtTinhTrang.Clear();
             txtTrangThietBiKhac.Clear();
 
-
             txtTenPC.IsReadOnly = txtMaPC.IsReadOnly = txtSoCho.IsReadOnly = txtMayChieu.IsReadOnly
             = txtLoa.IsReadOnly = txtDienTich.IsReadOnly = txtTrangThietBiKhac.IsReadOnly = txtTinhTrang.IsReadOnly = true;
+        }
+
+        List<PhongChieuDTO> listPhongChieu = new List<PhongChieuDTO>();
+
+        void Load_Data(DataTable dataTable)
+        {
+            dtgDSPC.Items.Clear();
+            dtgDSPC.ItemsSource = null;
+            listPhongChieu = new List<PhongChieuDTO>();
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                object[] a = new object[9];
+                a = dataTable.Rows[i].ItemArray;
+                string stt = (i+1).ToString();
+                string mapc = a[1].ToString();
+                string tenpc = a[2].ToString();
+                string socho = a[3].ToString();
+                string maychieu = a[4].ToString();
+
+                string loa = a[5].ToString();
+                string dientich = a[6].ToString();
+                string tinhtrang = a[7].ToString();
+                string trangthietbikhac = a[8].ToString();
+
+                listPhongChieu.Add(new PhongChieuDTO(stt, mapc, tenpc,Int32.Parse(socho), maychieu,loa,Int32.Parse( dientich),tinhtrang,trangthietbikhac));
+                dtgDSPC.Items.Add(listPhongChieu[i]);
+            }
+          //  dtgDSPC.ItemsSource = listPhongChieu;
         }
 
         private void GridPhongChieu_Loaded(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+            DataTable dataTable = new DataTable();
+            dataTable = PhongChieuBUS.LoadDSPC();
+            Load_Data(dataTable);
+
             panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
 
         private void dtgDSPC_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Selected = true;
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtMaPC.Text = dr["MAPC"].ToString();
-                txtTenPC.Text = dr["TENPC"].ToString();
-                txtSoCho.Text = dr["SOCHO"].ToString();
-                txtMayChieu.Text = dr["MAYCHIEU"].ToString();
-                txtLoa.Text = dr["LOA"].ToString();
-                txtDienTich.Text = dr["DIENTICH"].ToString();
-                txtTinhTrang.Text = dr["TINHTRANG"].ToString();
-                txtTrangThietBiKhac.Text = dr["TRANGTHIETBIKHAC"].ToString();
+            //Selected = true;
+            //DataGrid dg = sender as DataGrid;
+            //DataRowView dr = dg.SelectedItem as DataRowView;
+            //if (dr != null)
+            //{
+            //    txtMaPC.Text = dr["MAPC"].ToString();
+            //    txtTenPC.Text = dr["TENPC"].ToString();
+            //    txtSoCho.Text = dr["SOCHO"].ToString();
+            //    txtMayChieu.Text = dr["MAYCHIEU"].ToString();
+            //    txtLoa.Text = dr["LOA"].ToString();
+            //    txtDienTich.Text = dr["DIENTICH"].ToString();
+            //    txtTinhTrang.Text = dr["TINHTRANG"].ToString();
+            //    txtTrangThietBiKhac.Text = dr["TRANGTHIETBIKHAC"].ToString();
 
-            }
+            //}
         }
 
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
-            //frmAddNhanVien addNhanVien = new frmAddNhanVien();
-            //addNhanVien.ShowDialog();
+            frmAddPhongChieu frmAddPhongChieu = new frmAddPhongChieu();
+            frmAddPhongChieu.ShowDialog();
+
+            DataTable dataTable = new DataTable();
+            dataTable = PhongChieuBUS.LoadDSPC();
+            Load_Data(dataTable);
             //dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
-            //KhongChoNhap();
-            //btnThem.Visibility = Visibility.Visible;
-            //btnSua.IsEnabled = btnXoa.IsEnabled = true;
+
+            KhongChoNhap();
+            btnThem.Visibility = Visibility.Visible;
+            btnSua.IsEnabled = btnXoa.IsEnabled = true;
         }
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)
@@ -100,7 +137,10 @@ namespace QuanLyCinema.GiaoDien
                 PhongChieuBUS.Xoa(txtMaPC.Text);
                 MessageBox.Show("Xóa phòng chiếu thành công", "Thông Báo");
             }
-            dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+            DataTable dataTable = new DataTable();
+            dataTable = PhongChieuBUS.LoadDSPC();
+            Load_Data(dataTable);
+            btnLamMoi_Click(sender,e);
         }
 
         private void btnSua_Click(object sender, RoutedEventArgs e)
@@ -132,10 +172,10 @@ namespace QuanLyCinema.GiaoDien
             {
                 tenpc = txtTenPC.Text;
             }
-            int socho = 0;
+            string socho = null;
             if (txtSoCho.Text.Length != 0)
             {
-                socho = Int32.Parse(txtSoCho.Text);
+                socho = txtSoCho.Text;
             }
             string maychieu = null;
             if (txtMayChieu.Text.Length != 0)
@@ -147,10 +187,10 @@ namespace QuanLyCinema.GiaoDien
             {
                 loa = txtLoa.Text;
             }
-            int dientich = 0;
+            string dientich = null;
             if (txtDienTich.Text.Length != 0)
             {
-                dientich = Int32.Parse(txtDienTich.Text);
+                dientich = txtDienTich.Text;
             }
             string tinhtrang = null;
             if (txtTinhTrang.Text.Length != 0)
@@ -164,7 +204,7 @@ namespace QuanLyCinema.GiaoDien
             }
            
 
-            PhongChieuDTO nv = new PhongChieuDTO(mapc, tenpc, socho, maychieu, loa, dientich, tinhtrang, trangthietbikhac);
+            PhongChieuDTO nv = new PhongChieuDTO(mapc, tenpc,Int32.Parse(socho), maychieu, loa,Int32.Parse( dientich), tinhtrang, trangthietbikhac);
 
 
             if (mapc == null)
@@ -184,7 +224,7 @@ namespace QuanLyCinema.GiaoDien
                 MessageBox.Show("Họ tên không được để trống");
                 txtTenPC.Focus();
             }
-            else if (socho == 0)
+            else if (socho == null)
             {
                 MessageBox.Show("Số chỗ không được để trống");
                 txtSoCho.Focus();
@@ -199,7 +239,7 @@ namespace QuanLyCinema.GiaoDien
                 MessageBox.Show("Loa không được để trống");
                 txtLoa.Focus();
             }
-            else if (dientich == 0)
+            else if (dientich == null)
             {
                 MessageBox.Show("Diện tích không được để trống");
                 txtDienTich.Focus();
@@ -228,12 +268,17 @@ namespace QuanLyCinema.GiaoDien
                     goto SuaLai;
                 }
                 MessageBox.Show("Sửa thông tin phòng chiếu  thành công", "Thông báo");
-                dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+
+                DataTable dataTable = new DataTable();
+                dataTable = PhongChieuBUS.LoadDSPC();
+                Load_Data(dataTable);
+
                 KhongChoNhap();
                 btnLuu_Sua.Visibility = Visibility.Hidden;
                 btnSua.Visibility = Visibility.Visible;
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
                 dtgDSPC.IsEnabled = true;
+                Selected = false;
             }
         }
 
@@ -252,7 +297,8 @@ namespace QuanLyCinema.GiaoDien
         int type_timkiem = -1;
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            String a = cbbTimKiem.SelectedItem.ToString();
+            if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
+                txtTimKiem.Text = "";
             if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã phòng chiếu")
             {
                 type_timkiem = 0;
@@ -263,29 +309,30 @@ namespace QuanLyCinema.GiaoDien
             }
         }
 
-
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtTimKiem.Text.Length > 1)
+            DataTable dataTable = new DataTable();
+            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
                     case 0:
                         {
-                            dtgDSPC.ItemsSource = PhongChieuBUS.TimTheoMaPC(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = PhongChieuBUS.TimTheoMaPC(txtTimKiem.Text.ToString());
                         }
                         break;
                     case 1:
                         {
-                            dtgDSPC.ItemsSource = PhongChieuBUS.TimTheoTenPhongChieu(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = PhongChieuBUS.TimTheoTenPhongChieu(txtTimKiem.Text.ToString());
                         }
                         break;
                 }
             }
             else if (txtTimKiem.Text.Length == 0)
             {
-                dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+                dataTable = PhongChieuBUS.LoadDSPC();
             }
+            Load_Data(dataTable);
         }
 
         private void txtTimKiem_GotFocus(object sender, RoutedEventArgs e)
@@ -304,7 +351,9 @@ namespace QuanLyCinema.GiaoDien
             if (txtTimKiem.Text == "")
             {
                 txtTimKiem.Text = "Tìm Kiếm...";
-                dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+                DataTable dataTable = new DataTable();
+                dataTable = PhongChieuBUS.LoadDSPC();
+                Load_Data(dataTable);
             }
         }
 
@@ -319,7 +368,10 @@ namespace QuanLyCinema.GiaoDien
         private void btnLamMoi_Click(object sender, RoutedEventArgs e)
         {
             KhongChoNhap();
-            dtgDSPC.ItemsSource = PhongChieuBUS.LoadDSPC().DefaultView;
+            DataTable dataTable = new DataTable();
+            dataTable = PhongChieuBUS.LoadDSPC();
+            Load_Data(dataTable);
+
             panelTimKiem.Visibility = btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
             if (btnSua.Visibility == Visibility.Hidden)
                 btnSua.Visibility = Visibility.Visible;
@@ -327,5 +379,24 @@ namespace QuanLyCinema.GiaoDien
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
         }
 
+        private void dtgDSPC_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            int index = dtgDSPC.SelectedIndex;
+            if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
+            {
+                Selected = true;
+                PhongChieuDTO nv = dtgDSPC.SelectedItem as PhongChieuDTO;
+                txtMaPC.Text = nv.MaPC;
+                txtTenPC.Text = nv.TenPC;
+                txtSoCho.Text = nv.SoCho.ToString();
+                txtMayChieu.Text = nv.MayChieu;
+
+                txtLoa.Text = nv.Loa;
+                txtDienTich.Text = nv.DienTich.ToString();
+                txtTinhTrang.Text = nv.TinhTrang;
+                txtTrangThietBiKhac.Text = nv.TrangThietBiKhac;
+            }    
+                
+        }
     }
 }

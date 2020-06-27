@@ -12,9 +12,9 @@ namespace BUS
 {
    public class PhimBUS
     {
-        public static DataTable LoadDSP()
+        public static DataTable LoadDSPhim()
         {
-            return PhimDAO.LoadDSP();
+            return PhimDAO.LoadDSPhim();
         }
         public static void Them(PhimDTO p)
         {

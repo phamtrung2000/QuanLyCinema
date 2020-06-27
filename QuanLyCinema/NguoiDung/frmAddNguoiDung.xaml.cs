@@ -99,7 +99,7 @@ namespace QuanLyCinema.NguoiDung
             {
                 try
                 {
-                    NguoiDungBUS.Sua(nv);
+                    NguoiDungBUS.Them(nv);
                 }
                 catch
                 {

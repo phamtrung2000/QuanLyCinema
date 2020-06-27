@@ -9,6 +9,9 @@ namespace DTO
     
     public class PhongChieuDTO
     {
+        private string stt;
+        public string STT { get => stt; set => stt = value; }
+
         private string mapc;
         public string MaPC { get => mapc; set => mapc = value; }
 
@@ -36,6 +39,19 @@ namespace DTO
 
         public PhongChieuDTO(string mapc, string tenpc, int socho, string maychieu, string loa, int dientich, string tinhtrang, string trangthietbikhac)
         {
+            MaPC = mapc;
+            TenPC = tenpc;
+            SoCho = socho;
+            MayChieu = maychieu;
+            Loa = loa;
+            DienTich = dientich;
+            TinhTrang = tinhtrang;
+            TrangThietBiKhac = trangthietbikhac;
+        }
+
+        public PhongChieuDTO(string stt,string mapc, string tenpc, int socho, string maychieu, string loa, int dientich, string tinhtrang, string trangthietbikhac)
+        {
+            STT = stt;
             MaPC = mapc;
             TenPC = tenpc;
             SoCho = socho;

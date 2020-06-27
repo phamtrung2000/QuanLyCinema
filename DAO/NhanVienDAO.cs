@@ -18,8 +18,9 @@ namespace DAO
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM NHANVIEN ORDER BY STT ASC";
+            //command.CommandText = "SELECT * " +
+            //                      "FROM NHANVIEN ORDER BY STT ASC";
+            command.CommandText = " EXEC LoadNhanVien ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);

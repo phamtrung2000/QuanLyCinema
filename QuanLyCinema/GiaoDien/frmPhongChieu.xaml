@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="620" Width="950">
     <Grid x:Name="GridPhongChieu" Background="#FFF9F3F3" Loaded="GridPhongChieu_Loaded">
-        <GroupBox Header="Thông tin phòng chiếu"
+        <GroupBox x:Name="grpThongTinPhongChieu" Header="Thông tin phòng chiếu"
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>
@@ -52,7 +52,20 @@
         <GroupBox Header="Danh sách phòng chiếu" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSPC" Height="400" VerticalAlignment="Top" Width="432" 
                       SelectionChanged="dtgDSPC_SelectionChanged"
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                      MouseUp="dtgDSPC_MouseUp"
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã phòng chiếu" Binding="{Binding MaPC}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tên phòng chiếu" Binding="{Binding TenPC}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Số chỗ" Binding="{Binding SoCho}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Máy chiếu" Binding="{Binding MayChieu}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Loa" Binding="{Binding Loa}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Diện tích (m2)" Binding="{Binding DienTich}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tình trạng" Binding="{Binding TinhTrang}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Trang thiết bị khác" Binding="{Binding TrangThietBiKhac}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </GroupBox>
 
         <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">

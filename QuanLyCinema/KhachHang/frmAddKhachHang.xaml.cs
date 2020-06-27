@@ -33,8 +33,7 @@ namespace QuanLyCinema.KhachHang
             txtDiaChi.Clear();
             dtpNgaySinh.Text = "";
             rdbNam.IsChecked = rdbNu.IsChecked = false;
-            txtSDT.Clear();
-            txtLoaikh.Clear();           
+            txtSDT.Clear();  
             dtpNgayDK.Text = "";
 
         }
@@ -60,14 +59,19 @@ namespace QuanLyCinema.KhachHang
                 hoten = txtHoTenKH.Text;
             }
 
+            //string loaikh = null;
+            //if (txtLoaikh.Text.Length != 0)
+
+            //{
+            //    loaikh = txtLoaikh.Text;
+            //}
+
             string loaikh = null;
-            if (txtLoaikh.Text.Length != 0)
+            if (cbbLoaiKH.Text.Length != 0)
 
             {
-                loaikh = txtLoaikh.Text;
+                loaikh = cbbLoaiKH.Text;
             }
-
-
 
             string gioitinh = null;
             if (rdbNam.IsChecked == true)
@@ -134,7 +138,7 @@ namespace QuanLyCinema.KhachHang
             else if (loaikh == null)
             {
                 MessageBox.Show("Chưa nhập lớp");
-                txtLoaikh.Focus();
+                cbbLoaiKH.Focus();
             }
             else
             {

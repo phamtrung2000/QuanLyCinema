@@ -12,14 +12,13 @@ namespace DAO
 {
     public class PhimDAO
     {
-        public static DataTable LoadDSP()
+        public static DataTable LoadDSPhim()
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM PHIM ORDER BY STT ASC";
+            command.CommandText = " EXEC LoadPhim ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -50,16 +49,16 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MAPHIM"].Value = phim.Maphim;
-            command.Parameters["@TENPHIM"].Value = phim.Tenphim;
-            command.Parameters["@DAODIEN"].Value = phim.Daodien;
-            command.Parameters["@DIENVIEN"].Value = phim.Dienvien;
-            command.Parameters["@MALP"].Value = phim.Malp;
-            command.Parameters["@NOIDUNG"].Value = phim.Noidung;
-            command.Parameters["@NAMSX"].Value = phim.Namsx;
-            command.Parameters["@NUOCSX"].Value = phim.Nuocsx;
-            command.Parameters["@THOILUONG"].Value = phim.Thoiluong;
-            command.Parameters["@DAODIEN"].Value = phim.Daodien;
+            command.Parameters["@MAPHIM"].Value = phim.MaPhim;
+            command.Parameters["@TENPHIM"].Value = phim.TenPhim;
+            command.Parameters["@DAODIEN"].Value = phim.DaoDien;
+            command.Parameters["@DIENVIEN"].Value = phim.DienVien;
+            command.Parameters["@MALP"].Value = phim.MaLP;
+            command.Parameters["@NOIDUNG"].Value = phim.NoiDung;
+            command.Parameters["@NAMSX"].Value = phim.NamSX;
+            command.Parameters["@NUOCSX"].Value = phim.NuocSX;
+            command.Parameters["@THOILUONG"].Value = phim.ThoiLuong;
+            command.Parameters["@DAODIEN"].Value = phim.DaoDien;
 
 
             command.ExecuteNonQuery();
@@ -90,16 +89,16 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MAPHIM"].Value = phim.Maphim;
-            command.Parameters["@TENPHIM"].Value = phim.Tenphim;
-            command.Parameters["@DAODIEN"].Value = phim.Daodien;
-            command.Parameters["@DIENVIEN"].Value = phim.Dienvien;
-            command.Parameters["@MALP"].Value = phim.Malp;
-            command.Parameters["@NOIDUNG"].Value = phim.Noidung;
-            command.Parameters["@NAMSX"].Value = phim.Namsx;
-            command.Parameters["@NUOCSX"].Value = phim.Nuocsx;
-            command.Parameters["@THOILUONG"].Value = phim.Thoiluong;
-            command.Parameters["@DAODIEN"].Value = phim.Daodien;
+            command.Parameters["@MAPHIM"].Value = phim.MaPhim;
+            command.Parameters["@TENPHIM"].Value = phim.TenPhim;
+            command.Parameters["@DAODIEN"].Value = phim.DaoDien;
+            command.Parameters["@DIENVIEN"].Value = phim.DienVien;
+            command.Parameters["@MALP"].Value = phim.MaLP;
+            command.Parameters["@NOIDUNG"].Value = phim.NoiDung;
+            command.Parameters["@NAMSX"].Value = phim.NamSX;
+            command.Parameters["@NUOCSX"].Value = phim.NuocSX;
+            command.Parameters["@THOILUONG"].Value = phim.ThoiLuong;
+            command.Parameters["@DAODIEN"].Value = phim.DaoDien;
             command.ExecuteNonQuery();
 
             // đóng kết nối

@@ -37,7 +37,16 @@
             <DataGrid x:Name="dtgDSND" Height="400" VerticalAlignment="Top" Width="432" 
                       SelectionChanged="dtgDSND_SelectionChanged"
                       MouseUp="dtgDSND_MouseUp"
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã người dùng" Binding="{Binding MaND}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding HoTen}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Chức vụ" Binding="{Binding ChucVu}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Phân quyền" Binding="{Binding PhanQuyen}"></DataGridTextColumn>
+                   
+                </DataGrid.Columns>
+            </DataGrid>
         </GroupBox>
 
         <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">

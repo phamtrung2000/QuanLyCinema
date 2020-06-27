@@ -17,8 +17,9 @@ namespace DAO
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM LOAIPHIM ORDER BY STT ASC";
+            //command.CommandText = "SELECT * " +
+            //                      "FROM LOAIPHIM ORDER BY STT ASC";
+            command.CommandText = "EXEC LoadLoaiPhim ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -43,12 +44,11 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MALP"].Value = loaiphim.Malp;
-            command.Parameters["@TENLP"].Value = loaiphim.Tenlp;
-            command.Parameters["@MOTA"].Value = loaiphim.Mota;
+            command.Parameters["@MALP"].Value = loaiphim.MaLP;
+            command.Parameters["@TENLP"].Value = loaiphim.TenLP;
+            command.Parameters["@MOTA"].Value = loaiphim.MoTa;
 
             command.ExecuteNonQuery();
-
             // đóng kết nối
             connection.Close();
         }
@@ -70,9 +70,9 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MALP"].Value = loaiphim.Malp;
-            command.Parameters["@TENLP"].Value = loaiphim.Tenlp;
-            command.Parameters["@MOTA"].Value = loaiphim.Mota;
+            command.Parameters["@MALP"].Value = loaiphim.MaLP;
+            command.Parameters["@TENLP"].Value = loaiphim.TenLP;
+            command.Parameters["@MOTA"].Value = loaiphim.MoTa;
 
             command.ExecuteNonQuery();
 

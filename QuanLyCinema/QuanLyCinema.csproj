@@ -111,6 +111,9 @@
     <Compile Include="GiaoDien\frmPhongChieu.xaml.cs">
       <DependentUpon>frmPhongChieu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GiaoDien\frmVe.xaml.cs">
+      <DependentUpon>frmVe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KhachHang\frmAddKhachHang.xaml.cs">
       <DependentUpon>frmAddKhachHang.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,9 @@
     </Compile>
     <Compile Include="GiaoDien\frmPhim.xaml.cs">
       <DependentUpon>frmPhim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiVe\frmAddLoaiVe.xaml.cs">
+      <DependentUpon>frmAddLoaiVe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -137,6 +143,9 @@
     </Compile>
     <Compile Include="NhanVien\frmAddNhanVien.xaml.cs">
       <DependentUpon>frmAddNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PhongChieu\frmAddPhongChieu.xaml.cs">
+      <DependentUpon>frmAddPhongChieu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -184,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GiaoDien\frmVe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="KhachHang\frmAddKhachHang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GiaoDien\frmPhim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoaiVe\frmAddLoaiVe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NhanVien\frmAddNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PhongChieu\frmAddPhongChieu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

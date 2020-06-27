@@ -6,50 +6,71 @@
              xmlns:local="clr-namespace:QuanLyCinema.LoaiPhim"
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="950">
-    <Grid Background="#FFF9F3F3">
-        <GroupBox Header="Thông tin phim " Loaded="GroupBox_Loaded" 
+    <Grid x:Name="GridPhim" Loaded="GridPhim_Loaded" Background="#FFF9F3F3">
+        <GroupBox x:Name="grpThongTinPhim" Header="Thông tin phim" 
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>
-                <TextBox x:Name="txtMaphim"  Margin="131,10,10,348" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtMaPhim"  Margin="131,10,10,348" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblMaphim" Content="Mã phim:"
                        Margin="0,25,341,348"/>
 
-                <TextBox x:Name="txtTenphim" Height="25" Margin="131,62,10,317" TextWrapping="Wrap" Text="" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtTenPhim" Height="25" Margin="131,62,10,317" TextWrapping="Wrap" Text="" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblTenphim" Content="Tên phim:"
                        Margin="0,55,350,321"/>
 
-                <TextBox x:Name="txtDaodien" Height="25" Margin="131,95,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtDaoDien" Height="25" Margin="131,95,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblDaodien" Content="Đạo diễn:"
                        Margin="0,95,350,283"/>
 
-                <TextBox x:Name="txtDienvien" Height="42" Margin="131,130,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtDienVien" Height="42" Margin="131,130,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblDienvien" Content="Diễn viên:"
                        Margin="0,130,340,236" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+               
                 <Label x:Name="lblMalp" Content="Mã loại phim:"
                     Margin="0,172,340,189" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                <TextBox x:Name="txtMalp" Height="42" Margin="131,172,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtMaLP" Height="42" Margin="131,172,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+               
                 <Label x:Name="lblNoidung" Content="Nội dung:"
                     Margin="0,220,340,150" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                <TextBox x:Name="txtNoidung" Height="42" Margin="131,214,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
-                <TextBox x:Name="txtNamsx" Height="42" Margin="131,261,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+               <TextBox x:Name="txtNoiDung" Height="42" Margin="131,214,10,0" TextWrapping="WrapWithOverflow" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+               
+                <TextBox x:Name="txtNamSX" Height="42" Margin="131,261,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
                 <Label x:Name="lblNamsx" Content="Năm sản xuất:"
                     Margin="0,258,340,105" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+               
                 <Label x:Name="lblNuocsx" Content="Nước sản xuất:"
                     Margin="0,303,350,67" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                <TextBox x:Name="txtNuocsx" Height="42" Margin="131,294,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtNuocSX" Height="42" Margin="131,294,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                
                 <Label x:Name="lblThoiluong" Content="Thời lượng:"
                     Margin="0,336,350,34" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                <TextBox x:Name="txtThoiluong" Height="42" Margin="131,327,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtThoiLuong" Height="42" Margin="131,327,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
 
             </Grid>
         </GroupBox>
 
 
         <GroupBox Header="Danh sách phim" Margin="480,140,20,20" Width="450">
-            <DataGrid x:Name="dtgDSP" Height="400" VerticalAlignment="Top" Width="432" 
-                      SelectionChanged="DtgDSP_SelectionChanged"
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <DataGrid x:Name="dtgDSPhim" Height="400" VerticalAlignment="Top" Width="432" 
+                      MouseUp="dtgDSPhim_MouseUp"
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                      RowHeight="50">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã phim" Binding="{Binding MaPhim}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tên phim" Binding="{Binding TenPhim}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Đạo diễn" Binding="{Binding DaoDien}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Diễn viên" Binding="{Binding DienVien}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã loại phim" Binding="{Binding MaLP}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nội dung" Binding="{Binding NoiDung}"></DataGridTextColumn>
+                    
+                    <DataGridTextColumn Header="Năm sản xuất" Binding="{Binding NamSX}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nước sản xuất" Binding="{Binding NuocSX}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Thời lượng" Binding="{Binding ThoiLuong}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            
+            </DataGrid>
         </GroupBox>
 
         <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">

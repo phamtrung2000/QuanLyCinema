@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
               Height="620" Width="950">
     <Grid x:Name="GridLoaiVe" Background="#FFF9F3F3" Loaded="GridLoaiVe_Loaded">
-        <GroupBox Header="Thông tin loại vé"
+        <GroupBox x:Name="grpThongTinLoaiVe" Header="Thông tin loại vé"
                   Margin="20,140,480,25"  
                   Width="450">
             <Grid>
@@ -33,8 +33,16 @@
 
         <GroupBox Header="Danh sách loại vé" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSLoaiVe" Height="400" VerticalAlignment="Top" Width="432" 
-                      SelectionChanged="dtgDSLoaiVe_SelectionChanged"
-                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                      MouseUp="dtgDSLoaiVe_MouseUp"
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã loại vé" Binding="{Binding MaLV}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tên loại vé" Binding="{Binding TenLV}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Loại chỗ ngồi" Binding="{Binding LoaiChoNgoi}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Giá" Binding="{Binding Gia}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </GroupBox>
 
         <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">

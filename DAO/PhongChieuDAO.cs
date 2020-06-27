@@ -38,7 +38,7 @@ namespace DAO
             // tạo câu lệnh Thêm
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            //command.CommandText = "INSERT INTO NHANVIEN VALUES(@MANV,@HOTEN,@CHUCVU,@SDT,@GIOITINH,@NGAYSINH,@DIACHI,@LUONG,@NGAYVL)";
+            //command.CommandText = "INSERT INTO NHANVIEN VALUES(@MAPC,@TENPC,@CHUCVU,@SDT,@GIOITINH,@NGAYSINH,@DIACHI,@LUONG,@NGAYVL)";
             command.CommandText = "EXEC ThemPhongChieu @MAPC,@TENPC,@SOCHO,@MAYCHIEU,@LOA,@DIENTICH,@TINHTRANG,@TRANGTHIETBIKHAC";
             
             command.Parameters.Add("@MAPC", SqlDbType.VarChar, 10);
@@ -52,8 +52,8 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MANV"].Value = phongchieu.MaPC;
-            command.Parameters["@HOTEN"].Value = phongchieu.TenPC;
+            command.Parameters["@MAPC"].Value = phongchieu.MaPC;
+            command.Parameters["@TENPC"].Value = phongchieu.TenPC;
             command.Parameters["@MAYCHIEU"].Value = phongchieu.MayChieu;
             command.Parameters["@SOCHO"].Value = phongchieu.SoCho;
             command.Parameters["@LOA"].Value = phongchieu.Loa;
@@ -89,8 +89,8 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@MANV"].Value = phongchieu.MaPC;
-            command.Parameters["@HOTEN"].Value = phongchieu.TenPC;
+            command.Parameters["@MAPC"].Value = phongchieu.MaPC;
+            command.Parameters["@TENPC"].Value = phongchieu.TenPC;
             command.Parameters["@MAYCHIEU"].Value = phongchieu.MayChieu;
             command.Parameters["@SOCHO"].Value = phongchieu.SoCho;
             command.Parameters["@LOA"].Value = phongchieu.Loa;
@@ -143,7 +143,7 @@ namespace DAO
             command.CommandType = CommandType.Text;
             command.CommandText = "EXEC TimTheoTenPhongChieu N'" + tenpc + "'";
             //command.CommandText = "SELECT * FROM NHANVIEN " +
-            //                      "WHERE HOTEN LIKE N'" + tenpc + "%'";
+            //                      "WHERE TENPC LIKE N'" + tenpc + "%'";
 
             // gán giá trị
 

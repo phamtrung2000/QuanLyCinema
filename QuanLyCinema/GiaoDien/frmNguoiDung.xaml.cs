@@ -54,8 +54,8 @@ namespace QuanLyCinema.GiaoDien
 
         void Load_Data(DataTable dataTable)
         {
-            // dtgDSND.Items.Clear();
-            dtgDSND.ItemsSource = null;
+            dtgDSND.Items.Clear(); // có dòng này đề sau khi thêm nó k thêm đè lên 5 dòng thành 10 dòng
+            dtgDSND.ItemsSource = null; // như trên
             listNguoiDung = new List<NguoiDungDTO>();
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
             {
@@ -68,9 +68,10 @@ namespace QuanLyCinema.GiaoDien
                 string phanquyen = a[4].ToString();
 
                 listNguoiDung.Add(new NguoiDungDTO(stt, manv, hoten, chucvu,phanquyen));
-                // dtgDSND.Items.Add(listNguoiDung[i]);
+                dtgDSND.Items.Add(listNguoiDung[i]);
+            //    dtgDSND.ItemsSource = listNguoiDung; // có dòng này là hư chương trình
             }
-            dtgDSND.ItemsSource = listNguoiDung;
+           // dtgDSND.ItemsSource = listNguoiDung;
             //rowcount = dataTable.Rows.Count;
         }
 
@@ -249,7 +250,6 @@ namespace QuanLyCinema.GiaoDien
             }
         }
 
-
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
@@ -271,8 +271,9 @@ namespace QuanLyCinema.GiaoDien
             }
             else if (txtTimKiem.Text.Length == 0)
             {
-                dtgDSND.ItemsSource = NguoiDungBUS.LoadDSND().DefaultView;
+                dataTable = NguoiDungBUS.LoadDSND();
             }
+            Load_Data(dataTable);
         }
 
         private void txtTimKiem_GotFocus(object sender, RoutedEventArgs e)
@@ -325,12 +326,17 @@ namespace QuanLyCinema.GiaoDien
 
         private void dtgDSND_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Selected = true;
-            NguoiDungDTO nv = dtgDSND.SelectedItem as NguoiDungDTO;
-            txtMaND.Text = nv.MaND;
-            txtHoTen.Text = nv.HoTen;
-            txtChucVu.Text = nv.ChucVu;
-            txtPhanQuyen.Text = nv.PhanQuyen;
+            int index = dtgDSND.SelectedIndex;
+            if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
+            {
+                Selected = true;
+                NguoiDungDTO nv = dtgDSND.SelectedItem as NguoiDungDTO;
+                txtMaND.Text = nv.MaND;
+                txtHoTen.Text = nv.HoTen;
+                txtChucVu.Text = nv.ChucVu;
+                txtPhanQuyen.Text = nv.PhanQuyen;
+            }    
+                
         }
     }
 }
