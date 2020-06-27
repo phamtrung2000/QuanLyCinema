@@ -8,42 +8,18 @@ namespace DTO
 {
     public class NhanVienDTO
     {
-        private string stt;
-        public string STT { get => stt; set => stt = value; }
-
-        private string manv;
-        public string MaNV { get => manv; set => manv = value; }
-
-        private string hoten;
-        public string HoTen { get => hoten; set => hoten = value; }
-
-        private string chucvu;
-        public string ChucVu { get => chucvu; set => chucvu = value; }
-
-        private string sdt;
-        public string SDT { get => sdt; set => sdt = value; }
-
-        private string gioitinh;
-        public string GioiTinh { get => gioitinh; set => gioitinh = value; }
-
-        private DateTime ngaysinh;
-        public DateTime NgaySinh { get => ngaysinh; set => ngaysinh = value; }
-
-        private string ngaysinh_string;
-        public string NgaySinh_String { get => ngaysinh_string; set => ngaysinh_string = value; }
-
-
-        private string diachi;
-        public string DiaChi { get => diachi; set => diachi = value; }
-
-        private string luong;
-        public string Luong { get => luong; set => luong = value; }
-
-        private DateTime ngayvl;
-        public DateTime NgayVL { get => ngayvl; set => ngayvl = value; }
-
-        private string ngayvl_string;
-        public string NgayVL_String { get => ngayvl_string; set => ngayvl_string = value; }
+        public string STT { get; set; }
+        public string MaNV { get; set; }
+        public string HoTen { get; set; }
+        public string ChucVu { get; set; }
+        public string SDT { get; set; }
+        public string GioiTinh { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public string NgaySinh_String { get; set; }
+        public string DiaChi { get; set; }
+        public string Luong { get; set; }
+        public DateTime NgayVL { get; set; }
+        public string NgayVL_String { get; set; }
 
         // bản gốc
         public NhanVienDTO(string manv, string hoten, string chucvu, string sdt, string gioitinh, DateTime ngaysinh, string diachi, string luong, DateTime ngayvl)
@@ -101,6 +77,11 @@ namespace DTO
             DiaChi = diachi;
             Luong = luong;
             NgayVL_String = ngayvl_string;
+        }
+
+        public NhanVienDTO()
+        {
+
         }
     }
 }

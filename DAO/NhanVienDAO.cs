@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using DTO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace DAO
 {
     public class NhanVienDAO
     {
+        //private SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
         //Load danh sách sv từ database
         public static DataTable LoadDSNV()
         {
@@ -21,11 +23,138 @@ namespace DAO
             //command.CommandText = "SELECT * " +
             //                      "FROM NHANVIEN ORDER BY STT ASC";
             command.CommandText = " EXEC LoadNhanVien ";
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "SelectAllNhanVien";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
             dataAdapter.Fill(dataTable);
             connection.Close();
+            return dataTable;
+        }
+
+        public List<NhanVienDTO> GetAll()
+        {
+            List<NhanVienDTO> list_nv = new List<NhanVienDTO>();
+            string query = "SelectAllNhanVien";
+            SqlConnection conn = SQLConnectionData.HamKetNoi();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                NhanVienDTO nv = new NhanVienDTO();
+                nv.MaNV = reader.GetString(1);
+                nv.HoTen = reader.GetString(2);
+                nv.ChucVu = reader.GetString(3);
+                nv.SDT = reader.GetString(4);
+                nv.GioiTinh = reader.GetString(5);
+                nv.NgaySinh = reader.GetDateTime(6);
+                nv.DiaChi = reader.GetString(7);
+                nv.Luong = reader.GetDecimal(8).ToString();
+                nv.NgayVL = reader.GetDateTime(9);
+
+                list_nv.Add(nv);
+            }
+
+            return list_nv;
+        }
+
+        public bool Xoa_NhanVien(string manv)
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
+            conn.Open();
+            string query = "XoaNhanVien";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter sqlParameter = new SqlParameter("@manv", manv);
+            cmd.Parameters.Add(sqlParameter);
+            cmd.ExecuteNonQuery();
+
+            return true;
+        }
+
+        public void Sua_NhanVien(string manv, NhanVienDTO nv)
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
+            conn.Open();
+            string query = "SuaNhanVien";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@MaNV", nv.MaNV),
+                new SqlParameter("@HoTen",nv.HoTen),
+                new SqlParameter("@ChucVu", nv.ChucVu),
+                new SqlParameter("@Sdt",nv.SDT),
+                new SqlParameter("@GioiTinh", nv.GioiTinh),
+                new SqlParameter("@NgaySinh",nv.NgaySinh),
+                new SqlParameter("@DiaChi", nv.DiaChi),
+                new SqlParameter("@Luong",nv.Luong),
+                new SqlParameter("@NgayVL",nv.NgayVL),
+            };
+            cmd.Parameters.AddRange(sqlParameters);
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public string Add_NhanVien(NhanVienDTO nv)
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
+            conn.Open();
+            string query = "ThemNhanVien";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@MaNV", nv.MaNV),
+                new SqlParameter("@HoTen",nv.HoTen),
+                new SqlParameter("@ChucVu", nv.ChucVu),
+                new SqlParameter("@Sdt",nv.SDT),
+                new SqlParameter("@GioiTinh", nv.GioiTinh),
+                new SqlParameter("@NgaySinh",nv.NgaySinh),
+                new SqlParameter("@DiaChi", nv.DiaChi),
+                new SqlParameter("@Luong",nv.Luong),
+                new SqlParameter("@NgayVL",nv.NgayVL),
+            };
+            cmd.Parameters.AddRange(sqlParameters);
+            cmd.ExecuteNonQuery();
+            string maNV = cmd.Parameters[0].ToString(); // cột đầu tiên của tham số truyền vào là Mã nhân viên.
+            return maNV;
+        }
+
+        public static DataTable Get_NhanVien_byMaNV(string manv)
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
+            conn.Open();
+            DataTable dataTable = new DataTable();
+            DataSet dataSet = new DataSet();
+            string query = "TimTheo_MaNV";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@manv", manv);
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+            dataAdapter.Fill(dataTable);
+
+            return dataTable;
+        }
+
+        public static DataTable GetAll_table()
+        {
+            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
+            conn.Open();
+            DataTable dataTable = new DataTable();
+            DataSet dataSet = new DataSet();
+            string query = "SelectAllNhanVien";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+            dataAdapter.Fill(dataTable);
+
             return dataTable;
         }
 

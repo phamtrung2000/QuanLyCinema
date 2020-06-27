@@ -21,6 +21,8 @@ using QuanLyCinema.NhanVien;
 using DTO;
 using System.Globalization;
 using System.Threading;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace QuanLyCinema
 {
@@ -34,6 +36,7 @@ namespace QuanLyCinema
         public frmNhanVien()
         {
             InitializeComponent();
+
         }
 
         string Money(string money) // chuyển từ 100000.00 hay thành 100.000 ( nhìn cho đẹp )
@@ -141,9 +144,8 @@ namespace QuanLyCinema
             dtpNgaySinh.Visibility = dtpNgayVL.Visibility = Visibility.Hidden;
             KhongChoNhap();
 
-            DataTable dataTable = new DataTable();
-            dataTable = NhanVienBUS.LoadDSNV();
-            Load_Data(dataTable);
+            // Gọi Get => trả về IEnumerable<NhanVienDTO> hiển thị lên DataGridView
+            Refresh();
 
             panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
@@ -155,9 +157,7 @@ namespace QuanLyCinema
             frmAddNhanVien addNhanVien = new frmAddNhanVien();
             addNhanVien.ShowDialog();
 
-            DataTable dataTable = new DataTable();
-            dataTable = NhanVienBUS.LoadDSNV();
-            Load_Data(dataTable);
+            Refresh();
 
             KhongChoNhap();
             btnThem.Visibility = Visibility.Visible;
@@ -469,5 +469,41 @@ namespace QuanLyCinema
             }
         }
 
+        private void btnLamMoi_Click(object sender, RoutedEventArgs e)
+        {
+            KhongChoNhap();
+
+            DataTable dataTable = new DataTable();
+            dataTable = NhanVienBUS.LoadDSNV();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility =btnLuu_Sua.Visibility= Visibility.Hidden;
+            if(btnSua.Visibility==Visibility.Hidden)
+            {
+                btnSua.Visibility = Visibility.Visible;
+            }
+            if(btnThem.IsEnabled==btnXoa.IsEnabled==false)
+            {
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
+        }
+
+        //---------------------------Helper-----------------------------//
+        private void Refresh()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44373/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync("api/nhanvien").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var list_nv = response.Content.ReadAsAsync<IEnumerable<NhanVienDTO>>().Result;
+                    dtgDSNV.ItemsSource = list_nv;
+                }
+            }
+        }
     }
 }

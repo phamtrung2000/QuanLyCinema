@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -149,7 +151,18 @@ namespace QuanLyCinema.NhanVien
             {
                 try
                 {
-                    NhanVienBUS.Them(nv);
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri("https://localhost:44373/");
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        HttpResponseMessage response = client.PostAsJsonAsync($"api/nhanvien", nv).Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show($"Thêm nhân viên {nv.MaNV} thành công");
+                        }
+                    }    
                 }
                 catch
                 {
