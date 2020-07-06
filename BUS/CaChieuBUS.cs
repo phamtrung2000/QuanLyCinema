@@ -11,9 +11,9 @@ namespace BUS
 {
     public class CaChieuBUS
     {
-        public static DataTable LoadDSCC()
+        public static DataTable LoadDSCaChieu()
         {
-            return CaChieuDAO.LoadDSCC();
+            return CaChieuDAO.LoadDSCaChieu();
         }
         public static void Them(CaChieuDTO cc)
         {

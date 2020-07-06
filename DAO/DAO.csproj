@@ -60,6 +60,7 @@
     <Compile Include="PhimDAO.cs" />
     <Compile Include="PhongChieuDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VeDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">

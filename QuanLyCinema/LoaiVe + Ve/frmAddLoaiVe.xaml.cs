@@ -43,7 +43,6 @@ namespace QuanLyCinema.LoaiVe
 
         private void btnLamMoi_Click(object sender, RoutedEventArgs e)
         {
-            txtMaLV.Clear();
             txtTenLV.Clear();
             txtLoaiChoNgoi.Clear();
             txtGia.Clear();
@@ -56,13 +55,9 @@ namespace QuanLyCinema.LoaiVe
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
         {
-            bool TrungMaLV = false;
+            string malv = "LV" + (SoLuongMaLV+1).ToString();
+          
         Nhaplai:
-            string malv = null;
-            if (txtMaLV.Text.Length != 0)
-            {
-                malv = txtMaLV.Text;
-            }
             string tenlv = null;
             if (txtTenLV.Text.Length != 0)
             {
@@ -82,26 +77,11 @@ namespace QuanLyCinema.LoaiVe
                 gia = txtGia.Text;
             }
 
-
             LoaiVeDTO loaive = new LoaiVeDTO(malv, tenlv, loaichongoi, gia);
 
             // báo lỗi nếu chưa nhập theo thứ tự trừ trên xuống , trái sang phải
 
-            if (malv == null)
-            {
-                if (TrungMaLV == false)
-                {
-                    MessageBox.Show("Chưa nhập mã loại vé");
-                    txtMaLV.Focus();
-                }
-                else
-                {
-                    MessageBox.Show("Mã loại vé trùng");
-                    txtMaLV.Focus();
-                }
-
-            }
-            else if (tenlv == null)
+            if (tenlv == null)
             {
                 MessageBox.Show("Chưa nhập tên loại vé");
                 txtTenLV.Focus();
@@ -124,8 +104,6 @@ namespace QuanLyCinema.LoaiVe
                 }
                 catch
                 {
-                    txtMaLV.Clear();
-                    TrungMaLV = true;
                     goto Nhaplai;
                 }
                 MessageBox.Show("Thêm loại vé mới thành công", "Thông báo");

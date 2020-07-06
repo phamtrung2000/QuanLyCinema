@@ -19,12 +19,12 @@ namespace DAO
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
+
             command.CommandType = CommandType.Text;
-            //command.CommandText = "SELECT * " +
-            //                      "FROM NHANVIEN ORDER BY STT ASC";
             command.CommandText = " EXEC LoadNhanVien ";
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "SelectAllNhanVien";
+
+            //command.CommandType = CommandType.StoredProcedure;
+            //command.CommandText = "SelectAllNhanVien";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -36,12 +36,14 @@ namespace DAO
         public List<NhanVienDTO> GetAll()
         {
             List<NhanVienDTO> list_nv = new List<NhanVienDTO>();
-            string query = "SelectAllNhanVien";
-            SqlConnection conn = SQLConnectionData.HamKetNoi();
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataReader reader = cmd.ExecuteReader();
+           // string query = "SelectAllNhanVien";
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+        
+            command.CommandText = " EXEC LoadNhanVien ";
+            SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -114,7 +116,7 @@ namespace DAO
                 new SqlParameter("@ChucVu", nv.ChucVu),
                 new SqlParameter("@Sdt",nv.SDT),
                 new SqlParameter("@GioiTinh", nv.GioiTinh),
-                new SqlParameter("@NgaySinh",nv.NgaySinh),
+                new SqlParameter("@NgaySinh",nv.NgaySinh.ToString("dd/mm/yyyy")),
                 new SqlParameter("@DiaChi", nv.DiaChi),
                 new SqlParameter("@Luong",nv.Luong),
                 new SqlParameter("@NgayVL",nv.NgayVL),
@@ -144,13 +146,15 @@ namespace DAO
 
         public static DataTable GetAll_table()
         {
-            SqlConnection conn = new SqlConnection(@"Data Source=;Initial Catalog=DOAN;Integrated Security=True");
-            conn.Open();
+            //SqlConnection conn = new SqlConnection(@"Data Source= ;Initial Catalog=DOAN;Integrated Security=True");
+            //conn.Open();
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
             DataTable dataTable = new DataTable();
             DataSet dataSet = new DataSet();
-            string query = "SelectAllNhanVien";
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
+            string query = "select * from nhanvien";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.CommandType = CommandType.Text;
 
             SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
             dataAdapter.Fill(dataTable);

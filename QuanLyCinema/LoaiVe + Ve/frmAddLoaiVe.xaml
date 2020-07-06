@@ -17,11 +17,8 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Label x:Name="lbTitle" Content="Thêm Nhân Viên" FontFamily="Time new roman" FontSize="24" Style="{StaticResource MaterialDesignLabel}" Margin="305,100,295,280" RenderTransformOrigin="0.483,0.35" Foreground="#DDFCFAFA" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <Label x:Name="lbTitle" Content="Thêm Loại Vé" FontFamily="Time new roman" FontSize="24" Style="{StaticResource MaterialDesignLabel}" Margin="305,100,295,280" RenderTransformOrigin="0.483,0.35" Foreground="#DDFCFAFA" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         <materialDesign:PackIcon Kind="AccountsAdd" HorizontalAlignment="Stretch" Height="Auto" Margin="330,15,330,320" VerticalAlignment="Stretch" Width="Auto" Foreground="#FFFBF1F1"/>
-
-        <Label x:Name="lblMaLV" Content="Mã loại vé: " Margin="59,148,641,241" Foreground="#DDFAF6F6" Height="30"/>
-        <TextBox x:Name="txtMaLV" Foreground="#FFFCFAFA" HorizontalAlignment="Left" Height="30" Margin="195,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="302" TabIndex="0"/>
 
         <Label x:Name="lblTenLV" Content="Tên loại vé:" Margin="59,196,641,193" Foreground="#DDFBF6F6" Height="30"/>
         <TextBox x:Name="txtTenLV" Foreground="#FFFCFAFA" HorizontalAlignment="Left" Height="23" Margin="195,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="302" TabIndex="1"/>

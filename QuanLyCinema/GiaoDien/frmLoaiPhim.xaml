@@ -19,7 +19,7 @@
                 <Label x:Name="lblTenloaiphim" Content="Tên loại phim"
                        Margin="10,60,340,320"/>
 
-                <TextBox x:Name="txtMota" Height="62" Margin="131,95,10,0" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="100" MinLines="2"
+                <TextBox x:Name="txtMota" Height="52" Margin="131,95,10,0" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="100" MinLines="2"
                          AcceptsReturn="True"  TextWrapping="Wrap"/>
                 <Label x:Name="lblMota" Content="Mô tả"
                        Margin="10,95,340,285"/>

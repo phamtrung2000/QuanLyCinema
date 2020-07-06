@@ -39,6 +39,28 @@ namespace QuanLyCinema.CaChieu
             txtketthuc.Clear();
         }
 
+        private string emxinloi(string a)
+        {
+            string kq = null;
+            string gio = null, phut = null, giay = null;
+            bool am = true;
+            string[] chuoi_duoc_tach = a.Split(new Char[] { ':' });
+            // 2:15 am -> 2  vs 15 am
+            //
+            gio = chuoi_duoc_tach[0];
+            string phut_am_pm = chuoi_duoc_tach[1];
+            string[] chuoi_duoc_tach2 = phut_am_pm.Split(new Char[] { ' ' });
+            phut = chuoi_duoc_tach2[0];
+            giay = "00";
+            if (chuoi_duoc_tach2[1] != "AM")
+            {
+                am = false;
+                gio = (Int32.Parse(gio) + 12).ToString();
+            }
+            kq = gio + ":" + phut + ":" + giay;
+            return kq;
+        }
+
         private void BtnLuu_Click(object sender, RoutedEventArgs e)
         {
             bool TrungMaCC = false;
@@ -55,20 +77,17 @@ namespace QuanLyCinema.CaChieu
             }
 
             string batdau = null;
-            if (txtBatdau.Text.Length != 0)
+            if (tpBatDau.Text.Length != 0)
             {
-                batdau = txtBatdau.Text;
+                batdau = emxinloi(tpBatDau.Text);
             }
             string ketthuc = null;
-            if (txtketthuc.Text.Length != 0)
+            if (tpKetThuc.Text.Length != 0)
             {
-                ketthuc = txtketthuc.Text;
+                ketthuc = emxinloi(tpKetThuc.Text);
             }
 
-
-
             CaChieuDTO cc = new CaChieuDTO(macc, tencc, DateTime.Parse(batdau.ToString()), DateTime.Parse(ketthuc.ToString()));
-
 
             if (macc == null)
             {

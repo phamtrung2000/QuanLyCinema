@@ -126,8 +126,11 @@
     <Compile Include="GiaoDien\frmPhim.xaml.cs">
       <DependentUpon>frmPhim.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoaiVe\frmAddLoaiVe.xaml.cs">
+    <Compile Include="LoaiVe + Ve\frmAddLoaiVe.xaml.cs">
       <DependentUpon>frmAddLoaiVe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiVe + Ve\frmAddVe.xaml.cs">
+      <DependentUpon>frmAddVe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -213,7 +216,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoaiVe\frmAddLoaiVe.xaml">
+    <Page Include="LoaiVe + Ve\frmAddLoaiVe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoaiVe + Ve\frmAddVe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

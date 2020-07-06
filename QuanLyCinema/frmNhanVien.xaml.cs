@@ -36,7 +36,6 @@ namespace QuanLyCinema
         public frmNhanVien()
         {
             InitializeComponent();
-
         }
 
         string Money(string money) // chuyển từ 100000.00 hay thành 100.000 ( nhìn cho đẹp )
@@ -131,9 +130,9 @@ namespace QuanLyCinema
             txtHoTen.IsReadOnly = txtMaNV.IsReadOnly = txtChucVu.IsReadOnly = txtSDT.IsReadOnly
             = txtDiaChi.IsReadOnly = txtLuong.IsReadOnly = txtNgaySinh.IsReadOnly = txtNgayVL.IsReadOnly = true;
 
-            dtpNgayVL.Visibility = dtpNgaySinh.Visibility = Visibility.Hidden;
             txtNgayVL.Visibility = txtNgaySinh.Visibility = Visibility.Visible;
             dtpNgaySinh.IsEnabled = dtpNgayVL.IsEnabled = false;
+            dtpNgaySinh.Opacity = dtpNgayVL.Opacity = 100;
             rdbNam.IsEnabled = rdbNu.IsEnabled = false;
             rdbNam.Opacity = 100;
             rdbNu.Opacity = 100;
@@ -141,11 +140,11 @@ namespace QuanLyCinema
 
         private void GridNhanVien_Loaded(object sender, RoutedEventArgs e)
         {
-            dtpNgaySinh.Visibility = dtpNgayVL.Visibility = Visibility.Hidden;
             KhongChoNhap();
 
-            // Gọi Get => trả về IEnumerable<NhanVienDTO> hiển thị lên DataGridView
-            Refresh();
+            DataTable dataTable = new DataTable();
+            dataTable = NhanVienBUS.LoadDSNV();
+            Load_Data(dataTable);
 
             panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
@@ -157,8 +156,9 @@ namespace QuanLyCinema
             frmAddNhanVien addNhanVien = new frmAddNhanVien();
             addNhanVien.ShowDialog();
 
-            Refresh();
-
+            DataTable dataTable = new DataTable();
+            dataTable = NhanVienBUS.LoadDSNV();
+            Load_Data(dataTable);
             KhongChoNhap();
             btnThem.Visibility = Visibility.Visible;
             btnSua.IsEnabled = btnXoa.IsEnabled = true;
@@ -202,13 +202,13 @@ namespace QuanLyCinema
                 btnSua.Visibility = Visibility.Hidden;
                 btnThem.IsEnabled = btnXoa.IsEnabled = false;
 
-                txtNgaySinh.Visibility = Visibility.Hidden;
-                dtpNgaySinh.Visibility = Visibility.Visible;
-                dtpNgaySinh.SelectedDate = DateTime.Parse(ThangTruocNgaySau(ngaythangnamsinh) + " 12:00:00 AM");
+                //txtNgaySinh.Visibility = Visibility.Hidden;
+                //dtpNgaySinh.Visibility = Visibility.Visible;
+                //dtpNgaySinh.SelectedDate = DateTime.Parse(ThangTruocNgaySau(ngaythangnamsinh) + " 12:00:00 AM");
 
-                txtNgayVL.Visibility = Visibility.Hidden;
-                dtpNgayVL.Visibility = Visibility.Visible;
-                dtpNgayVL.SelectedDate = DateTime.Parse(ThangTruocNgaySau(ngaythangnamvaolam) + " 12:00:00 AM");
+                //txtNgayVL.Visibility = Visibility.Hidden;
+                //dtpNgayVL.Visibility = Visibility.Visible;
+                //dtpNgayVL.SelectedDate = DateTime.Parse(ThangTruocNgaySau(ngaythangnamvaolam) + " 12:00:00 AM");
             }
         }
 
@@ -242,7 +242,7 @@ namespace QuanLyCinema
             else if (rdbNu.IsChecked == true)
                 gioitinh = "Nữ";
 
-            DateTime ngaysinh = dtpNgaySinh.DisplayDate;
+            DateTime ngaysinh = DateTime.Parse(ThangTruocNgaySau(txtNgaySinh.Text));
 
             string diachi = null;
             if (txtDiaChi.Text.Length != 0)
@@ -255,7 +255,7 @@ namespace QuanLyCinema
                 luong = txtLuong.Text;
                 luong = ReMoney(luong);
             }
-            DateTime ngayvl = dtpNgayVL.DisplayDate;
+            DateTime ngayvl = DateTime.Parse(ThangTruocNgaySau(txtNgayVL.Text)); 
 
             NhanVienDTO nv = new NhanVienDTO(manv, hoten, chucvu, sdt, gioitinh, ngaysinh, diachi, luong, ngayvl);
 
@@ -417,7 +417,7 @@ namespace QuanLyCinema
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text!= "Tìm Kiếm...")
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text!= "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
@@ -469,41 +469,44 @@ namespace QuanLyCinema
             }
         }
 
-        private void btnLamMoi_Click(object sender, RoutedEventArgs e)
+        string ngaychieu = null;
+
+        private void dtpNgaySinh_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            KhongChoNhap();
-
-            DataTable dataTable = new DataTable();
-            dataTable = NhanVienBUS.LoadDSNV();
-            Load_Data(dataTable);
-
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility =btnLuu_Sua.Visibility= Visibility.Hidden;
-            if(btnSua.Visibility==Visibility.Hidden)
+            if (dtpNgaySinh.Text.Length > 0)
             {
-                btnSua.Visibility = Visibility.Visible;
+                ngaychieu = txtNgaySinh.Text = ThangTruocNgaySau(dtpNgaySinh.Text);
+
             }
-            if(btnThem.IsEnabled==btnXoa.IsEnabled==false)
+            dtpNgaySinh.Text = "";
+        }
+
+        private void dtpNgayVL_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpNgayVL.Text.Length > 0)
             {
-                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+                ngaychieu = txtNgayVL.Text = ThangTruocNgaySau(dtpNgayVL.Text);
+
             }
+            dtpNgayVL.Text = "";
         }
 
         //---------------------------Helper-----------------------------//
         private void Refresh()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44373/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri("https://localhost:44364/");
+            //    client.DefaultRequestHeaders.Accept.Clear();
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = client.GetAsync("api/nhanvien").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var list_nv = response.Content.ReadAsAsync<IEnumerable<NhanVienDTO>>().Result;
-                    dtgDSNV.ItemsSource = list_nv;
-                }
-            }
+            //    HttpResponseMessage response = client.GetAsync("api/nhanvien").Result;
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        var list_nv = response.Content.ReadAsAsync<IEnumerable<NhanVienDTO>>().Result;
+            //        dtgDSNV.ItemsSource = list_nv;
+            //    }
+            //}
         }
     }
 }

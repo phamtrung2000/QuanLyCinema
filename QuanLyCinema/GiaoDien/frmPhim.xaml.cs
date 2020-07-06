@@ -41,20 +41,19 @@ namespace QuanLyCinema.LoaiPhim
             listPhim = new List<PhimDTO>();
             for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
             {
-                object[] a = new object[10];
+                object[] a = new object[9];
                 a = dataTable.Rows[i].ItemArray;
                 string stt = (i + 1).ToString();
                 string maphim = a[1].ToString();
                 string tenphim = a[2].ToString();
                 string daodien = a[3].ToString();
                 string dienvien = a[4].ToString();
-                string malp = a[5].ToString();
-                string noidung = a[6].ToString();
-                string namsx = a[7].ToString();
-                string nuocsx = a[8].ToString();
-                string thoiluong = a[9].ToString();
+                string noidung = a[5].ToString();
+                string namsx = a[6].ToString();
+                string nuocsx = a[7].ToString();
+                string thoiluong = a[8].ToString();
 
-                listPhim.Add(new PhimDTO(stt, maphim, tenphim, daodien, dienvien, malp, noidung, namsx,nuocsx, thoiluong));
+                listPhim.Add(new PhimDTO(stt, maphim, tenphim, daodien, dienvien,noidung, namsx,nuocsx, thoiluong));
                 dtgDSPhim.Items.Add(listPhim[i]);
             }
         }
@@ -63,7 +62,7 @@ namespace QuanLyCinema.LoaiPhim
 
         void ChoPhepNhap()
         {
-            txtMaPhim.IsReadOnly =txtTenPhim.IsReadOnly=txtDaoDien.IsReadOnly=txtDienVien.IsReadOnly=txtMaLP.IsReadOnly=txtNoiDung.IsReadOnly
+            txtMaPhim.IsReadOnly =txtTenPhim.IsReadOnly=txtDaoDien.IsReadOnly=txtDienVien.IsReadOnly=txtNoiDung.IsReadOnly
                 =txtNuocSX.IsReadOnly=txtNamSX.IsReadOnly=txtThoiLuong.IsReadOnly= false;
             
             txtMaPhim.Focus();
@@ -80,10 +79,9 @@ namespace QuanLyCinema.LoaiPhim
             txtNamSX.Clear();
             txtNuocSX.Clear();
             txtThoiLuong.Clear();
-            txtMaLP.Clear();
+          
 
-
-            txtMaPhim.IsReadOnly = txtTenPhim.IsReadOnly = txtDaoDien.IsReadOnly = txtDienVien.IsReadOnly = txtMaLP.IsReadOnly = txtNoiDung.IsReadOnly
+            txtMaPhim.IsReadOnly = txtTenPhim.IsReadOnly = txtDaoDien.IsReadOnly = txtDienVien.IsReadOnly = txtNoiDung.IsReadOnly
             = txtNuocSX.IsReadOnly = txtNamSX.IsReadOnly = txtThoiLuong.IsReadOnly = true;
         }
 
@@ -163,12 +161,6 @@ namespace QuanLyCinema.LoaiPhim
             {
                 dienvien = txtDienVien.Text;
             }
-            string malp = null;
-            if (txtMaLP.Text.Length != 0)
-            {
-                malp = txtMaLP.Text;
-            }
-
             string noidung = null;
             if (txtNoiDung.Text.Length != 0)
             {
@@ -191,7 +183,7 @@ namespace QuanLyCinema.LoaiPhim
             }
 
 
-            PhimDTO phim = new PhimDTO(maphim, tenphim, daodien, dienvien, malp, noidung, namsx, nuocsx, thoiluong);
+            PhimDTO phim = new PhimDTO(maphim, tenphim, daodien, dienvien, noidung, namsx, nuocsx, thoiluong);
 
 
             if (maphim == null)
@@ -235,11 +227,6 @@ namespace QuanLyCinema.LoaiPhim
             {
                 MessageBox.Show("Lương không được để trống");
                 txtNuocSX.Focus();
-            }
-            else if (malp == null)
-            {
-                MessageBox.Show("Mã loại phim không được để trống");
-                txtMaLP.Focus();
             }
             else if (thoiluong == null)
             {
@@ -331,7 +318,7 @@ namespace QuanLyCinema.LoaiPhim
         private void TxtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            if (txtTimKiem.Text.Length > 1)
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
@@ -390,7 +377,6 @@ namespace QuanLyCinema.LoaiPhim
                 txtTenPhim.Text = nv.TenPhim;
                 txtDaoDien.Text = nv.DaoDien;
                 txtDienVien.Text = nv.DienVien;
-                txtMaLP.Text = nv.MaLP;
                 txtNoiDung.Text = nv.NoiDung;
                 txtNamSX.Text = nv.NamSX;
                 txtNuocSX.Text = nv.NuocSX;

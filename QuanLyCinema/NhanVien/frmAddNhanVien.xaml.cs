@@ -204,5 +204,38 @@ namespace QuanLyCinema.NhanVien
                 }
             }
         }
+
+        private string ThangTruocNgaySau(string a) // 4 thang 5 -> 5/4
+        {
+            string kq = null;
+            string ngay = null, thang = null, nam = null;
+            string[] chuoi_duoc_tach = a.Split(new Char[] { '/' });
+
+            ngay = chuoi_duoc_tach[0];
+            thang = chuoi_duoc_tach[1];
+            nam = chuoi_duoc_tach[2];
+            kq = thang + "/" + ngay + "/" + nam;
+            return kq;
+        }
+
+        private void dtpNgayVL_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpNgayVL.Text.Length > 0)
+            {
+                txtNgayVL.Text = ThangTruocNgaySau(dtpNgayVL.Text);
+
+            }
+            dtpNgayVL.Text = "";
+        }
+
+        private void dtpNgaySinh_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpNgaySinh.Text.Length > 0)
+            {
+                txtNgaySinh.Text = ThangTruocNgaySau(dtpNgaySinh.Text);
+
+            }
+            dtpNgaySinh.Text = "";
+        }
     }
 }

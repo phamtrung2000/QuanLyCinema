@@ -253,7 +253,7 @@ namespace QuanLyCinema.GiaoDien
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text != "Tìm Kiếm...")
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {

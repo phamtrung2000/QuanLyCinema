@@ -12,29 +12,58 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using BUS;
-using QuanLyCinema.NhanVien;
+using QuanLyCinema.CaChieu;
 using DTO;
+
 namespace QuanLyCinema.GiaoDien
 {
-    /// <summary>
-    /// Interaction logic for frmCaChieu.xaml
-    /// </summary>
     public partial class frmCaChieu : UserControl
     {
         public frmCaChieu()
         {
             InitializeComponent();
         }
+
+        List<CaChieuDTO> listnhanVien = new List<CaChieuDTO>();
+
+        void Load_Data(DataTable dataTable)
+        {
+            dtgDSCaChieu.Items.Clear();
+            dtgDSCaChieu.ItemsSource = null;
+            listnhanVien = new List<CaChieuDTO>();
+            for (int i = 0; i <= dataTable.Rows.Count - 1; i++)
+            {
+                object[] a = new object[5];
+                a = dataTable.Rows[i].ItemArray;
+                string stt = (i + 1).ToString();
+                string macc = a[1].ToString();
+                string tencc = a[2].ToString();
+
+                DateTime batdau_temp = DateTime.Parse(a[3].ToString());
+               // string batdau = batdau_temp.Hour.ToString() + ":" + batdau_temp.Minute.ToString() + ":" + batdau_temp.Second.ToString();
+                string batdau = batdau_temp.TimeOfDay.ToString();
+
+                DateTime kethuc_temp = DateTime.Parse(a[4].ToString());
+              //  string ketthuc = kethuc_temp.Hour.ToString() + ":" + kethuc_temp.Minute.ToString() + ":" + kethuc_temp.Second.ToString();
+                string ketthuc = kethuc_temp.TimeOfDay.ToString();
+
+                listnhanVien.Add(new CaChieuDTO(stt, macc, tencc, batdau, ketthuc));
+                dtgDSCaChieu.Items.Add(listnhanVien[i]);
+            }
+        }
+
         bool Selected = false;
 
         void ChoPhepNhap()
         {
             txtMaCC.IsReadOnly = txtTenCC.IsReadOnly = txtBatdau.IsReadOnly = txtKetthuc.IsReadOnly = false;
             txtMaCC.Focus();
+            grpThongTinCaChieu.IsEnabled = true;
         }
 
         void KhongChoNhap()
@@ -44,26 +73,29 @@ namespace QuanLyCinema.GiaoDien
             txtBatdau.Clear();
             txtKetthuc.Clear();
 
-
             txtTenCC.IsReadOnly = txtMaCC.IsReadOnly = txtBatdau.IsReadOnly = txtKetthuc.IsReadOnly = true;
         }
-        private void BtnTimKiem_Click(object sender, RoutedEventArgs e)
+
+        private void GridCaChieu_Loaded(object sender, RoutedEventArgs e)
         {
-            if (panelTimKiem.Visibility == Visibility.Visible)
-            {
-                panelTimKiem.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                panelTimKiem.Visibility = Visibility.Visible;
-            }
+            KhongChoNhap();
+
+            DataTable dataTable = new DataTable();
+            dataTable = CaChieuBUS.LoadDSCaChieu();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
         }
 
         private void BtnThem_Click(object sender, RoutedEventArgs e)
         {
-            CaChieu.frmAddCaChieu addCaChieu = new CaChieu.frmAddCaChieu();
+            frmAddCaChieu addCaChieu = new frmAddCaChieu();
             addCaChieu.ShowDialog();
-            dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
+
+            DataTable dataTable = new DataTable();
+            dataTable = CaChieuBUS.LoadDSCaChieu();
+            Load_Data(dataTable);
+
             KhongChoNhap();
             btnThem.Visibility = Visibility.Visible;
             btnSua.IsEnabled = btnXoa.IsEnabled = true;
@@ -83,19 +115,17 @@ namespace QuanLyCinema.GiaoDien
             }
         }
 
-        private void BtnLamMoi_Click(object sender, RoutedEventArgs e)
+        private void BtnXoa_Click(object sender, RoutedEventArgs e)
         {
-            KhongChoNhap();
-            dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
-            if (btnSua.Visibility == Visibility.Hidden)
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa ca chiếu này không?", "Thông Báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
             {
-                btnSua.Visibility = Visibility.Visible;
+                CaChieuBUS.Xoa(txtMaCC.Text);
+                MessageBox.Show("Xóa ca chiếu thành công", "Thông Báo");
             }
-            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
-            {
-                btnThem.IsEnabled = btnXoa.IsEnabled = true;
-            }
+            DataTable dataTable = new DataTable();
+            dataTable = CaChieuBUS.LoadDSCaChieu();
+            Load_Data(dataTable);
         }
 
         private void BtnLuu_Sua_Click(object sender, RoutedEventArgs e)
@@ -124,10 +154,7 @@ namespace QuanLyCinema.GiaoDien
                 ketthuc = txtKetthuc.Text;
             }
 
-
-
             CaChieuDTO cc = new CaChieuDTO(macc, tencc, DateTime.Parse(batdau.ToString()), DateTime.Parse(ketthuc.ToString()));
-
 
             if (macc == null)
             {
@@ -151,7 +178,6 @@ namespace QuanLyCinema.GiaoDien
                 MessageBox.Show("Thời gian bắt đầu không được để trống");
                 txtBatdau.Focus();
             }
-
             else
             {
                 try
@@ -165,24 +191,18 @@ namespace QuanLyCinema.GiaoDien
                     goto SuaLai;
                 }
                 MessageBox.Show("Sửa thông tin ca chiếu  thành công", "Thông báo");
-                dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
+
+                DataTable dataTable = new DataTable();
+                dataTable = CaChieuBUS.LoadDSCaChieu();
+                Load_Data(dataTable);
+
                 KhongChoNhap();
-                btnLuu_Sua.Visibility = Visibility.Hidden;
+                btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
                 btnSua.Visibility = Visibility.Visible;
                 btnThem.IsEnabled = btnXoa.IsEnabled = true;
-                dtgDSCC.IsEnabled = true;
+                dtgDSCaChieu.IsEnabled = true;
+                Selected = false;
             }
-        }
-
-        private void BtnXoa_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa ca chiếu này không?", "Thông Báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                CaChieuBUS.Xoa(txtMaCC.Text);
-                MessageBox.Show("Xóa ca chiếu thành công", "Thông Báo");
-            }
-            dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
         }
 
         private void BtnHuy_Sua_Click(object sender, RoutedEventArgs e)
@@ -193,35 +213,68 @@ namespace QuanLyCinema.GiaoDien
             btnThem.IsEnabled = btnXoa.IsEnabled = true;
         }
 
-        private void DtgDSCC_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnLamMoi_Click(object sender, RoutedEventArgs e)
         {
-            Selected = true;
-            DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
-            if (dr != null)
-            {
-                txtMaCC.Text = dr["MACC"].ToString();
-                txtTenCC.Text = dr["TENCC"].ToString();
-                txtBatdau.Text = dr["BATDAU"].ToString();
-                txtKetthuc.Text = dr["KETHUC"].ToString();
+            KhongChoNhap();
 
+            DataTable dataTable = new DataTable();
+            dataTable = CaChieuBUS.LoadDSCaChieu();
+            Load_Data(dataTable);
+
+            panelTimKiem.Visibility = btnHuy_Sua.Visibility = btnLuu_Sua.Visibility = Visibility.Hidden;
+            if (btnSua.Visibility == Visibility.Hidden)
+            {
+                btnSua.Visibility = Visibility.Visible;
+            }
+            if (btnThem.IsEnabled == btnXoa.IsEnabled == false)
+            {
+                btnThem.IsEnabled = btnXoa.IsEnabled = true;
+            }
+        }
+
+        private void BtnTimKiem_Click(object sender, RoutedEventArgs e)
+        {
+            if (panelTimKiem.Visibility == Visibility.Visible)
+            {
+                panelTimKiem.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                panelTimKiem.Visibility = Visibility.Visible;
+            }
+        }
+
+        int type_timkiem = -1;
+
+        private void CbbTimKiem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
+                txtTimKiem.Text = "";
+            if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã ca chiếu")
+            {
+                type_timkiem = 0;
+            }
+            else if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Tên ca chiếu")
+            {
+                type_timkiem = 1;
             }
         }
 
         private void TxtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtTimKiem.Text.Length > 1)
+            DataTable dataTable = new DataTable();
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
                     case 0:
                         {
-                            dtgDSCC.ItemsSource = CaChieuBUS.TimTheoMaCC(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = CaChieuBUS.TimTheoMaCC(txtTimKiem.Text.ToString());
                         }
                         break;
                     case 1:
                         {
-                            dtgDSCC.ItemsSource = CaChieuBUS.TimTheoTenCC(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = CaChieuBUS.TimTheoTenCC(txtTimKiem.Text.ToString());
                         }
                         break;
 
@@ -229,17 +282,9 @@ namespace QuanLyCinema.GiaoDien
             }
             else if (txtTimKiem.Text.Length == 0)
             {
-                dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
+                dataTable = CaChieuBUS.LoadDSCaChieu();
             }
-        }
-
-        private void TxtTimKiem_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (txtTimKiem.Text == "")
-            {
-                txtTimKiem.Text = "Tìm Kiếm...";
-                dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
-            }
+            Load_Data(dataTable);
         }
 
         private void TxtTimKiem_GotFocus(object sender, RoutedEventArgs e)
@@ -253,24 +298,28 @@ namespace QuanLyCinema.GiaoDien
                 txtTimKiem.Text = "";
         }
 
-        private void GridCaChieu_Loaded(object sender, RoutedEventArgs e)
+        private void TxtTimKiem_LostFocus(object sender, RoutedEventArgs e)
         {
-            KhongChoNhap();
-            dtgDSCC.ItemsSource = CaChieuBUS.LoadDSCC().DefaultView;
-            panelTimKiem.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
+            if (txtTimKiem.Text == "")
+            {
+                txtTimKiem.Text = "Tìm Kiếm...";
+                DataTable dataTable = new DataTable();
+                dataTable = CaChieuBUS.LoadDSCaChieu();
+                Load_Data(dataTable);
+            }
         }
 
-        int type_timkiem = -1;
-        private void CbbTimKiem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dtgDSCaChieu_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            String a = cbbTimKiem.SelectedItem.ToString();
-            if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Mã ca chiếu")
+            int index = dtgDSCaChieu.SelectedIndex;
+            if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
             {
-                type_timkiem = 0;
-            }
-            else if (cbbTimKiem.SelectedItem.ToString() == "System.Windows.Controls.ComboBoxItem: Tên ca chiếu")
-            {
-                type_timkiem = 1;
+                Selected = true;
+                CaChieuDTO nv = dtgDSCaChieu.SelectedItem as CaChieuDTO;
+                txtMaCC.Text = nv.MaCC;
+                txtTenCC.Text = nv.TenCC;
+                txtBatdau.Text = nv.BatDau_String;
+                txtKetthuc.Text = nv.KetThuc_String;
             }
         }
     }

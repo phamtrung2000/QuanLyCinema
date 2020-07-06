@@ -18,8 +18,7 @@ namespace DAO
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM LICHCHIEU ORDER BY STT ASC";
+            command.CommandText = " EXEC LoadDSLichChieu ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -36,8 +35,8 @@ namespace DAO
             // tạo câu lệnh Thêm
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "INSERT INTO LICHCHIEU VALUES(@NGAYCHIEU,@MAPHIM,@MACC,@MAPC)";
-            //command.CommandText = "EXEC Themlichchieu @NGAYCHIEU,@MAPHIM,@MACC,@MAPC";
+            
+            command.CommandText = " EXEC ThemLichChieu @NGAYCHIEU,@MAPHIM,@MACC,@MAPC ";
             command.Parameters.Add("@NGAYCHIEU", SqlDbType.Date);
             command.Parameters.Add("@MAPHIM", SqlDbType.VarChar, 10);
             command.Parameters.Add("@MACC", SqlDbType.VarChar, 10);
@@ -45,10 +44,10 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@NGAYCHIEU"].Value = lichchieu.Ngaychieu;
-            command.Parameters["@MAPHIM"].Value = lichchieu.Maphim;
-            command.Parameters["@MACC"].Value = lichchieu.Macc;
-            command.Parameters["@MAPC"].Value = lichchieu.Mapc;
+            command.Parameters["@NGAYCHIEU"].Value = lichchieu.NgayChieu;
+            command.Parameters["@MAPHIM"].Value = lichchieu.MaPhim;
+            command.Parameters["@MACC"].Value = lichchieu.MaCC;
+            command.Parameters["@MAPC"].Value = lichchieu.MaPC;
 
             command.ExecuteNonQuery();
 
@@ -65,7 +64,7 @@ namespace DAO
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
             //command.CommandText = "INSERT INTO CACHIEU VALUES(@MACC,@TENCC,@BATDAU,@KETTHUC)";
-            command.CommandText = "EXEC Sualichchieu @NGAYCHIEU,@MAPHIM,@MACC,@MAPC";
+            command.CommandText = "EXEC SuaLichChieu @NGAYCHIEU,@MAPHIM,@MACC,@MAPC";
             command.Parameters.Add("@NGAYCHIEU", SqlDbType.Date);
             command.Parameters.Add("@MAPHIM", SqlDbType.VarChar, 10);
             command.Parameters.Add("@MACC", SqlDbType.VarChar, 10);
@@ -73,10 +72,10 @@ namespace DAO
 
 
             // gán giá trị
-            command.Parameters["@NGAYCHIEU"].Value = lichchieu.Ngaychieu;
-            command.Parameters["@MAPHIM"].Value = lichchieu.Maphim;
-            command.Parameters["@MACC"].Value = lichchieu.Macc;
-            command.Parameters["@MAPC"].Value = lichchieu.Mapc;
+            command.Parameters["@NGAYCHIEU"].Value = lichchieu.NgayChieu;
+            command.Parameters["@MAPHIM"].Value = lichchieu.MaPhim;
+            command.Parameters["@MACC"].Value = lichchieu.MaCC;
+            command.Parameters["@MAPC"].Value = lichchieu.MaPC;
 
             command.ExecuteNonQuery();
 
@@ -84,18 +83,14 @@ namespace DAO
             connection.Close();
         }
 
-        public static void Xoa(DateTime ngaychieu, string maphim)
+        public static void Xoa(DateTime ngaychieu, string maphim, string macc, string mapc)
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC Xoalichchieu '" + ngaychieu + "','" + maphim + "'";
-            //command.CommandText = "DELETE NV FROM NHANVIEN NV " +
-            //                      "WHERE NV.MANV='" + manv + "'";
-            //command.Parameters.Add("@MANV", SqlDbType.VarChar, 10);
-            // gán giá trị
-            //command.Parameters["@MANV"].Value = manv;
+            command.CommandText = "EXEC XoaLichChieu " + "'" + ngaychieu + "','" + maphim + "','" + macc + "','" + mapc + "'";
+
             command.ExecuteNonQuery();
             connection.Close();
         }

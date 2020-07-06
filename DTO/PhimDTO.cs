@@ -23,9 +23,6 @@ namespace DTO
         private string dienvien;
         public string DienVien { get => dienvien; set => dienvien = value; }
 
-        private string malp;
-        public string MaLP { get => malp; set => malp = value; }
-
         private string noidung;
         public string NoiDung { get => noidung; set => noidung = value; }
 
@@ -38,27 +35,25 @@ namespace DTO
         private string thoiluong;
         public string ThoiLuong { get => thoiluong; set => thoiluong = value; }
 
-        public PhimDTO(string maphim,string tenphim,string daodien,string dienvien,string malp,string noidung,string namsx,string nuocsx,string thoiluong)
+        public PhimDTO(string maphim,string tenphim,string daodien,string dienvien,string noidung,string namsx,string nuocsx,string thoiluong)
         {
             MaPhim = maphim;
             TenPhim = tenphim;
             DaoDien = daodien;
             DienVien = dienvien;
-            MaLP = malp;
             NoiDung = noidung;
             NamSX = namsx;
             NuocSX = nuocsx;
             ThoiLuong = thoiluong;
         }
 
-        public PhimDTO(string stt, string maphim, string tenphim, string daodien, string dienvien, string malp, string noidung, string namsx, string nuocsx, string thoiluong)
+        public PhimDTO(string stt, string maphim, string tenphim, string daodien, string dienvien,string noidung, string namsx, string nuocsx, string thoiluong)
         {
             STT = stt;
             MaPhim = maphim;
             TenPhim = tenphim;
             DaoDien = daodien;
             DienVien = dienvien;
-            MaLP = malp;
             NoiDung = noidung;
             NamSX = namsx;
             NuocSX = nuocsx;

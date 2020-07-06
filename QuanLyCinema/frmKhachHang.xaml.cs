@@ -166,6 +166,7 @@ namespace QuanLyCinema
             kq = thang + "/" + ngay + "/" + nam;
             return kq;
         }
+
         private void btnSua_Click(object sender, RoutedEventArgs e)
         {
             if (Selected == false)
@@ -331,6 +332,7 @@ namespace QuanLyCinema
         }
 
         int type_timkiem = -1;
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (txtTimKiem.Text != "" || txtTimKiem.Text != "Tìm Kiếm...")
@@ -350,12 +352,10 @@ namespace QuanLyCinema
             txtTimKiem.Focus();
         }
 
-      
-
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text != "Tìm Kiếm...")
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
@@ -444,7 +444,6 @@ namespace QuanLyCinema
                 txtLoaiKH.Text = nv.LoaiKH;
                 ngaythangnamdangky = txtNgayDK.Text = nv.NgayDK_String;
             }    
-                
         }
     }
 }

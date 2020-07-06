@@ -24,9 +24,9 @@ namespace BUS
             LichChieuDAO.Sua(lc);
         }
 
-        public static void Xoa(DateTime ngaychieu, string maphim)
+        public static void Xoa(DateTime ngaychieu, string maphim, string macc, string mapc)
         {
-            LichChieuDAO.Xoa(ngaychieu, maphim);
+            LichChieuDAO.Xoa(ngaychieu, maphim, macc, mapc);
         }
         public static DataTable TimTheongaychieu(DateTime ngaychieu)
         {

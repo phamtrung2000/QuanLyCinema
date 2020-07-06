@@ -37,16 +37,19 @@
         <RadioButton x:Name="rdbNu" Content="Nữ" HorizontalAlignment="Left" Margin="642,168,0,0" VerticalAlignment="Top" TabIndex="5"/>
 
         <Label x:Name="lbNgaysinh" Content="Ngày sinh:" Margin="408,201,314,188" Foreground="#DDFEFCFC" Height="30"/>
-        <DatePicker x:Name="dtpNgaySinh" Margin="504,201,62,188" VerticalAlignment="Stretch"  Panel.ZIndex="5" TabIndex="6"/>
-
-        <Label x:Name="lbLuong" Content="Lương:" Margin="408,317,324,72" Foreground="#DDF7F3F3" Height="30"/>
-        <TextBox x:Name="txtLuong" Margin="504,315,62,69" TextWrapping="Wrap"  TextChanged="txtLuong_TextChanged" TabIndex="8" />
+        <DatePicker x:Name="dtpNgaySinh" Margin="710,201,62,188" VerticalAlignment="Stretch" SelectedDateChanged="dtpNgaySinh_SelectedDateChanged"/>
+        <TextBox x:Name="txtNgaySinh" Margin="504,201,82,188" TextWrapping="Wrap"  TextChanged="txtLuong_TextChanged" TabIndex="6" />
 
         <Label x:Name="lbDiachi" Content="Địa chỉ:" Margin="409,259,323,130"  Foreground="#DDFBF4F4" Height="30"/>
         <TextBox x:Name="txtDiaChi" Margin="504,259,62,125" TextWrapping="Wrap"  Panel.ZIndex="6" TabIndex="7"/>
 
+        <Label x:Name="lbLuong" Content="Lương:" Margin="408,317,324,72" Foreground="#DDF7F3F3" Height="30"/>
+        <TextBox x:Name="txtLuong" Margin="504,315,62,69" TextWrapping="Wrap"  TextChanged="txtLuong_TextChanged" TabIndex="8" />
+
         <Label x:Name="lbNVL" Content="Ngày vào làm:" Margin="215,376,486,13" Foreground="#DDFAF2F2" Height="30"/>
-        <DatePicker x:Name="dtpNgayVL" Margin="330,371,236,13" VerticalAlignment="Stretch" Panel.ZIndex="8" TabIndex="9"/>
+        <DatePicker x:Name="dtpNgayVL" Margin="530,371,236,13" VerticalAlignment="Stretch" SelectedDateChanged="dtpNgayVL_SelectedDateChanged"/>
+        <TextBox x:Name="txtNgayVL" Margin="330,371,241,13" TextWrapping="Wrap"  Panel.ZIndex="6" TabIndex="9"/>
+
 
         <Button x:Name="btnHuy" Content="Hủy" Height="50" Margin="647,30,51,0" VerticalAlignment="Top" Click="btnHuy_Click"/>
         <Button x:Name="btnLamMoi" Content="Làm Mới" Height="54" Margin="555,85,51,0" RenderTransformOrigin="0.484,0.308" Background="#FF0078D7" Click="btnLamMoi_Click" VerticalAlignment="Top"/>

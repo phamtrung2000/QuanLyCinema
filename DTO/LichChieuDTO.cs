@@ -9,24 +9,56 @@ namespace DTO
 {
     public class LichChieuDTO
     {
+        private string stt;
+        public string STT { get => stt; set => stt = value; }
+
         private DateTime ngaychieu;
+        public DateTime NgayChieu { get => ngaychieu; set => ngaychieu = value; }
+
+        private string ngaychieu_string;
+        public string NgayChieu_String { get => ngaychieu_string; set => ngaychieu_string = value; }
+
         private string maphim;
+        public string MaPhim { get => maphim; set => maphim = value; }
+
         private string macc;
+        public string MaCC { get => macc; set => macc = value; }
+
         private string mapc;
-
-
-        public DateTime Ngaychieu { get => ngaychieu; set => ngaychieu = value; }
-        public string Maphim { get => maphim; set => maphim = value; }
-        public string Macc { get => macc; set => macc = value; }
-        public string Mapc { get => mapc; set => mapc = value; }
-
+        public string MaPC { get => mapc; set => mapc = value; }
 
         public LichChieuDTO(DateTime ngaychieu, string maphim, string macc, string mapc)
         {
-            Ngaychieu = ngaychieu;
-            Maphim = maphim;
-            Macc = macc;
-            Mapc = mapc;
+            NgayChieu = ngaychieu;
+            MaPhim = maphim;
+            MaCC = macc;
+            MaPC = mapc;
+        }
+
+        public LichChieuDTO(string stt,DateTime ngaychieu, string maphim, string macc, string mapc)
+        {
+            STT = stt;
+            NgayChieu = ngaychieu;
+            MaPhim = maphim;
+            MaCC = macc;
+            MaPC = mapc;
+        }
+
+        public LichChieuDTO(string ngaychieu, string maphim, string macc, string mapc)
+        {
+            NgayChieu_String = ngaychieu;
+            MaPhim = maphim;
+            MaCC = macc;
+            MaPC = mapc;
+        }
+
+        public LichChieuDTO(string stt,string ngaychieu, string maphim, string macc, string mapc)
+        {
+            STT = stt;
+            NgayChieu_String = ngaychieu;
+            MaPhim = maphim;
+            MaCC = macc;
+            MaPC = mapc;
         }
     }
 }

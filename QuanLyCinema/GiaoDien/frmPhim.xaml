@@ -23,26 +23,23 @@
                 <Label x:Name="lblDaodien" Content="Đạo diễn:"
                        Margin="0,95,350,283"/>
 
-                <TextBox x:Name="txtDienVien" Height="42" Margin="131,130,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                <TextBox x:Name="txtDienVien" Height="30" Margin="131,145,10,0" FontSize="12" TextWrapping="Wrap" AcceptsReturn="True" Text="" VerticalAlignment="Top" MaxWidth="300"  MinLines="3"/>
                 <Label x:Name="lblDienvien" Content="Diễn viên:"
-                       Margin="0,130,340,236" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-               
-                <Label x:Name="lblMalp" Content="Mã loại phim:"
-                    Margin="0,172,340,189" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-                <TextBox x:Name="txtMaLP" Height="42" Margin="131,172,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
-               
+                       Margin="-1,145,341,221" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+
+
                 <Label x:Name="lblNoidung" Content="Nội dung:"
-                    Margin="0,220,340,150" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-               <TextBox x:Name="txtNoiDung" Height="42" Margin="131,214,10,0" TextWrapping="WrapWithOverflow" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
-               
-                <TextBox x:Name="txtNamSX" Height="42" Margin="131,261,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
+                    Margin="0,197,340,173" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                <TextBox x:Name="txtNoiDung" Height="45" Margin="131,197,10,0" FontSize="12" TextWrapping="Wrap" AcceptsReturn="True" Text="" VerticalAlignment="Top" MaxWidth="300" MinLines="3"/>
+
+                <TextBox x:Name="txtNamSX" Height="42" Margin="131,261,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25" />
                 <Label x:Name="lblNamsx" Content="Năm sản xuất:"
                     Margin="0,258,340,105" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-               
+
                 <Label x:Name="lblNuocsx" Content="Nước sản xuất:"
                     Margin="0,303,350,67" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                 <TextBox x:Name="txtNuocSX" Height="42" Margin="131,294,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
-                
+
                 <Label x:Name="lblThoiluong" Content="Thời lượng:"
                     Margin="0,336,350,34" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                 <TextBox x:Name="txtThoiLuong" Height="42" Margin="131,327,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxWidth="300" MaxHeight="25"/>
@@ -64,12 +61,12 @@
                     <DataGridTextColumn Header="Diễn viên" Binding="{Binding DienVien}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Mã loại phim" Binding="{Binding MaLP}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nội dung" Binding="{Binding NoiDung}"></DataGridTextColumn>
-                    
+
                     <DataGridTextColumn Header="Năm sản xuất" Binding="{Binding NamSX}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nước sản xuất" Binding="{Binding NuocSX}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Thời lượng" Binding="{Binding ThoiLuong}"></DataGridTextColumn>
                 </DataGrid.Columns>
-            
+
             </DataGrid>
         </GroupBox>
 
@@ -82,7 +79,7 @@
                 <ComboBox x:Name="cbbTimKiem" HorizontalAlignment="Left" Margin="160,75,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="CbbTimKiem_SelectionChanged">
                     <ComboBoxItem Content="Mã Phim" HorizontalAlignment="Left" Width="238"/>
                     <ComboBoxItem Content="Tên Phim" HorizontalAlignment="Left" Width="238"/>
-                    
+
                 </ComboBox>
 
             </Grid>

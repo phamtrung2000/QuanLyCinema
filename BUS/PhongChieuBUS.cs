@@ -41,9 +41,5 @@ namespace BUS
             return PhongChieuDAO.TimTheoTenPhongChieu(tenpc);
         }
 
-        //public static DataTable TimTheoSDTNguoiDung(string sdt)
-        //{
-        //    return PhongChieuDAO.TimTheoSDTNguoiDung(sdt);
-        //}
     }
 }

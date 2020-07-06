@@ -19,8 +19,7 @@ namespace DAO
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM PHONGCHIEU ORDER BY STT ASC";
+            command.CommandText = "EXEC LoadDSPhongChieu ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -154,27 +153,5 @@ namespace DAO
             connection.Close();
             return dataTable;
         }
-
-        //public static DataTable TimTheoSDTNguoiDung(string sdt)
-        //{
-        //    SqlConnection connection = SQLConnectionData.HamKetNoi();
-        //    connection.Open();
-
-        //    SqlCommand command = connection.CreateCommand();
-        //    command.CommandType = CommandType.Text;
-        //    command.CommandText = "EXEC TimTheoSDTNguoiDung '" + sdt + "'";
-        //    //command.CommandText = "SELECT * FROM NHANVIEN " +
-        //    //                     "WHERE SDT LIKE'" + sdt + "%'";
-
-        //    // gán giá trị
-
-        //    command.ExecuteNonQuery();
-        //    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
-        //    DataTable dataTable = new DataTable();
-        //    dataAdapter.Fill(dataTable);
-        //    connection.Close();
-        //    return dataTable;
-        //}
-
     }
 }

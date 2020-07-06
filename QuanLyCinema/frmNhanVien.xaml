@@ -32,14 +32,15 @@
                 <Label x:Name="lblGioiTinh" Content="Giới tính:"
                        Margin="10,165,340,215" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
 
-                <DatePicker x:Name="dtpNgaySinh" Margin="131,202,10,177"  Text="" HorizontalContentAlignment="Left"  SelectedDateFormat="Short" Visibility="Visible"/>
-                <TextBox x:Name="txtNgaySinh" Margin="131,202,10,177" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+                <DatePicker x:Name="dtpNgaySinh" Margin="391,202,20,177"  Text="" HorizontalContentAlignment="Left" Visibility="Visible" SelectedDateChanged="dtpNgaySinh_SelectedDateChanged"/>
+                <TextBox x:Name="txtNgaySinh" Margin="131,202,41,177" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+
 
                 <Label x:Name="lblNgaySinh" Content="Ngày sinh:"
                        Margin="10,200,340,175" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
                 <TextBox x:Name="txtDiaChi" Margin="131,247,10,128" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
-                
+
                 <Label x:Name="lblDiaChi" Content="Địa chỉ:"
                        Margin="10,247,340,131" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
@@ -47,8 +48,9 @@
                 <Label x:Name="lblLuong" Content="Lương:"
                        Margin="10,292,331,86" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MaxWidth="80" Height="25" MaxHeight="25"/>
 
-                <TextBox x:Name="txtNgayVL" Margin="161,334,10,45" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
-                <DatePicker x:Name="dtpNgayVL" Margin="161,334,10,45"  Text="" HorizontalContentAlignment="Left" Visibility="Visible"></DatePicker>
+                <TextBox x:Name="txtNgayVL" Margin="161,334,31,45" TextWrapping="Wrap" Text="" HorizontalContentAlignment="Left"/>
+                <DatePicker x:Name="dtpNgayVL" Margin="401,334,10,45"  Text="" HorizontalContentAlignment="Left" Visibility="Visible" SelectedDateChanged="dtpNgayVL_SelectedDateChanged"/>
+
                 <Label x:Name="lblNgayVL" Content="Ngày vào làm:"
                        Margin="10,333,331,0" HorizontalContentAlignment="Stretch" MaxWidth="100" Height="25" MaxHeight="25" VerticalAlignment="Top"/>
 

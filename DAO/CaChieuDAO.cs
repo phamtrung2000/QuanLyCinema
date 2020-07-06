@@ -11,14 +11,13 @@ namespace DAO
 {
     public class CaChieuDAO
     {
-        public static DataTable LoadDSCC()
+        public static DataTable LoadDSCaChieu()
         {
             SqlConnection connection = SQLConnectionData.HamKetNoi();
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * " +
-                                  "FROM CACHIEU ORDER BY STT ASC";
+            command.CommandText = " EXEC LoadDSCaChieu ";
 
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -35,19 +34,18 @@ namespace DAO
             // tạo câu lệnh Thêm
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            //command.CommandText = "INSERT INTO CACHIEU VALUES(@MACC,@TENCC,@BATDAU,@KETTHUC)";
-            command.CommandText = "EXEC Themcachieu @MACC,@TENCC,@BATDAU,@KETTHUC";
+
+            command.CommandText = "EXEC ThemCaChieu @MACC,@TENCC,@BATDAU,@KETTHUC";
             command.Parameters.Add("@MACC", SqlDbType.VarChar, 10);
             command.Parameters.Add("@TENCC", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@BATDAU", SqlDbType.DateTime);
             command.Parameters.Add("@KETTHUC", SqlDbType.DateTime);
 
-
             // gán giá trị
-            command.Parameters["@MACC"].Value = cachieu.Macc;
-            command.Parameters["@TENCC"].Value = cachieu.Tencc;
-            command.Parameters["@BATDAU"].Value = cachieu.Batdau.ToLongTimeString();
-            command.Parameters["@KETTHUC"].Value = cachieu.Ketthuc.ToLongTimeString();
+            command.Parameters["@MACC"].Value = cachieu.MaCC;
+            command.Parameters["@TENCC"].Value = cachieu.TenCC;
+            command.Parameters["@BATDAU"].Value = cachieu.BatDau.ToLongTimeString();
+            command.Parameters["@KETTHUC"].Value = cachieu.KetThuc.ToLongTimeString();
 
             command.ExecuteNonQuery();
 
@@ -63,19 +61,18 @@ namespace DAO
             // tạo câu lệnh Thêm
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            //command.CommandText = "INSERT INTO NHANVIEN VALUES(@MANV,@HOTEN,@CHUCVU,@SDT,@GIOITINH,@NGAYSINH,@DIACHI,@LUONG,@NGAYVL)";
-            command.CommandText = "EXEC Suacachieu @MACC,@TENCC,@BATDAU,@KETTHUC";
+           
+            command.CommandText = "EXEC SuaCaChieu @MACC,@TENCC,@BATDAU,@KETTHUC";
             command.Parameters.Add("@MACC", SqlDbType.VarChar, 10);
             command.Parameters.Add("@TENCC", SqlDbType.NVarChar, 100);
             command.Parameters.Add("@BATDAU", SqlDbType.DateTime);
             command.Parameters.Add("@KETTHUC", SqlDbType.DateTime);
 
-
             // gán giá trị
-            command.Parameters["@MACC"].Value = cachieu.Macc;
-            command.Parameters["@TENCC"].Value = cachieu.Tencc;
-            command.Parameters["@BATDAU"].Value = cachieu.Batdau.ToLongTimeString();
-            command.Parameters["@KETTHUC"].Value = cachieu.Ketthuc.ToLongTimeString();
+            command.Parameters["@MACC"].Value = cachieu.MaCC;
+            command.Parameters["@TENCC"].Value = cachieu.TenCC;
+            command.Parameters["@BATDAU"].Value = cachieu.BatDau.ToLongTimeString();
+            command.Parameters["@KETTHUC"].Value = cachieu.KetThuc.ToLongTimeString();
 
             command.ExecuteNonQuery();
 
@@ -88,12 +85,7 @@ namespace DAO
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "EXEC Xoacachieu '" + macc + "'";
-            //command.CommandText = "DELETE NV FROM NHANVIEN NV " +
-            //                      "WHERE NV.MANV='" + manv + "'";
-            //command.Parameters.Add("@MANV", SqlDbType.VarChar, 10);
-            // gán giá trị
-            //command.Parameters["@MANV"].Value = manv;
+            command.CommandText = "EXEC XoaCaChieu '" + macc + "'";
             command.ExecuteNonQuery();
             connection.Close();
         }

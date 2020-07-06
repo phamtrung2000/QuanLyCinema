@@ -34,6 +34,7 @@
         <GroupBox Header="Danh sách loại vé" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSLoaiVe" Height="400" VerticalAlignment="Top" Width="432" 
                       MouseUp="dtgDSLoaiVe_MouseUp"
+                   
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>

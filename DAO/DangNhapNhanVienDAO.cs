@@ -14,7 +14,7 @@ namespace DAO
     {
         public static SqlConnection HamKetNoi()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+            string connectionString = @"Data Source=DESKTOP-HD9PH1I;Initial Catalog=DOAN;Integrated Security=True";//ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
             SqlConnection connection = new SqlConnection(connectionString);
 
             return connection;

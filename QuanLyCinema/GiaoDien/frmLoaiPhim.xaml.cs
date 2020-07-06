@@ -236,18 +236,19 @@ namespace QuanLyCinema.LoaiPhim
 
         private void TxtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtTimKiem.Text.Length > 1)
+            DataTable dataTable = new DataTable();
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
                     case 0:
                         {
-                            dtgDSLP.ItemsSource = LoaiPhimBUS.TimTheoMaLP(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = LoaiPhimBUS.TimTheoMaLP(txtTimKiem.Text.ToString());
                         }
                         break;
                     case 1:
                         {
-                            dtgDSLP.ItemsSource = LoaiPhimBUS.TimTheoTenLoaiPhim(txtTimKiem.Text.ToString()).DefaultView;
+                            dataTable = LoaiPhimBUS.TimTheoTenLoaiPhim(txtTimKiem.Text.ToString());
                         }
                         break;
 
@@ -255,10 +256,10 @@ namespace QuanLyCinema.LoaiPhim
             }
             else if (txtTimKiem.Text.Length == 0)
             {
-                DataTable dataTable = new DataTable();
                 dataTable = LoaiPhimBUS.LoadDSLP();
-                Load_Data(dataTable);
+                
             }
+            Load_Data(dataTable);
         }
 
         private void TxtTimKiem_LostFocus(object sender, RoutedEventArgs e)

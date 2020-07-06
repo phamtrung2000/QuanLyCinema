@@ -130,10 +130,13 @@ namespace QuanLyCinema.GiaoDien
             frmAddLoaiVe.Sender(soluong);
             frmAddLoaiVe.ShowDialog();
 
-            //dtgDSLoaiVe.ItemsSource = LoaiVeBUS.LoadDSLoaiVe().DefaultView;
-            //KhongChoNhap();
-            //btnThem.Visibility = Visibility.Visible;
-            //btnSua.IsEnabled = btnXoa.IsEnabled = true;
+            DataTable dataTable = new DataTable();
+            dataTable = LoaiVeBUS.LoadDSLoaiVe();
+            Load_Data(dataTable);
+
+            KhongChoNhap();
+            btnThem.Visibility = Visibility.Visible;
+            btnSua.IsEnabled = btnXoa.IsEnabled = true;
         }
 
         private void btnXoa_Click(object sender, RoutedEventArgs e)
@@ -306,7 +309,7 @@ namespace QuanLyCinema.GiaoDien
         private void txtTimKiem_TextChanged(object sender, TextChangedEventArgs e)
         {
             DataTable dataTable = new DataTable();
-            if (txtTimKiem.Text.Length > 1 && txtTimKiem.Text != "Tìm Kiếm...")
+            if (txtTimKiem.Text.Length >= 1 && txtTimKiem.Text != "Tìm Kiếm...")
             {
                 switch (type_timkiem)
                 {
