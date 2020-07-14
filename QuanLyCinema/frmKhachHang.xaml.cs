@@ -32,6 +32,9 @@ namespace QuanLyCinema
 
         List<KhachHangDTO> listkhachhang = new List<KhachHangDTO>();
 
+        int soluong = 0;
+        int index = -1;
+
         void Load_Data(DataTable dataTable)
         {
             dtgDSKH.Items.Clear();
@@ -61,7 +64,7 @@ namespace QuanLyCinema
                 listkhachhang.Add(new KhachHangDTO(stt, makh, hoten, diachi, ngaysinh, gioitinh, sdt ,loaikh, ngaydk));
                 dtgDSKH.Items.Add(listkhachhang[i]);
             }
-           // dtgDSKH.ItemsSource = listkhachhang;
+            soluong = dataTable.Rows.Count;
         }
 
         bool Selected = false;
@@ -114,35 +117,10 @@ namespace QuanLyCinema
 
         string ngaythangnamsinh = null, ngaythangnamdangky = null;
 
-        private void DtgDSKH_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        //    DataGrid dg = sender as DataGrid;
-        //    DataRowView dr = dg.SelectedItem as DataRowView;
-        //    if (dr != null)
-        //    {
-
-        //        txtMaKH.Text = dr["MAKH"].ToString();
-        //        txtHoTen.Text = dr["HOTEN"].ToString();
-        //        txtDiachiKH.Text = dr["DIACHI"].ToString();
-        //        string gioitinh = dr["GIOITINH"].ToString();
-        //        if (gioitinh == "Nam")
-        //            rdbNam.IsChecked = true;
-        //        else if (gioitinh == "Nữ")
-        //            rdbNu.IsChecked = true;
-        //        dtpNgaySinh.SelectedDate = DateTime.Parse(dr["NGAYSINH"].ToString());
-
-        //        //ngay sinh
-        //        //dtpNgaySinh.SelectedDate = DateTime.Parse(dr["NGAYSINH"].ToString());
-
-        //        txtSDTKH.Text = dr["SDT"].ToString();
-        //        txtLoaiKH.Text = dr["LOAIKH"].ToString();
-        //        dtpNgayDK.SelectedDate = DateTime.Parse(dr["NGAYDK"].ToString());
-        //    }
-        }
-
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
             frmAddKhachHang addKhachHang = new frmAddKhachHang();
+            addKhachHang.Sender(soluong);
             addKhachHang.ShowDialog();
 
             DataTable dataTable = new DataTable();
@@ -424,9 +402,9 @@ namespace QuanLyCinema
             }
         }
 
-        private void dtgDSKH_MouseUp(object sender, MouseButtonEventArgs e)
+        private void dtgDSKH_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            int index = dtgDSKH.SelectedIndex;
+            index = dtgDSKH.SelectedIndex;
             if (index >= 0) // tránh lỗi click vẫn trong datagrid nhưng mà click chỗ k có dòng nào
             {
                 Selected = true;
@@ -443,7 +421,8 @@ namespace QuanLyCinema
                 txtSDTKH.Text = nv.SDT;
                 txtLoaiKH.Text = nv.LoaiKH;
                 ngaythangnamdangky = txtNgayDK.Text = nv.NgayDK_String;
-            }    
+            }
         }
+
     }
 }

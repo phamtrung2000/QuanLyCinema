@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -37,7 +38,6 @@ namespace QuanLyCinema.GiaoDien
         List<string> listMaCC = new List<string>();
        
         int index = -1;
-        bool Sua = false;
 
         void Load_Data(DataTable dataTable)
         {
@@ -91,7 +91,7 @@ namespace QuanLyCinema.GiaoDien
             dtpNgayChieu.Visibility  = Visibility.Hidden;
             txtNgayChieu.Visibility = Visibility.Visible;
             dtpNgayChieu.IsEnabled = false;
-
+            
         }
 
         private void GridLichChieu_Loaded(object sender, RoutedEventArgs e)
@@ -163,7 +163,6 @@ namespace QuanLyCinema.GiaoDien
                 btnHuy_Sua.Visibility = Visibility.Visible;
                 btnSua.Visibility = Visibility.Hidden;
                 btnThem.IsEnabled = btnXoa.IsEnabled = false;
-                Sua = true;
             }
         }
 
@@ -264,7 +263,6 @@ namespace QuanLyCinema.GiaoDien
             btnLuu_Sua.Visibility = btnHuy_Sua.Visibility = Visibility.Hidden;
             btnSua.Visibility = Visibility.Visible;
             btnThem.IsEnabled = btnXoa.IsEnabled = true;
-            Sua = false;
         }
 
         private void BtnTimKiem_Click(object sender, RoutedEventArgs e)

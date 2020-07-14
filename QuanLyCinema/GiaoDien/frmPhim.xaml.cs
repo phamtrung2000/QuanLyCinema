@@ -34,6 +34,8 @@ namespace QuanLyCinema.LoaiPhim
 
         List<PhimDTO> listPhim = new List<PhimDTO>();
 
+
+
         void Load_Data(DataTable dataTable)
         {
             dtgDSPhim.Items.Clear();
@@ -48,16 +50,31 @@ namespace QuanLyCinema.LoaiPhim
                 string tenphim = a[2].ToString();
                 string daodien = a[3].ToString();
                 string dienvien = a[4].ToString();
+
+                string theloai = null;
+                DataTable dataTable_theloai = PhimBUS.LoadTheLoaiPhim(maphim);
+                object[] b = new object[2];
+                b = dataTable_theloai.Rows[0].ItemArray;
+                theloai += b[1].ToString();
+                for (int j = 0; j <= dataTable_theloai.Rows.Count - 1; j++)
+                {
+                    b = new object[2];
+                    b = dataTable_theloai.Rows[j].ItemArray;
+                    theloai += ", " + b[1].ToString();
+                }
+
                 string noidung = a[5].ToString();
                 string namsx = a[6].ToString();
                 string nuocsx = a[7].ToString();
                 string thoiluong = a[8].ToString();
 
-                listPhim.Add(new PhimDTO(stt, maphim, tenphim, daodien, dienvien,noidung, namsx,nuocsx, thoiluong));
+
+                listPhim.Add(new PhimDTO(stt, maphim, tenphim, daodien, dienvien,theloai, noidung, namsx,nuocsx, thoiluong));
                 dtgDSPhim.Items.Add(listPhim[i]);
             }
         }
 
+       
         bool Selected = false;
 
         void ChoPhepNhap()

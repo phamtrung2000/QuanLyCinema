@@ -67,6 +67,8 @@ namespace QuanLyCinema
       
         List<NhanVienDTO> listnhanVien = new List<NhanVienDTO>();
 
+        int soluong = 0;
+
         void Load_Data(DataTable dataTable)
         {
             dtgDSNV.Items.Clear();
@@ -98,8 +100,7 @@ namespace QuanLyCinema
                 listnhanVien.Add(new NhanVienDTO(stt, manv, hoten, chucvu, sdt, gioitinh, ngaysinh, diachi, luong, ngayvl));
                 dtgDSNV.Items.Add(listnhanVien[i]);
             }
-            // dtgDSNV.ItemsSource = listnhanVien;
-            //rowcount = dataTable.Rows.Count;
+            soluong = dataTable.Rows.Count;
         }
 
         bool Selected = false;
@@ -154,6 +155,7 @@ namespace QuanLyCinema
         private void btnThem_Click(object sender, RoutedEventArgs e)
         {
             frmAddNhanVien addNhanVien = new frmAddNhanVien();
+            addNhanVien.Sender(soluong);
             addNhanVien.ShowDialog();
 
             DataTable dataTable = new DataTable();
@@ -175,6 +177,7 @@ namespace QuanLyCinema
             DataTable dataTable = new DataTable();
             dataTable = NhanVienBUS.LoadDSNV();
             Load_Data(dataTable);
+            btnLamMoi_Click(sender, e);
         }
 
         private string ThangTruocNgaySau(string a)

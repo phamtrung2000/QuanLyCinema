@@ -90,8 +90,26 @@
     <Compile Include="frmKhachHang.xaml.cs">
       <DependentUpon>frmKhachHang.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmXemLichChieu.xaml.cs">
+      <DependentUpon>frmXemLichChieu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiaoDienChinh_KhachHang.xaml.cs">
       <DependentUpon>GiaoDienChinh_KhachHang.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDienKhachHang\frmDatVe.xaml.cs">
+      <DependentUpon>frmDatVe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDienKhachHang\frmThongTinDatVe.xaml.cs">
+      <DependentUpon>frmThongTinDatVe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDienKhachHang\frmThongTinGhe.xaml.cs">
+      <DependentUpon>frmThongTinGhe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDienKhachHang\frmThongTinPhim.xaml.cs">
+      <DependentUpon>frmThongTinPhim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GiaoDienKhachHang\frmXemThongTinPhim.xaml.cs">
+      <DependentUpon>frmXemThongTinPhim.xaml</DependentUpon>
     </Compile>
     <Compile Include="GiaoDien\frmCaChieu.xaml.cs">
       <DependentUpon>frmCaChieu.xaml</DependentUpon>
@@ -150,9 +168,6 @@
     <Compile Include="PhongChieu\frmAddPhongChieu.xaml.cs">
       <DependentUpon>frmAddPhongChieu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TongQuan.xaml.cs">
       <DependentUpon>TongQuan.xaml</DependentUpon>
     </Compile>
@@ -168,7 +183,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frmXemLichChieu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GiaoDienChinh_KhachHang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDienKhachHang\frmDatVe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDienKhachHang\frmThongTinDatVe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDienKhachHang\frmThongTinGhe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDienKhachHang\frmThongTinPhim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GiaoDienKhachHang\frmXemThongTinPhim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,10 +291,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Test.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="TongQuan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -289,6 +324,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\cuong-phong.jpg" />
     <Resource Include="Resources\mau-background-don-gian-27-1024x681.png" />
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +396,36 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Ve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\5195ebb8c5f9772deda82aa2937134d3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gradient-top-view-laptop-background_52683-6291.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\laptop-wallpapers-and-laptop-backgrounds.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\laptop-wallpapers-quotes-high-quality-For-Widescreen-Wallpaper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\man-using-laptop-on-table-against-white-background-257897.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\movie-cinema-premiere-poster-design-white-screen-vector-background-red-seats-85886288.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\office-desk-laptop-background-vector-1558049.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scene-cinema-background-art-performance-on-stage-vector-25623857.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Venom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SwordArtOnline.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.2\build\MaterialDesignThemes.targets')" />

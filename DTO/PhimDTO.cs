@@ -23,6 +23,9 @@ namespace DTO
         private string dienvien;
         public string DienVien { get => dienvien; set => dienvien = value; }
 
+        private string theloai;
+        public string TheLoai { get => theloai; set => theloai = value; }
+
         private string noidung;
         public string NoiDung { get => noidung; set => noidung = value; }
 
@@ -54,6 +57,20 @@ namespace DTO
             TenPhim = tenphim;
             DaoDien = daodien;
             DienVien = dienvien;
+            NoiDung = noidung;
+            NamSX = namsx;
+            NuocSX = nuocsx;
+            ThoiLuong = thoiluong;
+        }
+
+        public PhimDTO(string stt, string maphim, string tenphim, string daodien, string dienvien,string theloai, string noidung, string namsx, string nuocsx, string thoiluong)
+        {
+            STT = stt;
+            MaPhim = maphim;
+            TenPhim = tenphim;
+            DaoDien = daodien;
+            DienVien = dienvien;
+            TheLoai = theloai;
             NoiDung = noidung;
             NamSX = namsx;
             NuocSX = nuocsx;

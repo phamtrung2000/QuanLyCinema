@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="QuanLyCinema.frmXemLichChieu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyCinema"
+             mc:Ignorable="d" 
+             d:DesignHeight="620" d:DesignWidth="950">
+    <Grid Background="#FFF9F3F3" Name="GridLichChieu" Loaded="GridLichChieu_Loaded">
+
+
+        <GroupBox Header="Danh sách lịch chiếu" Margin="20,140,20,20" Background="#FFF5EFEF">
+            <Grid>
+                <DataGrid x:Name="dtgDSLichChieu" Height="400" VerticalAlignment="Top" 
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#FFF3EEEE" Margin="226,0,111,0" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Giờ chiếu" Binding="{Binding ThoiGian}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock x:Name="txtNgayChieu" Height="100" Margin="117,147,671,161" TextWrapping="Wrap"/>
+                <Label x:Name="lblNgayChieu" Content="  Ngày chiếu" Margin="127,13,671,368" FontStretch="SemiCondensed" TextOptions.TextFormattingMode="Display" RenderTransformOrigin="0.49,0.468"/>
+                <Button x:Name="btnNgayTiepTheo"  Content=">>" HorizontalAlignment="Left" Margin="801,147,0,0" VerticalAlignment="Top" Width="81" Height="85" Click="btnNgayTiepTheo_Click"/>
+                <Button x:Name="btnNgayTruocDo"  Content="aaa" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Width="81" Height="85" Click="btnNgayTruocDo_Click"/>
+
+            </Grid>
+        </GroupBox>
+
+        <StackPanel x:Name="panelTimKiem" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="410" Margin="20,0,0,0">
+            <Grid Height="120">
+
+            </Grid>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="112" Margin="470,10,0,0"
+                    VerticalAlignment="Top" Width="460">
+            <Grid Height="120">
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

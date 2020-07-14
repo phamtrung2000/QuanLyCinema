@@ -95,8 +95,7 @@
         <GroupBox Header="Danh sách khách hàng" Margin="480,140,20,20" Width="450">
             <DataGrid x:Name="dtgDSKH" Height="400" VerticalAlignment="Top" Width="432" 
                       HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                      SelectionChanged="DtgDSKH_SelectionChanged"
-                      MouseUp="dtgDSKH_MouseUp">
+                      SelectedCellsChanged="dtgDSKH_SelectedCellsChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Mã khách hàng" Binding="{Binding MaKH}"></DataGridTextColumn>
@@ -108,7 +107,6 @@
                     <DataGridTextColumn Header="Loại khách hàng" Binding="{Binding LoaiKH}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Ngày đăng ký" Binding="{Binding NgayDK_String}"></DataGridTextColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
         </GroupBox>
 

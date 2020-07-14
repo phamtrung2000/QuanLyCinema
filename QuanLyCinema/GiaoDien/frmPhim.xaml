@@ -59,7 +59,7 @@
                     <DataGridTextColumn Header="Tên phim" Binding="{Binding TenPhim}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Đạo diễn" Binding="{Binding DaoDien}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Diễn viên" Binding="{Binding DienVien}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Mã loại phim" Binding="{Binding MaLP}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Thể loại" Binding="{Binding TheLoai}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nội dung" Binding="{Binding NoiDung}"></DataGridTextColumn>
 
                     <DataGridTextColumn Header="Năm sản xuất" Binding="{Binding NamSX}"></DataGridTextColumn>

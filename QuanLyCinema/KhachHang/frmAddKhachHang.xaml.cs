@@ -21,14 +21,27 @@ namespace QuanLyCinema.KhachHang
     /// </summary>
     public partial class frmAddKhachHang : Window
     {
+        public delegate void GuiSoLuongMaKH(int soluong);
+        // ví dụ: Mã loại vé đang là LV9 thì soluong sẽ là 9
+        // mục đích của cái này là hệ thống tự động tăng mã loại vé lên, người dùng k cần nhập 
+        // để tránh trường hợp nhập trùng mã lv
+        public GuiSoLuongMaKH Sender;
+
+        public static int SoLuongMaKH = 0;
+
+        private void GetSoLuongMaKH(int soluong)
+        {
+            SoLuongMaKH = soluong;
+        }
+
         public frmAddKhachHang()
         {
             InitializeComponent();
+            Sender = new GuiSoLuongMaKH(GetSoLuongMaKH);
         }
         
         private void btnLamMoi_Click(object sender, RoutedEventArgs e)
         {
-            txtMaKH.Clear();
             txtHoTenKH.Clear();
             txtDiaChi.Clear();
             dtpNgaySinh.Text = "";
@@ -45,30 +58,16 @@ namespace QuanLyCinema.KhachHang
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
         {
-            bool TrungMaKH = false;
+            string makh = "KH" + (SoLuongMaKH + 1).ToString();
         Nhaplai:
-            string makh = null;
-            if (txtMaKH.Text.Length != 0)
-            {
-                makh = txtMaKH.Text;
-                
-            }
             string hoten = null;
             if (txtHoTenKH.Text.Length != 0)
             {
                 hoten = txtHoTenKH.Text;
             }
 
-            //string loaikh = null;
-            //if (txtLoaikh.Text.Length != 0)
-
-            //{
-            //    loaikh = txtLoaikh.Text;
-            //}
-
             string loaikh = null;
             if (cbbLoaiKH.Text.Length != 0)
-
             {
                 loaikh = cbbLoaiKH.Text;
             }
@@ -99,21 +98,7 @@ namespace QuanLyCinema.KhachHang
 
             // báo lỗi nếu chưa nhập theo thứ tự trừ trên xuống , trái sang phải
 
-            if (makh == null)
-            {
-                if (TrungMaKH == false)
-                {
-                    MessageBox.Show("Chưa nhập mã khách hàng");
-                    txtMaKH.Focus();
-                }
-                else
-                {
-                    MessageBox.Show("Mã khách hàng trùng");
-                    txtMaKH.Focus();
-                }
-
-            }
-            else if (hoten == null)
+           if (hoten == null)
             {
                 MessageBox.Show("Chưa nhập họ tên");
                 txtHoTenKH.Focus();
@@ -148,8 +133,6 @@ namespace QuanLyCinema.KhachHang
                 }
                 catch
                 {
-                    txtMaKH.Clear();
-                    TrungMaKH = true;
                     goto Nhaplai;
                 }
 
@@ -158,19 +141,37 @@ namespace QuanLyCinema.KhachHang
             }
         }
 
-        //private void txtLuong_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    int n = txtLuong.Text.Length;
-        //    if (n > 0)
-        //    {
-        //        if ('a' <= txtLuong.Text[n - 1] && txtLuong.Text[n - 1] <= 'z' || ('A' <= txtLuong.Text[n - 1] && txtLuong.Text[n - 1] <= 'Z'))
-        //        {
-        //            MessageBox.Show("Lương chỉ có thế là số, vui lòng nhập lại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //            txtLuong.Text = txtLuong.Text.Remove(n - 1, 1);
-        //            txtLuong.SelectionStart = n - 1;
-        //        }
-        //    }
+        private string ThangTruocNgaySau(string a) // 4 thang 5 -> 5/4
+        {
+            string kq = null;
+            string ngay = null, thang = null, nam = null;
+            string[] chuoi_duoc_tach = a.Split(new Char[] { '/' });
 
-        //}
+            ngay = chuoi_duoc_tach[0];
+            thang = chuoi_duoc_tach[1];
+            nam = chuoi_duoc_tach[2];
+            kq = thang + "/" + ngay + "/" + nam;
+            return kq;
+        }
+
+        private void dtpNgaySinh_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpNgaySinh.Text.Length > 0)
+            {
+                txtNgaySinh.Text = ThangTruocNgaySau(dtpNgaySinh.Text);
+            }
+            dtpNgaySinh.Text = "";
+            txtNgaySinh.Focus();
+        }
+
+        private void dtpNgayDK_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpNgayDK.Text.Length > 0)
+            {
+                txtNgayDK.Text = ThangTruocNgaySau(dtpNgayDK.Text);
+            }
+            dtpNgayDK.Text = "";
+            txtNgayDK.Focus();
+        }
     }
 }

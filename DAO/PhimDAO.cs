@@ -155,5 +155,20 @@ namespace DAO
             connection.Close();
             return dataTable;
         }
+
+        public static DataTable LoadTheLoaiPhim(string maphim)
+        {
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = "EXEC LoadTheLoaiPhim '" + maphim + "'";
+            command.ExecuteNonQuery();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            dataAdapter.Fill(dataTable);
+            connection.Close();
+            return dataTable;
+        }
     }
 }

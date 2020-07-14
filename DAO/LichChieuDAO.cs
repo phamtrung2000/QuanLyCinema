@@ -26,6 +26,52 @@ namespace DAO
             connection.Close();
             return dataTable;
         }
+
+        public static DataTable LoadDSNgayChieu()
+        {
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = " EXEC LoadDSNgayChieu ";
+
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(dataTable);
+            connection.Close();
+            return dataTable;
+        }
+
+        public static DataTable HienLichChieuPhim(DateTime ngaychieu,string macc)
+        {
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = " EXEC HienLichChieuPhim '" + ngaychieu + "'" + ",'" + macc + "'" ;
+
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(dataTable);
+            connection.Close();
+            return dataTable;
+        }
+
+        public static DataTable HienLichChieuPhim_NgayChieu_MaCC_MaPC(DateTime ngaychieu, string macc,string mapc)
+        {
+            SqlConnection connection = SQLConnectionData.HamKetNoi();
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = " EXEC HienLichChieuPhim_NgayChieu_MaCC_MaPC '" + ngaychieu + "'" + ",'" + macc + "'" + ",'" + mapc + "'";
+
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(dataTable);
+            connection.Close();
+            return dataTable;
+        }
+
         public static void Them(LichChieuDTO lichchieu)
         {
             // mở kết nối

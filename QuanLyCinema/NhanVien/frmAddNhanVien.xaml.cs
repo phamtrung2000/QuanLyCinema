@@ -24,9 +24,24 @@ namespace QuanLyCinema.NhanVien
     /// </summary>
     public partial class frmAddNhanVien : Window
     {
+
+        public delegate void GuiSoLuongMaNV(int soluong);
+        // ví dụ: Mã loại vé đang là LV9 thì soluong sẽ là 9
+        // mục đích của cái này là hệ thống tự động tăng mã loại vé lên, người dùng k cần nhập 
+        // để tránh trường hợp nhập trùng mã lv
+        public GuiSoLuongMaNV Sender;
+
+        public static int SoLuongMaNV = 0;
+
+        private void GetSoLuongMaNV(int soluong)
+        {
+            SoLuongMaNV = soluong;
+        }
+
         public frmAddNhanVien()
         {
             InitializeComponent();
+            Sender = new GuiSoLuongMaNV(GetSoLuongMaNV);
         }
 
         private void btnLamMoi_Click(object sender, RoutedEventArgs e)
@@ -49,13 +64,10 @@ namespace QuanLyCinema.NhanVien
 
         private void btnLuu_Click(object sender, RoutedEventArgs e)
         {
+            string manv = "NV" + (SoLuongMaNV + 1).ToString();
+
             bool TrungMaNV = false;
         Nhaplai:
-            string manv = null;
-            if (txtMaNV.Text.Length != 0)
-            {
-                manv = txtMaNV.Text;
-            }
             string hoten = null;
             if (txtHoTen.Text.Length != 0)
             {
@@ -151,18 +163,19 @@ namespace QuanLyCinema.NhanVien
             {
                 try
                 {
-                    using (var client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri("https://localhost:44373/");
-                        client.DefaultRequestHeaders.Accept.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //using (var client = new HttpClient())
+                    //{
+                    //    client.BaseAddress = new Uri("https://localhost:44373/");
+                    //    client.DefaultRequestHeaders.Accept.Clear();
+                    //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        HttpResponseMessage response = client.PostAsJsonAsync($"api/nhanvien", nv).Result;
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show($"Thêm nhân viên {nv.MaNV} thành công");
-                        }
-                    }    
+                    //    HttpResponseMessage response = client.PostAsJsonAsync($"api/nhanvien", nv).Result;
+                    //    if (response.IsSuccessStatusCode)
+                    //    {
+                    //        MessageBox.Show($"Thêm nhân viên {nv.MaNV} thành công");
+                    //    }
+                    //}    
+                    NhanVienBUS.Them(nv);
                 }
                 catch
                 {
@@ -223,9 +236,9 @@ namespace QuanLyCinema.NhanVien
             if (dtpNgayVL.Text.Length > 0)
             {
                 txtNgayVL.Text = ThangTruocNgaySau(dtpNgayVL.Text);
-
             }
             dtpNgayVL.Text = "";
+            txtNgayVL.Focus();
         }
 
         private void dtpNgaySinh_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -233,9 +246,9 @@ namespace QuanLyCinema.NhanVien
             if (dtpNgaySinh.Text.Length > 0)
             {
                 txtNgaySinh.Text = ThangTruocNgaySau(dtpNgaySinh.Text);
-
             }
             dtpNgaySinh.Text = "";
+            txtNgaySinh.Focus();
         }
     }
 }

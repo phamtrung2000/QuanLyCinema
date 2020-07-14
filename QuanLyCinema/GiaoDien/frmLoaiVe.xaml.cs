@@ -35,8 +35,6 @@ namespace QuanLyCinema.GiaoDien
             InitializeComponent();
         }
 
-      
-
         string Money(string money) // chuyển từ 100000.00 hay thành 100.000 ( nhìn cho đẹp )
         {
             int n = money.Length;

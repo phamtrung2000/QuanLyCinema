@@ -14,6 +14,21 @@ namespace BUS
         {
             return LichChieuDAO.LoadDSLC();
         }
+
+        public static DataTable LoadDSNgayChieu()
+        {
+            return LichChieuDAO.LoadDSNgayChieu();
+        }
+
+        public static DataTable HienLichChieuPhim(DateTime ngaychieu,string macc)
+        {
+            return LichChieuDAO.HienLichChieuPhim(ngaychieu,macc);
+        }
+
+        public static DataTable HienLichChieuPhim_NgayChieu_MaCC_MaPC(DateTime ngaychieu,string macc,string mapc)
+        {
+            return LichChieuDAO.HienLichChieuPhim_NgayChieu_MaCC_MaPC(ngaychieu,macc,mapc);
+        }
         public static void Them(LichChieuDTO lc)
         {
             LichChieuDAO.Them(lc);

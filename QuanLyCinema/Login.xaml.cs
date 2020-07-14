@@ -125,8 +125,8 @@ namespace QuanLyCinema
             {
                 // khách hàng đăng nhập không tài khoản
                 this.Hide();
-                GiaoDienChinh giaoDien = new GiaoDienChinh();
-                giaoDien.Show();
+                GiaoDienChinh_KhachHang mainWindow = new GiaoDienChinh_KhachHang();
+                mainWindow.Show();
             }    
             else
             {

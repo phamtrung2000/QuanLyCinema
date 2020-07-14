@@ -43,7 +43,6 @@ namespace QuanLyCinema.CaChieu
         {
             string kq = null;
             string gio = null, phut = null, giay = null;
-            bool am = true;
             string[] chuoi_duoc_tach = a.Split(new Char[] { ':' });
             // 2:15 am -> 2  vs 15 am
             //
@@ -54,7 +53,6 @@ namespace QuanLyCinema.CaChieu
             giay = "00";
             if (chuoi_duoc_tach2[1] != "AM")
             {
-                am = false;
                 gio = (Int32.Parse(gio) + 12).ToString();
             }
             kq = gio + ":" + phut + ":" + giay;

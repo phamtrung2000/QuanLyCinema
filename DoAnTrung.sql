@@ -1,8 +1,8 @@
 ﻿create database DOAN
 GO
 use DOAN
+
 GO
---DROP DATABASE DOAN
 CREATE TABLE NHANVIEN 
 (
     STT INT IDENTITY,
@@ -20,7 +20,6 @@ CREATE TABLE NHANVIEN
 GO
 SET DATEFORMAT DMY 
 INSERT INTO NHANVIEN VALUES ('NV1',N'Trần Nguyễn Thanh Phương',N'Quản trị','098269245',N'Nữ','22/10/1960',N'1/4 Linh Xuân , Thủ Đức, TPHCM',100000000,'10/10/2017')
-
 INSERT INTO NHANVIEN VALUES ('NV2',N'Nguyễn Thiên Hương',N'Nhân viên quản lý phim','0982692456',N'Nữ','22/1/1980',N'12/4 Linh Xuân , Thủ Đức, TPHCM',100000000,'10/10/2017')
 INSERT INTO NHANVIEN VALUES ('NV3',N'Trần Nguyễn Trung Quân',N'Nhân viên quản lý phòng chiếu','0982692457','Nam',N'15/10/1982',N'16/4 Linh Xuân , Thủ Đức, TPHCM',100000000,'10/10/2017')
 INSERT INTO NHANVIEN VALUES ('NV4',N'Trần Thanh',N'Nhân viên quản lý lịch chiếu','0982692458',N'Nữ','19/11/1972',N'199/4 Linh Trung , Thủ Đức, TPHCM',100000000,'11/10/2017')
@@ -110,7 +109,7 @@ end
   as
   select *from NHANVIEN where SDT like '%'+ @sdt +'%'
 
-  go
+go
 CREATE TABLE DANGNHAP_NHANVIEN
 (
 MANV VARCHAR(10),
@@ -475,7 +474,6 @@ CREATE TABLE PHONGCHIEU
 	-- Tốt / Khá / Trung Bình
 	TRANGTHIETBIKHAC NVARCHAR(100)
 )
--- drop table phongchieu
 GO
 INSERT INTO PHONGCHIEU(MAPC,TENPC,SOCHO,MAYCHIEU,LOA,DIENTICH,TINHTRANG,TRANGTHIETBIKHAC) VALUES 
 ('PC1',N'Phòng chiếu 1',200,N'Viewsonic PX727 4K HDR (US)',N'Bộ dàn âm thanh xem phim 5.1 Yamaha YHT-299',200,N'Tốt',N'Có'),
@@ -483,6 +481,27 @@ INSERT INTO PHONGCHIEU(MAPC,TENPC,SOCHO,MAYCHIEU,LOA,DIENTICH,TINHTRANG,TRANGTHI
 ('PC3',N'Phòng chiếu 3',100,N'Optoma HT27LV',N'Bộ dàn âm thanh xem phim 5.1 Yamaha YHT-299',100,N'Tốt',N'Không'),
 ('PC4',N'Phòng chiếu 4',200,N'Optoma HT27LV-4K HDR',N'Bộ dàn âm thanh xem phim 5.1 Yamaha YHT-299',200,N'Tốt',N'Không'),
 ('PC5',N'Phòng chiếu 5',150,N'Sony VZ1000ES',N'Bộ dàn âm thanh xem phim 5.1 Yamaha YHT-196',150,N'Tốt',N'Không')
+
+go
+CREATE TABLE CHONGOI -- CHỖ NGỒI
+(
+	MAPC VARCHAR(10),
+	SOLUONGGHE INT,
+	SOLUONGGHE_CONLAI INT
+	CONSTRAINT PK_CHONGOI PRIMARY KEY(MAPC,SOLUONGGHE),
+	CONSTRAINT FK_CHONGOI_MAPC FOREIGN KEY(MAPC) REFERENCES PHONGCHIEU(MAPC) ON DELETE CASCADE
+)
+GO
+INSERT INTO CHONGOI(MAPC,SOLUONGGHE,SOLUONGGHE_CONLAI) VALUES 
+('PC1','100','100'),
+('PC2','100','100'),
+('PC3','100','100'),
+('PC4','100','100'),
+('PC5','100','100')
+
+
+
+-- drop table phongchieu
 
 go
 create proc LoadDSPhongChieu
@@ -546,7 +565,6 @@ end
   select * from PhongChieu where TENPC like '%'+ @tenpc +'%'
   --select * from NHANVIEN where lower(tenpc) like '%' + lower(RTRIM(@tenpc)) + '%'
   end
-go
 
 
 
@@ -640,8 +658,23 @@ go
 create proc LoadPhim
 as 
 begin 
-select * from PHIM ORDER BY STT ASC
+select PHIM.STT,PHIM.MAPHIM,PHIM.TENPHIM,PHIM.DAODIEN,PHIM.DIENVIEN,PHIM.NOIDUNG,PHIM.NAMSX,PHIM.NUOCSX,PHIM.THOILUONG
+from PHIM JOIN THELOAI TL ON TL.MAPHIM=PHIM.MAPHIM
+JOIN LOAIPHIM LP ON LP.MALP=TL.MALP
+ ORDER BY STT ASC
 end
+
+go
+create proc LoadTheLoaiPhim(@MAPHIM VARCHAR(10))
+as 
+begin 
+select PHIM.MAPHIM,LP.TENLP
+from PHIM JOIN THELOAI TL ON TL.MAPHIM=PHIM.MAPHIM
+JOIN LOAIPHIM LP ON LP.MALP=TL.MALP
+WHERE PHIM.MAPHIM=@MAPHIM
+end
+
+-- EXEC LoadTheLoaiPhim 'PHIM1'
 
 go
 INSERT INTO PHIM(MAPHIM,TENPHIM,DAODIEN,DIENVIEN,NOIDUNG,NAMSX,NUOCSX,THOILUONG) VALUES 
@@ -707,7 +740,17 @@ INSERT INTO THELOAI(MAPHIM,MALP) VALUES
 ('PHIM2','LP4'),
 ('PHIM2','LP5'),
 ('PHIM2','LP6'),
-('PHIM2','LP7')
+('PHIM2','LP7'),
+
+('PHIM3','LP4'),
+('PHIM3','LP5'),
+('PHIM3','LP6'),
+('PHIM3','LP7'),
+
+('PHIM4','LP4'),
+('PHIM4','LP5'),
+('PHIM4','LP6'),
+('PHIM4','LP7')
 
 --SELECT P.TENPHIM,LP.TENLP
 --FROM PHIM P INNER JOIN THELOAI TL ON P.MAPHIM=TL.MAPHIM 
@@ -774,6 +817,7 @@ select *from CACHIEU where MACC like '%'+ @macc +'%'
 end
 go
 -- exec TimTheoMacc '2'
+
 --proc Tim theo ten cc
 create proc TimTheoTencc(@tencc nvarchar(100))
 as 
@@ -795,10 +839,62 @@ CREATE TABLE LICHCHIEU
 	CONSTRAINT FK_LICHCHIEU_MACACHIEU FOREIGN KEY(MACC) REFERENCES CACHIEU(MACC) ON DELETE CASCADE,
 	CONSTRAINT FK_LICHCHIEU_MAPC FOREIGN KEY(MAPC) REFERENCES PHONGCHIEU(MAPC) ON DELETE CASCADE
 )
+
+go
+ CREATE PROC HienLichChieuPhim(@ngaychieu date,@macc varchar(10))
+  as
+  BEGIN
+SELECT pc.TENPC,LC.NGAYCHIEU,CC.BATDAU,cc.KETHUC,TENPHIM
+FROM LICHCHIEU LC INNER JOIN CACHIEU CC ON LC.MACC=CC.MACC
+JOIN PHIM ON PHIM.MAPHIM=LC.MAPHIM
+JOIN PHONGCHIEU PC ON PC.MAPC=LC.MAPC
+where lc.NGAYCHIEU=@ngaychieu  and CC.MACC=@macc
+order by pc.MAPC asc
+end
+-- drop proc HienLichChieuPhim_8_10
+-- exec LoadDSLichChieu
+--  SET DATEFORMAT MDY 
+--  EXEC HienLichChieuPhim '1/5/2020 12:00:00 AM','CC1'
+--  EXEC HienLichChieuPhim '1/6/2020 12:00:00 AM','CC4'
+-- EXEC LoadDSCaChieu
+go
+ CREATE PROC HienLichChieuPhim_NgayChieu_MaCC_MaPC(@ngaychieu date,@macc varchar(10),@mapc varchar(10))
+  as
+  BEGIN
+SELECT pc.TENPC,LC.NGAYCHIEU,CC.BATDAU,cc.KETHUC,TENPHIM
+FROM LICHCHIEU LC INNER JOIN CACHIEU CC ON LC.MACC=CC.MACC
+JOIN PHIM ON PHIM.MAPHIM=LC.MAPHIM
+JOIN PHONGCHIEU PC ON PC.MAPC=LC.MAPC
+where lc.NGAYCHIEU=@ngaychieu  and CC.MACC=@macc and pc.MAPC=@mapc
+end
+
 GO
 SET DATEFORMAT DMY
 INSERT INTO LICHCHIEU(NGAYCHIEU,MAPHIM,MACC,MAPC) VALUES 
-('6/8/2020','PHIM1','CC1','PC1')
+('05/01/2020','PHIM1','CC1','PC1'),
+('05/01/2020','PHIM2','CC1','PC2'),
+('05/01/2020','PHIM3','CC1','PC3'),
+('05/01/2020','PHIM3','CC2','PC1'),
+('05/01/2020','PHIM2','CC2','PC2'),
+('05/01/2020','PHIM1','CC2','PC3'),
+('05/01/2020','PHIM1','CC3','PC4'),
+('05/01/2020','PHIM1','CC4','PC2'),
+('05/01/2020','PHIM1','CC5','PC1'),
+('05/01/2020','PHIM1','CC5','PC3'),
+
+('06/01/2020','PHIM4','CC4','PC2'),
+('09/01/2020','PHIM3','CC4','PC3'),
+('10/01/2020','PHIM4','CC4','PC4'),
+('16/01/2020','PHIM2','CC5','PC5'),
+('17/01/2020','PHIM3','CC1','PC4'),
+('17/01/2020','PHIM1','CC5','PC3'),
+('24/01/2020','PHIM3','CC2','PC2'),
+('28/01/2020','PHIM2','CC4','PC1'),
+('30/01/2020','PHIM4','CC3','PC2'),
+('31/01/2020','PHIM1','CC1','PC4'),
+('06/02/2020','PHIM3','CC2','PC5'),
+('06/02/2020','PHIM2','CC1','PC2'),
+('07/02/2020','PHIM2','CC5','PC1')
 
 go
   CREATE PROC LoadDSLichChieu
@@ -809,7 +905,17 @@ go
  INNER JOIN PHONGCHIEU PC ON LC.MAPC=PC.MAPC
  INNER JOIN CACHIEU CC ON LC.MACC=CC.MACC
  ORDER BY NGAYCHIEU ASC
-  END
+END
+
+GO
+CREATE PROC LoadDSNgayChieu
+AS
+BEGIN
+ SELECT NGAYCHIEU
+ FROM LICHCHIEU 
+ GROUP BY NGAYCHIEU
+ ORDER BY NGAYCHIEU ASC
+END
 
 go
 ---proc Them lich chieu
@@ -1038,7 +1144,511 @@ CREATE PROC Ve_TimTheoSoLuong(@soluong int)
  INNER JOIN PHONGCHIEU PC ON VE.MAPC=PC.MAPC
  INNER JOIN LOAIVE LV ON VE.MALV=LV.MALV
  WHERE VE.SOLUONG>= @soluong-100 AND VE.SOLUONG <= @soluong + 100
-  end
+ end
 --  exec Ve_TimTheoSoLuong '200'
 
 -- table chỗ ngồi : có trạng thái ( đặt, chưa đặt)
+go
+CREATE TABLE CHITIETCHONGOI -- CHỖ NGỒI
+(
+	MAGHE VARCHAR(10) PRIMARY KEY ,
+	TENGHE NVARCHAR(40),
+	MAPC VARCHAR(10),
+	MALV VARCHAR(10),
+	TRANGTHAI NVARCHAR(10) CHECK (TRANGTHAI IN(N'Đặt',N'Chưa đặt'))
+	CONSTRAINT FK_CHITIETCHONGOI_MAPC FOREIGN KEY(MAPC) REFERENCES PHONGCHIEU(MAPC) ON DELETE CASCADE,
+	CONSTRAINT FK_CHITIETCHONGOI_LOAICHONGOI FOREIGN KEY(MALV) REFERENCES LOAIVE(MALV) ON DELETE CASCADE
+)
+-- drop table CHITIETCHONGOI
+GO
+--PC1
+INSERT INTO CHITIETCHONGOI(MAGHE,TENGHE,MAPC,MALV,TRANGTHAI) VALUES 
+('A1',N'Ghế A1','PC1','LV1',N'Chưa đặt'),
+('A2',N'Ghế A2','PC1','LV1',N'Chưa đặt'),
+('A3',N'Ghế A3','PC1','LV1',N'Chưa đặt'),
+('A4',N'Ghế A4','PC1','LV1',N'Chưa đặt'),
+('A5',N'Ghế A5','PC1','LV1',N'Chưa đặt'),
+('A6',N'Ghế A6','PC1','LV1',N'Chưa đặt'),
+('A7',N'Ghế A7','PC1','LV1',N'Chưa đặt'),
+('A8',N'Ghế A8','PC1','LV1',N'Chưa đặt'),
+('A9',N'Ghế A9','PC1','LV1',N'Chưa đặt'),
+('A10',N'Ghế A10','PC1','LV1',N'Chưa đặt'),
+('A11',N'Ghế A11','PC1','LV1',N'Chưa đặt'),
+
+('B1',N'Ghế B1','PC1','LV1',N'Chưa đặt'),
+('B2',N'Ghế B2','PC1','LV1',N'Chưa đặt'),
+('B3',N'Ghế B3','PC1','LV1',N'Chưa đặt'),
+('B4',N'Ghế B4','PC1','LV1',N'Chưa đặt'),
+('B5',N'Ghế B5','PC1','LV1',N'Chưa đặt'),
+('B6',N'Ghế B6','PC1','LV1',N'Chưa đặt'),
+('B7',N'Ghế B7','PC1','LV1',N'Chưa đặt'),
+('B8',N'Ghế B8','PC1','LV1',N'Chưa đặt'),
+('B9',N'Ghế B9','PC1','LV1',N'Chưa đặt'),
+('B10',N'Ghế B10','PC1','LV1',N'Chưa đặt'),
+('B11',N'Ghế B11','PC1','LV1',N'Chưa đặt'),
+
+('C1',N'Ghế C1','PC1','LV1',N'Chưa đặt'),
+('C2',N'Ghế C2','PC1','LV1',N'Chưa đặt'),
+('C3',N'Ghế C3','PC1','LV1',N'Chưa đặt'),
+('C4',N'Ghế C4','PC1','LV1',N'Chưa đặt'),
+('C5',N'Ghế C5','PC1','LV1',N'Chưa đặt'),
+('C6',N'Ghế C6','PC1','LV1',N'Chưa đặt'),
+('C7',N'Ghế C7','PC1','LV1',N'Chưa đặt'),
+('C8',N'Ghế C8','PC1','LV1',N'Chưa đặt'),
+('C9',N'Ghế C9','PC1','LV1',N'Chưa đặt'),
+('C10',N'Ghế C10','PC1','LV1',N'Chưa đặt'),
+('C11',N'Ghế C11','PC1','LV1',N'Chưa đặt'),
+
+('D1',N'Ghế D1','PC1','LV1',N'Chưa đặt'),
+('D2',N'Ghế D2','PC1','LV1',N'Chưa đặt'),
+('D3',N'Ghế D3','PC1','LV1',N'Chưa đặt'),
+('D4',N'Ghế D4','PC1','LV1',N'Chưa đặt'),
+('D5',N'Ghế D5','PC1','LV1',N'Chưa đặt'),
+('D6',N'Ghế D6','PC1','LV1',N'Chưa đặt'),
+('D7',N'Ghế D7','PC1','LV1',N'Chưa đặt'),
+('D8',N'Ghế D8','PC1','LV1',N'Chưa đặt'),
+('D9',N'Ghế D9','PC1','LV1',N'Chưa đặt'),
+('D10',N'Ghế D10','PC1','LV1',N'Chưa đặt'),
+('D11',N'Ghế D11','PC1','LV1',N'Chưa đặt'),
+
+('E1',N'Ghế E1','PC1','LV2',N'Chưa đặt'),
+('E2',N'Ghế E2','PC1','LV2',N'Chưa đặt'),
+('E3',N'Ghế E3','PC1','LV2',N'Chưa đặt'),
+('E4',N'Ghế E4','PC1','LV2',N'Chưa đặt'),
+('E5',N'Ghế E5','PC1','LV2',N'Chưa đặt'),
+('E6',N'Ghế E6','PC1','LV2',N'Chưa đặt'),
+('E7',N'Ghế E7','PC1','LV2',N'Chưa đặt'),
+('E8',N'Ghế E8','PC1','LV2',N'Chưa đặt'),
+('E9',N'Ghế E9','PC1','LV2',N'Chưa đặt'),
+('E10',N'Ghế E10','PC1','LV2',N'Chưa đặt'),
+('E11',N'Ghế E11','PC1','LV2',N'Chưa đặt'),
+
+('F1',N'Ghế F1','PC1','LV2',N'Chưa đặt'),
+('F2',N'Ghế F2','PC1','LV2',N'Chưa đặt'),
+('F3',N'Ghế F3','PC1','LV2',N'Chưa đặt'),
+('F4',N'Ghế F4','PC1','LV2',N'Chưa đặt'),
+('F5',N'Ghế F5','PC1','LV2',N'Chưa đặt'),
+('F6',N'Ghế F6','PC1','LV2',N'Chưa đặt'),
+('F7',N'Ghế F7','PC1','LV2',N'Chưa đặt'),
+('F8',N'Ghế F8','PC1','LV2',N'Chưa đặt'),
+('F9',N'Ghế F9','PC1','LV2',N'Chưa đặt'),
+('F10',N'Ghế F10','PC1','LV2',N'Chưa đặt'),
+('F11',N'Ghế F11','PC1','LV2',N'Chưa đặt'),
+
+('G1',N'Ghế G1','PC1','LV2',N'Chưa đặt'),
+('G2',N'Ghế G2','PC1','LV2',N'Chưa đặt'),
+('G3',N'Ghế G3','PC1','LV2',N'Chưa đặt'),
+('G4',N'Ghế G4','PC1','LV2',N'Chưa đặt'),
+('G5',N'Ghế G5','PC1','LV2',N'Chưa đặt'),
+('G6',N'Ghế G6','PC1','LV2',N'Chưa đặt'),
+('G7',N'Ghế G7','PC1','LV2',N'Chưa đặt'),
+('G8',N'Ghế G8','PC1','LV2',N'Chưa đặt'),
+('G9',N'Ghế G9','PC1','LV2',N'Chưa đặt'),
+('G10',N'Ghế G10','PC1','LV2',N'Chưa đặt'),
+('G11',N'Ghế G11','PC1','LV2',N'Chưa đặt'),
+('H1',N'Ghế H1','PC1','LV3',N'Chưa đặt'),
+
+('H2',N'Ghế H2','PC1','LV3',N'Chưa đặt'),
+('H3',N'Ghế H3','PC1','LV3',N'Chưa đặt'),
+('H4',N'Ghế H4','PC1','LV3',N'Chưa đặt'),
+('H5',N'Ghế H5','PC1','LV3',N'Chưa đặt'),
+('H6',N'Ghế H6','PC1','LV3',N'Chưa đặt'),
+('H7',N'Ghế H7','PC1','LV3',N'Chưa đặt'),
+('H8',N'Ghế H8','PC1','LV3',N'Chưa đặt'),
+('H9',N'Ghế H9','PC1','LV3',N'Chưa đặt'),
+('H10',N'Ghế H10','PC1','LV3',N'Chưa đặt'),
+('H11',N'Ghế H11','PC1','LV3',N'Chưa đặt')
+
+--PC2
+INSERT INTO CHITIETCHONGOI(MAGHE,TENGHE,MAPC,MALV,TRANGTHAI) VALUES 
+('A1',N'Ghế A1','PC2','LV1',N'Chưa đặt'),
+('A2',N'Ghế A2','PC2','LV1',N'Chưa đặt'),
+('A3',N'Ghế A3','PC2','LV1',N'Chưa đặt'),
+('A4',N'Ghế A4','PC2','LV1',N'Chưa đặt'),
+('A5',N'Ghế A5','PC2','LV1',N'Chưa đặt'),
+('A6',N'Ghế A6','PC2','LV1',N'Chưa đặt'),
+('A7',N'Ghế A7','PC2','LV1',N'Chưa đặt'),
+('A8',N'Ghế A8','PC2','LV1',N'Chưa đặt'),
+('A9',N'Ghế A9','PC2','LV1',N'Chưa đặt'),
+('A10',N'Ghế A10','PC2','LV1',N'Chưa đặt'),
+('A11',N'Ghế A11','PC2','LV1',N'Chưa đặt'),
+
+('B1',N'Ghế B1','PC2','LV1',N'Chưa đặt'),
+('B2',N'Ghế B2','PC2','LV1',N'Chưa đặt'),
+('B3',N'Ghế B3','PC2','LV1',N'Chưa đặt'),
+('B4',N'Ghế B4','PC2','LV1',N'Chưa đặt'),
+('B5',N'Ghế B5','PC2','LV1',N'Chưa đặt'),
+('B6',N'Ghế B6','PC2','LV1',N'Chưa đặt'),
+('B7',N'Ghế B7','PC2','LV1',N'Chưa đặt'),
+('B8',N'Ghế B8','PC2','LV1',N'Chưa đặt'),
+('B9',N'Ghế B9','PC2','LV1',N'Chưa đặt'),
+('B10',N'Ghế B10','PC2','LV1',N'Chưa đặt'),
+('B11',N'Ghế B11','PC2','LV1',N'Chưa đặt'),
+
+('C1',N'Ghế C1','PC2','LV1',N'Chưa đặt'),
+('C2',N'Ghế C2','PC2','LV1',N'Chưa đặt'),
+('C3',N'Ghế C3','PC2','LV1',N'Chưa đặt'),
+('C4',N'Ghế C4','PC2','LV1',N'Chưa đặt'),
+('C5',N'Ghế C5','PC2','LV1',N'Chưa đặt'),
+('C6',N'Ghế C6','PC2','LV1',N'Chưa đặt'),
+('C7',N'Ghế C7','PC2','LV1',N'Chưa đặt'),
+('C8',N'Ghế C8','PC2','LV1',N'Chưa đặt'),
+('C9',N'Ghế C9','PC2','LV1',N'Chưa đặt'),
+('C10',N'Ghế C10','PC2','LV1',N'Chưa đặt'),
+('C11',N'Ghế C11','PC2','LV1',N'Chưa đặt'),
+
+('D1',N'Ghế D1','PC2','LV1',N'Chưa đặt'),
+('D2',N'Ghế D2','PC2','LV1',N'Chưa đặt'),
+('D3',N'Ghế D3','PC2','LV1',N'Chưa đặt'),
+('D4',N'Ghế D4','PC2','LV1',N'Chưa đặt'),
+('D5',N'Ghế D5','PC2','LV1',N'Chưa đặt'),
+('D6',N'Ghế D6','PC2','LV1',N'Chưa đặt'),
+('D7',N'Ghế D7','PC2','LV1',N'Chưa đặt'),
+('D8',N'Ghế D8','PC2','LV1',N'Chưa đặt'),
+('D9',N'Ghế D9','PC2','LV1',N'Chưa đặt'),
+('D10',N'Ghế D10','PC2','LV1',N'Chưa đặt'),
+('D11',N'Ghế D11','PC2','LV1',N'Chưa đặt'),
+
+('E1',N'Ghế E1','PC2','LV2',N'Chưa đặt'),
+('E2',N'Ghế E2','PC2','LV2',N'Chưa đặt'),
+('E3',N'Ghế E3','PC2','LV2',N'Chưa đặt'),
+('E4',N'Ghế E4','PC2','LV2',N'Chưa đặt'),
+('E5',N'Ghế E5','PC2','LV2',N'Chưa đặt'),
+('E6',N'Ghế E6','PC2','LV2',N'Chưa đặt'),
+('E7',N'Ghế E7','PC2','LV2',N'Chưa đặt'),
+('E8',N'Ghế E8','PC2','LV2',N'Chưa đặt'),
+('E9',N'Ghế E9','PC2','LV2',N'Chưa đặt'),
+('E10',N'Ghế E10','PC2','LV2',N'Chưa đặt'),
+('E11',N'Ghế E11','PC2','LV2',N'Chưa đặt'),
+
+('F1',N'Ghế F1','PC2','LV2',N'Chưa đặt'),
+('F2',N'Ghế F2','PC2','LV2',N'Chưa đặt'),
+('F3',N'Ghế F3','PC2','LV2',N'Chưa đặt'),
+('F4',N'Ghế F4','PC2','LV2',N'Chưa đặt'),
+('F5',N'Ghế F5','PC2','LV2',N'Chưa đặt'),
+('F6',N'Ghế F6','PC2','LV2',N'Chưa đặt'),
+('F7',N'Ghế F7','PC2','LV2',N'Chưa đặt'),
+('F8',N'Ghế F8','PC2','LV2',N'Chưa đặt'),
+('F9',N'Ghế F9','PC2','LV2',N'Chưa đặt'),
+('F10',N'Ghế F10','PC2','LV2',N'Chưa đặt'),
+('F11',N'Ghế F11','PC2','LV2',N'Chưa đặt'),
+
+('G1',N'Ghế G1','PC2','LV2',N'Chưa đặt'),
+('G2',N'Ghế G2','PC2','LV2',N'Chưa đặt'),
+('G3',N'Ghế G3','PC2','LV2',N'Chưa đặt'),
+('G4',N'Ghế G4','PC2','LV2',N'Chưa đặt'),
+('G5',N'Ghế G5','PC2','LV2',N'Chưa đặt'),
+('G6',N'Ghế G6','PC2','LV2',N'Chưa đặt'),
+('G7',N'Ghế G7','PC2','LV2',N'Chưa đặt'),
+('G8',N'Ghế G8','PC2','LV2',N'Chưa đặt'),
+('G9',N'Ghế G9','PC2','LV2',N'Chưa đặt'),
+('G10',N'Ghế G10','PC2','LV2',N'Chưa đặt'),
+('G11',N'Ghế G11','PC2','LV2',N'Chưa đặt'),
+('H1',N'Ghế H1','PC2','LV3',N'Chưa đặt'),
+
+('H2',N'Ghế H2','PC2','LV3',N'Chưa đặt'),
+('H3',N'Ghế H3','PC2','LV3',N'Chưa đặt'),
+('H4',N'Ghế H4','PC2','LV3',N'Chưa đặt'),
+('H5',N'Ghế H5','PC2','LV3',N'Chưa đặt'),
+('H6',N'Ghế H6','PC2','LV3',N'Chưa đặt'),
+('H7',N'Ghế H7','PC2','LV3',N'Chưa đặt'),
+('H8',N'Ghế H8','PC2','LV3',N'Chưa đặt'),
+('H9',N'Ghế H9','PC2','LV3',N'Chưa đặt'),
+('H10',N'Ghế H10','PC2','LV3',N'Chưa đặt'),
+('H11',N'Ghế H11','PC2','LV3',N'Chưa đặt')
+
+--PC3
+INSERT INTO CHITIETCHONGOI(MAGHE,TENGHE,MAPC,MALV,TRANGTHAI) VALUES 
+('A1',N'Ghế A1','PC3','LV1',N'Chưa đặt'),
+('A2',N'Ghế A2','PC3','LV1',N'Chưa đặt'),
+('A3',N'Ghế A3','PC3','LV1',N'Chưa đặt'),
+('A4',N'Ghế A4','PC3','LV1',N'Chưa đặt'),
+('A5',N'Ghế A5','PC3','LV1',N'Chưa đặt'),
+('A6',N'Ghế A6','PC3','LV1',N'Chưa đặt'),
+('A7',N'Ghế A7','PC3','LV1',N'Chưa đặt'),
+('A8',N'Ghế A8','PC3','LV1',N'Chưa đặt'),
+('A9',N'Ghế A9','PC3','LV1',N'Chưa đặt'),
+('A10',N'Ghế A10','PC3','LV1',N'Chưa đặt'),
+('A11',N'Ghế A11','PC3','LV1',N'Chưa đặt'),
+
+('B1',N'Ghế B1','PC3','LV1',N'Chưa đặt'),
+('B2',N'Ghế B2','PC3','LV1',N'Chưa đặt'),
+('B3',N'Ghế B3','PC3','LV1',N'Chưa đặt'),
+('B4',N'Ghế B4','PC3','LV1',N'Chưa đặt'),
+('B5',N'Ghế B5','PC3','LV1',N'Chưa đặt'),
+('B6',N'Ghế B6','PC3','LV1',N'Chưa đặt'),
+('B7',N'Ghế B7','PC3','LV1',N'Chưa đặt'),
+('B8',N'Ghế B8','PC3','LV1',N'Chưa đặt'),
+('B9',N'Ghế B9','PC3','LV1',N'Chưa đặt'),
+('B10',N'Ghế B10','PC3','LV1',N'Chưa đặt'),
+('B11',N'Ghế B11','PC3','LV1',N'Chưa đặt'),
+
+('C1',N'Ghế C1','PC3','LV1',N'Chưa đặt'),
+('C2',N'Ghế C2','PC3','LV1',N'Chưa đặt'),
+('C3',N'Ghế C3','PC3','LV1',N'Chưa đặt'),
+('C4',N'Ghế C4','PC3','LV1',N'Chưa đặt'),
+('C5',N'Ghế C5','PC3','LV1',N'Chưa đặt'),
+('C6',N'Ghế C6','PC3','LV1',N'Chưa đặt'),
+('C7',N'Ghế C7','PC3','LV1',N'Chưa đặt'),
+('C8',N'Ghế C8','PC3','LV1',N'Chưa đặt'),
+('C9',N'Ghế C9','PC3','LV1',N'Chưa đặt'),
+('C10',N'Ghế C10','PC3','LV1',N'Chưa đặt'),
+('C11',N'Ghế C11','PC3','LV1',N'Chưa đặt'),
+
+('D1',N'Ghế D1','PC3','LV1',N'Chưa đặt'),
+('D2',N'Ghế D2','PC3','LV1',N'Chưa đặt'),
+('D3',N'Ghế D3','PC3','LV1',N'Chưa đặt'),
+('D4',N'Ghế D4','PC3','LV1',N'Chưa đặt'),
+('D5',N'Ghế D5','PC3','LV1',N'Chưa đặt'),
+('D6',N'Ghế D6','PC3','LV1',N'Chưa đặt'),
+('D7',N'Ghế D7','PC3','LV1',N'Chưa đặt'),
+('D8',N'Ghế D8','PC3','LV1',N'Chưa đặt'),
+('D9',N'Ghế D9','PC3','LV1',N'Chưa đặt'),
+('D10',N'Ghế D10','PC3','LV1',N'Chưa đặt'),
+('D11',N'Ghế D11','PC3','LV1',N'Chưa đặt'),
+
+('E1',N'Ghế E1','PC3','LV2',N'Chưa đặt'),
+('E2',N'Ghế E2','PC3','LV2',N'Chưa đặt'),
+('E3',N'Ghế E3','PC3','LV2',N'Chưa đặt'),
+('E4',N'Ghế E4','PC3','LV2',N'Chưa đặt'),
+('E5',N'Ghế E5','PC3','LV2',N'Chưa đặt'),
+('E6',N'Ghế E6','PC3','LV2',N'Chưa đặt'),
+('E7',N'Ghế E7','PC3','LV2',N'Chưa đặt'),
+('E8',N'Ghế E8','PC3','LV2',N'Chưa đặt'),
+('E9',N'Ghế E9','PC3','LV2',N'Chưa đặt'),
+('E10',N'Ghế E10','PC3','LV2',N'Chưa đặt'),
+('E11',N'Ghế E11','PC3','LV2',N'Chưa đặt'),
+
+('F1',N'Ghế F1','PC3','LV2',N'Chưa đặt'),
+('F2',N'Ghế F2','PC3','LV2',N'Chưa đặt'),
+('F3',N'Ghế F3','PC3','LV2',N'Chưa đặt'),
+('F4',N'Ghế F4','PC3','LV2',N'Chưa đặt'),
+('F5',N'Ghế F5','PC3','LV2',N'Chưa đặt'),
+('F6',N'Ghế F6','PC3','LV2',N'Chưa đặt'),
+('F7',N'Ghế F7','PC3','LV2',N'Chưa đặt'),
+('F8',N'Ghế F8','PC3','LV2',N'Chưa đặt'),
+('F9',N'Ghế F9','PC3','LV2',N'Chưa đặt'),
+('F10',N'Ghế F10','PC3','LV2',N'Chưa đặt'),
+('F11',N'Ghế F11','PC3','LV2',N'Chưa đặt'),
+
+('G1',N'Ghế G1','PC3','LV2',N'Chưa đặt'),
+('G2',N'Ghế G2','PC3','LV2',N'Chưa đặt'),
+('G3',N'Ghế G3','PC3','LV2',N'Chưa đặt'),
+('G4',N'Ghế G4','PC3','LV2',N'Chưa đặt'),
+('G5',N'Ghế G5','PC3','LV2',N'Chưa đặt'),
+('G6',N'Ghế G6','PC3','LV2',N'Chưa đặt'),
+('G7',N'Ghế G7','PC3','LV2',N'Chưa đặt'),
+('G8',N'Ghế G8','PC3','LV2',N'Chưa đặt'),
+('G9',N'Ghế G9','PC3','LV2',N'Chưa đặt'),
+('G10',N'Ghế G10','PC3','LV2',N'Chưa đặt'),
+('G11',N'Ghế G11','PC3','LV2',N'Chưa đặt'),
+('H1',N'Ghế H1','PC3','LV3',N'Chưa đặt'),
+
+('H2',N'Ghế H2','PC3','LV3',N'Chưa đặt'),
+('H3',N'Ghế H3','PC3','LV3',N'Chưa đặt'),
+('H4',N'Ghế H4','PC3','LV3',N'Chưa đặt'),
+('H5',N'Ghế H5','PC3','LV3',N'Chưa đặt'),
+('H6',N'Ghế H6','PC3','LV3',N'Chưa đặt'),
+('H7',N'Ghế H7','PC3','LV3',N'Chưa đặt'),
+('H8',N'Ghế H8','PC3','LV3',N'Chưa đặt'),
+('H9',N'Ghế H9','PC3','LV3',N'Chưa đặt'),
+('H10',N'Ghế H10','PC3','LV3',N'Chưa đặt'),
+('H11',N'Ghế H11','PC3','LV3',N'Chưa đặt')
+
+--PC4
+INSERT INTO CHITIETCHONGOI(MAGHE,TENGHE,MAPC,MALV,TRANGTHAI) VALUES 
+('A1',N'Ghế A1','PC4','LV1',N'Chưa đặt'),
+('A2',N'Ghế A2','PC4','LV1',N'Chưa đặt'),
+('A3',N'Ghế A3','PC4','LV1',N'Chưa đặt'),
+('A4',N'Ghế A4','PC4','LV1',N'Chưa đặt'),
+('A5',N'Ghế A5','PC4','LV1',N'Chưa đặt'),
+('A6',N'Ghế A6','PC4','LV1',N'Chưa đặt'),
+('A7',N'Ghế A7','PC4','LV1',N'Chưa đặt'),
+('A8',N'Ghế A8','PC4','LV1',N'Chưa đặt'),
+('A9',N'Ghế A9','PC4','LV1',N'Chưa đặt'),
+('A10',N'Ghế A10','PC4','LV1',N'Chưa đặt'),
+('A11',N'Ghế A11','PC4','LV1',N'Chưa đặt'),
+
+('B1',N'Ghế B1','PC4','LV1',N'Chưa đặt'),
+('B2',N'Ghế B2','PC4','LV1',N'Chưa đặt'),
+('B3',N'Ghế B3','PC4','LV1',N'Chưa đặt'),
+('B4',N'Ghế B4','PC4','LV1',N'Chưa đặt'),
+('B5',N'Ghế B5','PC4','LV1',N'Chưa đặt'),
+('B6',N'Ghế B6','PC4','LV1',N'Chưa đặt'),
+('B7',N'Ghế B7','PC4','LV1',N'Chưa đặt'),
+('B8',N'Ghế B8','PC4','LV1',N'Chưa đặt'),
+('B9',N'Ghế B9','PC4','LV1',N'Chưa đặt'),
+('B10',N'Ghế B10','PC4','LV1',N'Chưa đặt'),
+('B11',N'Ghế B11','PC4','LV1',N'Chưa đặt'),
+
+('C1',N'Ghế C1','PC4','LV1',N'Chưa đặt'),
+('C2',N'Ghế C2','PC4','LV1',N'Chưa đặt'),
+('C3',N'Ghế C3','PC4','LV1',N'Chưa đặt'),
+('C4',N'Ghế C4','PC4','LV1',N'Chưa đặt'),
+('C5',N'Ghế C5','PC4','LV1',N'Chưa đặt'),
+('C6',N'Ghế C6','PC4','LV1',N'Chưa đặt'),
+('C7',N'Ghế C7','PC4','LV1',N'Chưa đặt'),
+('C8',N'Ghế C8','PC4','LV1',N'Chưa đặt'),
+('C9',N'Ghế C9','PC4','LV1',N'Chưa đặt'),
+('C10',N'Ghế C10','PC4','LV1',N'Chưa đặt'),
+('C11',N'Ghế C11','PC4','LV1',N'Chưa đặt'),
+
+('D1',N'Ghế D1','PC4','LV1',N'Chưa đặt'),
+('D2',N'Ghế D2','PC4','LV1',N'Chưa đặt'),
+('D3',N'Ghế D3','PC4','LV1',N'Chưa đặt'),
+('D4',N'Ghế D4','PC4','LV1',N'Chưa đặt'),
+('D5',N'Ghế D5','PC4','LV1',N'Chưa đặt'),
+('D6',N'Ghế D6','PC4','LV1',N'Chưa đặt'),
+('D7',N'Ghế D7','PC4','LV1',N'Chưa đặt'),
+('D8',N'Ghế D8','PC4','LV1',N'Chưa đặt'),
+('D9',N'Ghế D9','PC4','LV1',N'Chưa đặt'),
+('D10',N'Ghế D10','PC4','LV1',N'Chưa đặt'),
+('D11',N'Ghế D11','PC4','LV1',N'Chưa đặt'),
+
+('E1',N'Ghế E1','PC4','LV2',N'Chưa đặt'),
+('E2',N'Ghế E2','PC4','LV2',N'Chưa đặt'),
+('E3',N'Ghế E3','PC4','LV2',N'Chưa đặt'),
+('E4',N'Ghế E4','PC4','LV2',N'Chưa đặt'),
+('E5',N'Ghế E5','PC4','LV2',N'Chưa đặt'),
+('E6',N'Ghế E6','PC4','LV2',N'Chưa đặt'),
+('E7',N'Ghế E7','PC4','LV2',N'Chưa đặt'),
+('E8',N'Ghế E8','PC4','LV2',N'Chưa đặt'),
+('E9',N'Ghế E9','PC4','LV2',N'Chưa đặt'),
+('E10',N'Ghế E10','PC4','LV2',N'Chưa đặt'),
+('E11',N'Ghế E11','PC4','LV2',N'Chưa đặt'),
+
+('F1',N'Ghế F1','PC4','LV2',N'Chưa đặt'),
+('F2',N'Ghế F2','PC4','LV2',N'Chưa đặt'),
+('F3',N'Ghế F3','PC4','LV2',N'Chưa đặt'),
+('F4',N'Ghế F4','PC4','LV2',N'Chưa đặt'),
+('F5',N'Ghế F5','PC4','LV2',N'Chưa đặt'),
+('F6',N'Ghế F6','PC4','LV2',N'Chưa đặt'),
+('F7',N'Ghế F7','PC4','LV2',N'Chưa đặt'),
+('F8',N'Ghế F8','PC4','LV2',N'Chưa đặt'),
+('F9',N'Ghế F9','PC4','LV2',N'Chưa đặt'),
+('F10',N'Ghế F10','PC4','LV2',N'Chưa đặt'),
+('F11',N'Ghế F11','PC4','LV2',N'Chưa đặt'),
+
+('G1',N'Ghế G1','PC4','LV2',N'Chưa đặt'),
+('G2',N'Ghế G2','PC4','LV2',N'Chưa đặt'),
+('G3',N'Ghế G3','PC4','LV2',N'Chưa đặt'),
+('G4',N'Ghế G4','PC4','LV2',N'Chưa đặt'),
+('G5',N'Ghế G5','PC4','LV2',N'Chưa đặt'),
+('G6',N'Ghế G6','PC4','LV2',N'Chưa đặt'),
+('G7',N'Ghế G7','PC4','LV2',N'Chưa đặt'),
+('G8',N'Ghế G8','PC4','LV2',N'Chưa đặt'),
+('G9',N'Ghế G9','PC4','LV2',N'Chưa đặt'),
+('G10',N'Ghế G10','PC4','LV2',N'Chưa đặt'),
+('G11',N'Ghế G11','PC4','LV2',N'Chưa đặt'),
+('H1',N'Ghế H1','PC4','LV3',N'Chưa đặt'),
+
+('H2',N'Ghế H2','PC4','LV3',N'Chưa đặt'),
+('H3',N'Ghế H3','PC4','LV3',N'Chưa đặt'),
+('H4',N'Ghế H4','PC4','LV3',N'Chưa đặt'),
+('H5',N'Ghế H5','PC4','LV3',N'Chưa đặt'),
+('H6',N'Ghế H6','PC4','LV3',N'Chưa đặt'),
+('H7',N'Ghế H7','PC4','LV3',N'Chưa đặt'),
+('H8',N'Ghế H8','PC4','LV3',N'Chưa đặt'),
+('H9',N'Ghế H9','PC4','LV3',N'Chưa đặt'),
+('H10',N'Ghế H10','PC4','LV3',N'Chưa đặt'),
+('H11',N'Ghế H11','PC4','LV3',N'Chưa đặt')
+
+--PC5
+INSERT INTO CHITIETCHONGOI(MAGHE,TENGHE,MAPC,MALV,TRANGTHAI) VALUES 
+('A1',N'Ghế A1','PC5','LV1',N'Chưa đặt'),
+('A2',N'Ghế A2','PC5','LV1',N'Chưa đặt'),
+('A3',N'Ghế A3','PC5','LV1',N'Chưa đặt'),
+('A4',N'Ghế A4','PC5','LV1',N'Chưa đặt'),
+('A5',N'Ghế A5','PC5','LV1',N'Chưa đặt'),
+('A6',N'Ghế A6','PC5','LV1',N'Chưa đặt'),
+('A7',N'Ghế A7','PC5','LV1',N'Chưa đặt'),
+('A8',N'Ghế A8','PC5','LV1',N'Chưa đặt'),
+('A9',N'Ghế A9','PC5','LV1',N'Chưa đặt'),
+('A10',N'Ghế A10','PC5','LV1',N'Chưa đặt'),
+('A11',N'Ghế A11','PC5','LV1',N'Chưa đặt'),
+
+('B1',N'Ghế B1','PC5','LV1',N'Chưa đặt'),
+('B2',N'Ghế B2','PC5','LV1',N'Chưa đặt'),
+('B3',N'Ghế B3','PC5','LV1',N'Chưa đặt'),
+('B4',N'Ghế B4','PC5','LV1',N'Chưa đặt'),
+('B5',N'Ghế B5','PC5','LV1',N'Chưa đặt'),
+('B6',N'Ghế B6','PC5','LV1',N'Chưa đặt'),
+('B7',N'Ghế B7','PC5','LV1',N'Chưa đặt'),
+('B8',N'Ghế B8','PC5','LV1',N'Chưa đặt'),
+('B9',N'Ghế B9','PC5','LV1',N'Chưa đặt'),
+('B10',N'Ghế B10','PC5','LV1',N'Chưa đặt'),
+('B11',N'Ghế B11','PC5','LV1',N'Chưa đặt'),
+
+('C1',N'Ghế C1','PC5','LV1',N'Chưa đặt'),
+('C2',N'Ghế C2','PC5','LV1',N'Chưa đặt'),
+('C3',N'Ghế C3','PC5','LV1',N'Chưa đặt'),
+('C4',N'Ghế C4','PC5','LV1',N'Chưa đặt'),
+('C5',N'Ghế C5','PC5','LV1',N'Chưa đặt'),
+('C6',N'Ghế C6','PC5','LV1',N'Chưa đặt'),
+('C7',N'Ghế C7','PC5','LV1',N'Chưa đặt'),
+('C8',N'Ghế C8','PC5','LV1',N'Chưa đặt'),
+('C9',N'Ghế C9','PC5','LV1',N'Chưa đặt'),
+('C10',N'Ghế C10','PC5','LV1',N'Chưa đặt'),
+('C11',N'Ghế C11','PC5','LV1',N'Chưa đặt'),
+
+('D1',N'Ghế D1','PC5','LV1',N'Chưa đặt'),
+('D2',N'Ghế D2','PC5','LV1',N'Chưa đặt'),
+('D3',N'Ghế D3','PC5','LV1',N'Chưa đặt'),
+('D4',N'Ghế D4','PC5','LV1',N'Chưa đặt'),
+('D5',N'Ghế D5','PC5','LV1',N'Chưa đặt'),
+('D6',N'Ghế D6','PC5','LV1',N'Chưa đặt'),
+('D7',N'Ghế D7','PC5','LV1',N'Chưa đặt'),
+('D8',N'Ghế D8','PC5','LV1',N'Chưa đặt'),
+('D9',N'Ghế D9','PC5','LV1',N'Chưa đặt'),
+('D10',N'Ghế D10','PC5','LV1',N'Chưa đặt'),
+('D11',N'Ghế D11','PC5','LV1',N'Chưa đặt'),
+
+('E1',N'Ghế E1','PC5','LV2',N'Chưa đặt'),
+('E2',N'Ghế E2','PC5','LV2',N'Chưa đặt'),
+('E3',N'Ghế E3','PC5','LV2',N'Chưa đặt'),
+('E4',N'Ghế E4','PC5','LV2',N'Chưa đặt'),
+('E5',N'Ghế E5','PC5','LV2',N'Chưa đặt'),
+('E6',N'Ghế E6','PC5','LV2',N'Chưa đặt'),
+('E7',N'Ghế E7','PC5','LV2',N'Chưa đặt'),
+('E8',N'Ghế E8','PC5','LV2',N'Chưa đặt'),
+('E9',N'Ghế E9','PC5','LV2',N'Chưa đặt'),
+('E10',N'Ghế E10','PC5','LV2',N'Chưa đặt'),
+('E11',N'Ghế E11','PC5','LV2',N'Chưa đặt'),
+
+('F1',N'Ghế F1','PC5','LV2',N'Chưa đặt'),
+('F2',N'Ghế F2','PC5','LV2',N'Chưa đặt'),
+('F3',N'Ghế F3','PC5','LV2',N'Chưa đặt'),
+('F4',N'Ghế F4','PC5','LV2',N'Chưa đặt'),
+('F5',N'Ghế F5','PC5','LV2',N'Chưa đặt'),
+('F6',N'Ghế F6','PC5','LV2',N'Chưa đặt'),
+('F7',N'Ghế F7','PC5','LV2',N'Chưa đặt'),
+('F8',N'Ghế F8','PC5','LV2',N'Chưa đặt'),
+('F9',N'Ghế F9','PC5','LV2',N'Chưa đặt'),
+('F10',N'Ghế F10','PC5','LV2',N'Chưa đặt'),
+('F11',N'Ghế F11','PC5','LV2',N'Chưa đặt'),
+
+('G1',N'Ghế G1','PC5','LV2',N'Chưa đặt'),
+('G2',N'Ghế G2','PC5','LV2',N'Chưa đặt'),
+('G3',N'Ghế G3','PC5','LV2',N'Chưa đặt'),
+('G4',N'Ghế G4','PC5','LV2',N'Chưa đặt'),
+('G5',N'Ghế G5','PC5','LV2',N'Chưa đặt'),
+('G6',N'Ghế G6','PC5','LV2',N'Chưa đặt'),
+('G7',N'Ghế G7','PC5','LV2',N'Chưa đặt'),
+('G8',N'Ghế G8','PC5','LV2',N'Chưa đặt'),
+('G9',N'Ghế G9','PC5','LV2',N'Chưa đặt'),
+('G10',N'Ghế G10','PC5','LV2',N'Chưa đặt'),
+('G11',N'Ghế G11','PC5','LV2',N'Chưa đặt'),
+('H1',N'Ghế H1','PC5','LV3',N'Chưa đặt'),
+
+('H2',N'Ghế H2','PC5','LV3',N'Chưa đặt'),
+('H3',N'Ghế H3','PC5','LV3',N'Chưa đặt'),
+('H4',N'Ghế H4','PC5','LV3',N'Chưa đặt'),
+('H5',N'Ghế H5','PC5','LV3',N'Chưa đặt'),
+('H6',N'Ghế H6','PC5','LV3',N'Chưa đặt'),
+('H7',N'Ghế H7','PC5','LV3',N'Chưa đặt'),
+('H8',N'Ghế H8','PC5','LV3',N'Chưa đặt'),
+('H9',N'Ghế H9','PC5','LV3',N'Chưa đặt'),
+('H10',N'Ghế H10','PC5','LV3',N'Chưa đặt'),
+('H11',N'Ghế H11','PC5','LV3',N'Chưa đặt')
+
+select * from CHITIETCHONGOI

@@ -53,64 +53,67 @@
         </Grid>
 
         <!--thanh menu bên trái-->
-        <Grid x:Name="GridMenu" Height="770" Width="1190" >
+        <Grid x:Name="GridMenu" Height="770" Margin="0,0,0.2,0.4" >
             <StackPanel Width="240"   Background="#FF656161" HorizontalAlignment="Left" Height="771">
-                <Image Source="Resources\film-movie-industry-creative-symbol-concept-play-stop-pause-button-cinema-abstract-business-logo-vintage-video-camera-media-137072254.jpg"
-                                    Height="150"
-                                    Stretch="UniformToFill"/>
+                <Button Content="Button" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="240" Click="Button_Click">
+                    
+                </Button>
                 <Grid Width="240" HorizontalAlignment="Left" Background="#FF222222">
                     <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" 
-                                                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
-                    </materialDesign:TransitioningContent>
-                    <!--<ListView x:Name="ListViewMenu"
-                              Height="620"
+                                                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListView x:Name="ListViewMenu"
+                              Height="619"
                               Width="240"
                               Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged" SelectedIndex="0" Background="#FFEAE2E2">
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
-                            <StackPanel Orientation="Horizontal" Width="220" HorizontalAlignment="Left" Name="btnTongquan">
-                                <Image Source="Resources\tongquan.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Tổng Quan" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNhanvien">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\nhanvien.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Nhân Viên" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnKhachhang">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\khachhang.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Khách Hàng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnNguoidung">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\nguoidung.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Người Dùng" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhongchieu">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\audience.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Phòng Chiếu" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnLoaiphim">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\cinema.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Loại Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                        <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" Name="btnPhim">
-                            <StackPanel Orientation="Horizontal" Width="220">
-                                <Image Source="Resources\movie.png"  Width="40" Height="35" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Phim" FontSize="25" VerticalAlignment="Center" Margin="20 0"/>
-                            </StackPanel>
-                        </ListViewItem>
-                    </ListView>-->
+
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Width="220" HorizontalAlignment="Left" x:Name="btnTongquan">
+                                    <materialDesign:PackIcon Kind="DesktopMacDashboard" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="40"/>
+                                    <TextBlock Text="Tổng Quan" FontSize="18" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" x:Name="btnPhongchieu">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <materialDesign:PackIcon Kind="Theater" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="40"/>
+                                    <TextBlock Text="Xem Thông tin phim" FontSize="18" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" x:Name="btnLoaiphim">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <materialDesign:PackIcon Kind="MovieSearch" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="40"/>
+                                    <TextBlock Text="Xem Lịch chiếu" FontSize="18" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem Height="60" Width="240" HorizontalAlignment="Left" x:Name="btnPhim">
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <materialDesign:PackIcon Kind="MovieOpen" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="40"/>
+                                    <TextBlock Text="Đặt vé" FontSize="18" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" Width="220">
+                                    <materialDesign:PackIcon Kind="TicketConfirmation" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="40"/>
+                                    <TextBlock Text="Thanh toán" FontSize="18" VerticalAlignment="Center" Margin="20 0"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </ScrollViewer>
                 </Grid>
             </StackPanel>
+            <Button x:Name="bt_shutdown" HorizontalAlignment="Left" Height="32" Style="{StaticResource MaterialDesignToolButton}" Margin="1147,115,0,0" VerticalAlignment="Top" Width="33" Background="{x:Null}" BorderBrush="{x:Null}" Click="bt_shutdown_Click">
+                <materialDesign:PackIcon Kind="Shutdown" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="25" Foreground="#FFFCF4F4"/>
+            </Button>
+            <Button x:Name="bt_setting" HorizontalAlignment="Left" Height="32" Style="{StaticResource ResourceKey=MaterialDesignToolButton}" Margin="1101,115,0,0" VerticalAlignment="Top" Width="41" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="Settings" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="25" Foreground="#FFFCF4F4"/>
+            </Button>
+            <Button x:Name="bt_logout" HorizontalAlignment="Left" Height="32" Style="{StaticResource ResourceKey=MaterialDesignToolButton}" Margin="1060,115,0,0" VerticalAlignment="Top" Width="36" Background="{x:Null}" BorderBrush="{x:Null}" Click="bt_logout_Click">
+                <materialDesign:PackIcon Kind="Logout" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="25" Foreground="#FFFCF4F4"/>
+            </Button>
+            <TextBox x:Name="txtTen" HorizontalAlignment="Left" Height="34" Margin="955,10,0,0" TextWrapping="Wrap" FontSize="10" Foreground="White"   VerticalAlignment="Top" Width="187" BorderBrush="#89F7F3F3"/>
+            <TextBox x:Name="txtChucVu_in" HorizontalAlignment="Left" Height="34" Margin="955,62,0,0" TextWrapping="Wrap" FontSize="10" Foreground="White" VerticalAlignment="Top" Width="187" BorderBrush="#89F7F3F3"/>
+
         </Grid>
 
     </Grid>

@@ -38,5 +38,9 @@ namespace BUS
         {
             return PhimDAO.TimTheoTenPhim(tenp);
         }
+        public static DataTable LoadTheLoaiPhim(string maphim)
+        {
+            return PhimDAO.LoadTheLoaiPhim(maphim);
+        }
     }
 }

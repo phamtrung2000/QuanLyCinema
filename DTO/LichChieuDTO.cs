@@ -27,6 +27,9 @@ namespace DTO
         private string mapc;
         public string MaPC { get => mapc; set => mapc = value; }
 
+        private string thoigian;
+        public string ThoiGian { get => thoigian; set => thoigian = value; }
+
         public LichChieuDTO(DateTime ngaychieu, string maphim, string macc, string mapc)
         {
             NgayChieu = ngaychieu;
@@ -59,6 +62,23 @@ namespace DTO
             MaPhim = maphim;
             MaCC = macc;
             MaPC = mapc;
+        }
+
+        public LichChieuDTO(string ngaychieu, string thoigian, string tenphim)
+        {
+            NgayChieu_String = ngaychieu;
+            ThoiGian = thoigian;
+            MaPhim = tenphim;
+        }
+
+
+        private string[] tenphim;
+        public string[] TenPhim { get => tenphim; set => tenphim = value; }
+
+        public LichChieuDTO(string thoigian, string[] tenphim)
+        {
+            ThoiGian = thoigian;
+            TenPhim = tenphim;
         }
     }
 }

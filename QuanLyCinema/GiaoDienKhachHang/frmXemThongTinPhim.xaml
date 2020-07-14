@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="QuanLyCinema.GiaoDienKhachHang.frmXemThongTinPhim"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyCinema.GiaoDienKhachHang"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+            d:DesignHeight="620" Width="960">
+    <Grid Background="Black" Margin="0,0,10,0">
+        <Grid x:Name="Grid_hienthi" HorizontalAlignment="Left" Height="620" VerticalAlignment="Top" Width="950" Background="#FF3F3B3B">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="auto" Width="auto" Margin="0,94,0,0">
+                <ListBox HorizontalAlignment="Left" Height="661" Width="923" Background="Black" Foreground="#DDFCFCFC">
+
+                    <WrapPanel Width="913">
+                        <ListBoxItem Width="295" >
+                            <StackPanel>
+                                <Button x:Name="PHIM1" Width="280" Height="288" Click="PHIM1_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\Venom.png"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="Venom" FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Width="295">
+                            <StackPanel>
+                                <Button x:Name="PHIM2" Width="280" Height="288" Click="PHIM2_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\SwordArtOnline.jpg"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="Sword Art Online: Đao Kiếm Thần Vực" 
+                                       FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Width="295" >
+                            <StackPanel>
+                                <Button Width="280" Height="288">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\movie-cinema-premiere-poster-design-white-screen-vector-background-red-seats-85886288.jpg"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="Cái gì đấy mà mình không biết được
+                          100 Phút" FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Width="295" >
+                            <StackPanel>
+                                <Button Width="280" Height="288">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\laptop-wallpapers-and-laptop-backgrounds.jpg"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="What the Fuck iz Thiz?
+                                   100 Phút" FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Width="295" >
+                            <StackPanel>
+                                <Button Width="280" Height="288">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\man-using-laptop-on-table-against-white-background-257897.jpg" Stretch="UniformToFill"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="Hello i'm here bro
+                                   100 Phút" FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Width="295">
+                            <StackPanel>
+                                <Button Width="280" Height="288">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="..\Resources\laptop-wallpapers-quotes-high-quality-For-Widescreen-Wallpaper.jpg"/>
+                                    </Button.Background>
+                                </Button>
+                                <Label Height="46" HorizontalAlignment="Center" Content="Well 
+                                   100 Phút" FontFamily="Time new roman" Foreground="Blue" FontSize="10" Width="288"></Label>
+                            </StackPanel>
+                        </ListBoxItem>
+
+                    </WrapPanel>
+
+                </ListBox>
+            </ScrollViewer>
+            <TextBox HorizontalAlignment="Left" Height="45" Margin="40,21,0,0" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" FontSize="14" materialDesign:HintAssist.Hint="Tìm kiếm" materialDesign:HintAssist.Foreground="White" materialDesign:HintAssist.Background="#FF3F3B3B"  Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" BorderBrush="#89F7F5F5"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
